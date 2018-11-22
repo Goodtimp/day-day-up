@@ -21,6 +21,7 @@
         $temp_arr['Id']=$row['Id'];
         $temp_arr['teacherId']=$row['teacherId'];
         $temp_arr['createTime']=$row['createTime'];
+        $arr[] = $tmp_arr; 
       }
       return $arr;
     }

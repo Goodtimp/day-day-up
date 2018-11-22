@@ -23,6 +23,7 @@
         $temp_arr['questionId']=$row['questionId'];
         $temp_arr['questionScore']=$row['questionScore'];
         $temp_arr['questionTime']=$row['questionTime'];
+        $arr[] = $tmp_arr; 
       }
       return $arr;
     }

@@ -24,6 +24,7 @@
         $temp_arr['answer']=$row['answer'];
         $temp_arr['analysis']=$row['analysis'];
         $temp_arr['type']=$row['type'];
+        $arr[] = $tmp_arr; 
       }
       return $arr;
     }

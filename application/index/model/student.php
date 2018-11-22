@@ -14,7 +14,7 @@ class student extends Model
   /**
    * 所有学生信息
    * @param int $sno
-   * @return array {sno,name}
+   * @return array  {sno,name,Id}
    */
   public static function get_student()
   {
@@ -26,17 +26,28 @@ class student extends Model
     foreach ($res as $row) {
       $temp_arr['sno'] = $row['sno'];
       $temp_arr['name'] = $row['name'];
+      $arr[] = $tmp_arr; 
     }
     return $arr;
 
   }
+
   /**
    *  添加学生
-   * @param array student {sno,name}
- 
+   * @param array student {sno,name,Id}
    */
-  public static function add_studente($student)
+  public static function add_student($student)
   {
+    $res=db("student")->where("sno",$student["sno"])->select();
+    if($res)
+    {
+      foreach ($res as $row) {
+        if($row['name']==$student["name"])
+        {
+          return true;
+        }
+      }
+    }
     return db("student")->insert($student);
   }
 

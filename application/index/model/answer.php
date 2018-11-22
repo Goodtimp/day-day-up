@@ -28,6 +28,7 @@ class answer extends Model
       $temp_arr['studentSno'] = $row['studentSno'];
       $temp_arr['score'] = $row['score'];
       $temp_arr['testId'] = $row['testId'];
+      $arr[] = $tmp_arr; 
     }
     return $arr;
   }
@@ -49,6 +50,7 @@ class answer extends Model
       $temp_arr['studentSno'] = $row['studentSno'];
       $temp_arr['score'] = $row['score'];
       $temp_arr['testId'] = $row['testId'];
+      $arr[] = $tmp_arr; 
     }
     return $arr;
   }

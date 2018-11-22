@@ -29,6 +29,7 @@ class helper extends Model
       $temp_arr['name'] = $row['name'];
       $temp_arr['loginId'] = $row['loginId'];
       $temp_arr['teacherId'] = $row['teacherId'];
+      $arr[] = $tmp_arr; 
     }
     return $arr;
 

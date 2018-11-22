@@ -28,6 +28,7 @@ class answerdetail extends Model
       $temp_arr['studenanswerIdtSno'] = $row['answerId'];
       $temp_arr['questionId'] = $row['questionId'];
       $temp_arr['Isright'] = $row['Isright'];
+      $arr[] = $tmp_arr; 
     }
     return $arr;
   }
@@ -49,6 +50,7 @@ class answerdetail extends Model
       $temp_arr['studenanswerIdtSno'] = $row['answerId'];
       $temp_arr['questionId'] = $row['questionId'];
       $temp_arr['Isright'] = $row['Isright'];
+      $arr[] = $tmp_arr; 
     }
     return $arr;
   }

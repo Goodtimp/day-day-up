@@ -32,6 +32,7 @@
           $temp_arr['name']=$row['name'];
           $temp_arr['password']=$row['password'];
           $temp_arr['loginId']=$row['loginId'];
+          $arr[] = $tmp_arr; 
         }
         return $arr;
       }
