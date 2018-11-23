@@ -14,18 +14,18 @@ class answer extends Model
   /**
    * 根据学生sno,得到所有的答题
    * @param int $sno
-   * @return array {Id,studentSno,score,testId}
+   * @return array {Id,studentId,score,testId}
    */
-  public static function get_answer_by_sno($sno)
+  public static function get_answer_by_sno($stuid)
   {
 
-    $res = db("answer")->where("studentSno",$sno)->select();
+    $res = db("answer")->where("studentId",$stuid)->select();
 
     static $arr = array();
     $temp_arr = array();
     foreach ($res as $row) {
       $temp_arr['Id'] = $row['Id'];
-      $temp_arr['studentSno'] = $row['studentSno'];
+      $temp_arr['studentId'] = $row['studentId'];
       $temp_arr['score'] = $row['score'];
       $temp_arr['testId'] = $row['testId'];
       $arr[] = $tmp_arr; 
@@ -36,7 +36,7 @@ class answer extends Model
   /**
    * 根据测试id,得到所有的答题
    * @param int $testid
-   * @return array {Id,studentSno,score,testId}
+   * @return array {Id,studentId,score,testId}
    */
   public static function get_answer_by_testid($testid)
   {
@@ -47,7 +47,28 @@ class answer extends Model
     $temp_arr = array();
     foreach ($res as $row) {
       $temp_arr['Id'] = $row['Id'];
-      $temp_arr['studentSno'] = $row['studentSno'];
+      $temp_arr['studentId'] = $row['studentId'];
+      $temp_arr['score'] = $row['score'];
+      $temp_arr['testId'] = $row['testId'];
+      $arr[] = $tmp_arr; 
+    }
+    return $arr;
+  }
+  /**
+   * 根据测试id和学生id得到答题信息
+   * @param int $testid
+   * @return array {Id,studentId,score,testId}
+   */
+  public static function get_answer_by_testid_stuid($testid,$stuid)
+  {
+
+    $res = db("answer")->where("studentId",$stuid)->where('testId',$testid)->select();
+
+    static $arr = array();
+    $temp_arr = array();
+    foreach ($res as $row) {
+      $temp_arr['Id'] = $row['Id'];
+      $temp_arr['studentId'] = $row['studentId'];
       $temp_arr['score'] = $row['score'];
       $temp_arr['testId'] = $row['testId'];
       $arr[] = $tmp_arr; 
@@ -56,7 +77,7 @@ class answer extends Model
   }
   /**
    *  添加答题信息
-   * @param array answer {Id,studentSno,score,testId}
+   * @param array answer {Id,studentId,score,testId}
  
    */
   public static function add_answere($answer)
@@ -82,13 +103,13 @@ class answer extends Model
   }
    /**
    *  根据答题id，更新答题信息
-   * @param array answer {Id,studentSno,score,testId}
+   * @param array answer {Id,studentId,score,testId}
  
    */
   public static function update_answere($answer)
   {
     return db("answer")->where("Id",$answer["Id"])->update([
-      'studentSno'=>$answer["studentSno"],
+      'studentId'=>$answer["studentId"],
       'score'=>$answer["score"],
       'testId'=>$answer["testId"],
     ]);
