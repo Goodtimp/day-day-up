@@ -10,9 +10,9 @@ namespace app\index\controller;
 use app\index\model\answer as answer;
 use think\Controller;
 use app\index\model\testquestion as testquestioin;
+use app\index\model\answerdetail as answerdetail;
 use think\Paginator;
-use app\index\model\answerdetail;
-use think\facade\Session;//tp5封装好的Session，貌似比原生的要优一点
+use think\facade\Session;
 
 class Studentanswer extends Controller
 {
@@ -22,35 +22,38 @@ class Studentanswer extends Controller
    */
   function initialize()
   {
-    if(!Session::has('student_Id','index'))
-    {
+    if (!Session::has('student_Id', 'index')) {
       $this->redirect('Studentlogin/index');
     }
-    self::addsession_testdetail();
-    if(!Session::has('answer_id','index'))
-    {
-      $data=array();
-      $data['studentId']=Session::get('student_Id','index');
-      $data['testId']=Session::get('test_Id','index');
-      $data['score']=0;
+    self::initsession_testdetail();
+    if (!Session::has('answer_id', 'index')) {
+      $data = array();
+      $data['studentId'] = Session::get('student_Id', 'index');//prefix参数为前缀，有无是有区别的
+      $data['testId'] = Session::get('test_Id', 'index');
+      $data['score'] = 0;
       self::addsession_answer($data);
     }
+    self::initsession_answerdetail();
   }
   /**
    * 显示题目信息
    */
   public function index()
   {
-    $answer_id = Session::get('now_answer_id','index');
-    $testarray = Session::get('testdetail','index');
-    dump($testarray);
-    $question = $testarray[$answer_id];
+    $answer_pos = Session::get('now_answer_id', 'index');//当前测试位置
+    $next_answer_pos = self::next_question($answer_pos);//寻找下一个未完成的测试
+    if($answer_pos == -1) $answer_pos =$next_answer_pos;//判断是否为-1 并赋值
+
+    $testarray = Session::get('testdetail', 'index');
+    $question = $testarray[$answer_pos];
     if (request()->post()) {
       $answer = input('post.');
-      self::handle_add_answerdetail($answer,Session::get('answer_id','index'), $question);
+      self::handle_add_answerdetail($answer, Session::get('answer_id', 'index'), $question);
     }
-    $question = $testarray[$answer_id];
-    
+    $question = $testarray[$answer_pos];
+
+    dump(Session::get("answer_score", 'index'));
+    dump(Session::get(("testdetail." . (string)$answer_pos), 'index'));
     $this->assign([
       'content' => $question['content'],
       'type' => $question['type']
@@ -59,6 +62,40 @@ class Studentanswer extends Controller
   }
 
   /**
+   * 得到下一个测试信息
+   * @param int $answer_pos 当前做答pos
+   */
+  function next_question($answer_pos)
+  {
+    $testdetail = Session::get('testdetail', 'index');
+    $answerdetail = Session::get('answerdetail', 'index');
+    if ($answer_pos == -1) $answer_pos++;//判断是否为开始位置
+    $lentest=count($testdetail);
+    for ($answer_pos; $answer_pos < $lentest; $answer_pos++) {
+      if ($answerdetail) {
+        $lenanswer = count($answerdetail);
+        $testqid = $testdetail[$answer_pos]["questionId"];//当前遍历的问题Id
+        for ($j = 0; $j < $lenanswer;$j++)
+        {
+          $answerqid = $answerdetail[$j]["questionId"];//获取question已完成的问题Id
+          
+          if ($answerqid == $testid) {//如果相同代表已经答过
+            break;
+          }
+        }
+        if($j== $lenanswer)//判断找不到相同的就返回当前位置
+        {
+          return $answer_pos;
+        }
+      }
+      else return $answer_pos;
+    }
+    if($answer_pos==$lentest)// 答题结束
+    {
+      return "答题结束";
+    }
+  }
+  /**
    * 判断对错，并写入数据库和session
    * @param array  $answer 答案数据
    * @param int $answer_id 答题所在session内id
@@ -66,31 +103,48 @@ class Studentanswer extends Controller
    */
   function handle_add_answerdetail($answer, $answer_id, $question)
   {
+    //$answerdetail = Session::get('answerdetail', 'index');//获取session内答题
+    $lenanswer = count(Session::get('answerdetail', 'index'));//得到已完成答题信息的长度，便于添加
     $data = array();
-    $data['thisScore'] = $answer['answerContent'] == $question['answer']?$question['questionScore']:0;//判断做答与原答案是否相同并给予相应分数
+    $data['thisScore'] = $answer['answerContent'] == $question['answer'] ? $question['questionScore'] : 0;//判断做答与原答案是否相同并给予相应分数
     $data['answerId'] = $answer_id;
     $data['answerContent'] = $answer['answerContent'];
     $data['questionId'] = $question['Id'];
     answerdetail::add_answerdetail($data);
-    //session[]
+    
+    Session::set("answerdetail.".(string)$lenanswer,$data, 'index');//添加到已完成答题的末尾
+    $score = Session::get("answer_score");
+    Session::set("answer_score", $score + $data['thisScore'], 'index');
   }
   /**
    * 得到测试详情信息，写入session
    */
-  function addsession_testdetail()
+  function initsession_testdetail()
   {
-    if(!Session::has('test_Id','index')||!Session::has('student_Id','index')){
+    if (!Session::has('test_Id', 'index') || !Session::has('student_Id', 'index')) {
       return false;
-    } 
-    else if(!Session::has('testdetail','index')){
-      $testid = Session::get('test_Id','index');
+    } else if (!Session::has('testdetail', 'index')) {
+      $testid = Session::get('test_Id', 'index');
       $testarry = testquestioin::get_testquestions($testid);
       $testarry = self::random_testdetail($testarry);
-      
+
       Session::set('testdetail', $testarry, 'index');
-      Session::set('now_answer_id', 0, 'index');
+      Session::set('now_answer_id', -1, 'index');//从-1开始判断为起始位置
     }
-  
+
+  }
+  /**
+   * 添加做答详情信息初始化，写入session，不写入数据库
+   */
+  function initsession_answerdetail()
+  {
+    if (!Session::has('test_Id', 'index') || !Session::has('student_Id', 'index') || !Session::has('testdetail', 'index')) {
+      return false;
+    } else if (!Session::has('answerdetail', 'index')) {
+      $answer_id = Session::get('answer_id', 'index');
+      $testarry = answerdetail::get_answerdetail_by_aid($answer_id);
+      Session::set('answerdetail', $testarry, 'index');
+    }
   }
   /**
    * 判断数据库内是否存在相应答题概略，存在则取出，不存在则创建
@@ -106,6 +160,7 @@ class Studentanswer extends Controller
     }
     Session::set('answer_id', $answer[0]['Id'], 'index');
     Session::set('answer_score', $answer[0]['score'], 'index');
+
   }
   /**
    * 随机打乱测试详情信息
