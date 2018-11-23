@@ -13,6 +13,7 @@ use app\index\model\testquestion as testquestioin;
 use app\index\model\answerdetail as answerdetail;
 use think\Paginator;
 use think\facade\Session;
+use app\index\model\question;
 
 class Studentanswer extends Controller
 {
@@ -40,23 +41,34 @@ class Studentanswer extends Controller
    */
   public function index()
   {
+   
     $answer_pos = Session::get('now_answer_id', 'index');//当前测试位置
-    $next_answer_pos = self::next_question($answer_pos);//寻找下一个未完成的测试
-    if($answer_pos == -1) $answer_pos =$next_answer_pos;//判断是否为-1 并赋值
-
-    $testarray = Session::get('testdetail', 'index');
-    $question = $testarray[$answer_pos];
-    if (request()->post()) {
+   
+    
+    $testarray = Session::get('testdetail', 'index');//获取所有题目信息
+    if (request()->post()) {//获取提交的题目
+      $next_answer_pos = self::next_question($answer_pos+1);//寻找下一个未完成的测试
+      $question = $testarray[$answer_pos];
       $answer = input('post.');
-      self::handle_add_answerdetail($answer, Session::get('answer_id', 'index'), $question);
+      dump($question);
+      dump($answer);
+      self::handle_add_answerdetail($answer, Session::get('answer_id', 'index'), $question);//添加到数据库，并且添加到session
+      
+      Session::set('now_answer_id', $next_answer_pos , 'index');//在这里修改，防止中途退出少答题
     }
-    $question = $testarray[$answer_pos];
-
-    dump(Session::get("answer_score", 'index'));
-    dump(Session::get(("testdetail." . (string)$answer_pos), 'index'));
+    $answer_pos = Session::get('now_answer_id', 'index');//当前测试位置
+    dump(Session::get("answer_score","index"));
+    if($answer_pos==-1)
+    {
+      $score=(string)Session::get("answer_score","index");
+      return "考试结束,您的分数为".$score;
+    }
+    
+    $question = $testarray[$answer_pos];//获得当前qustion
+      
     $this->assign([
       'content' => $question['content'],
-      'type' => $question['type']
+      'type' => $question['type'],
     ]);
     return view();
   }
@@ -69,7 +81,7 @@ class Studentanswer extends Controller
   {
     $testdetail = Session::get('testdetail', 'index');
     $answerdetail = Session::get('answerdetail', 'index');
-    if ($answer_pos == -1) $answer_pos++;//判断是否为开始位置
+   
     $lentest=count($testdetail);
     for ($answer_pos; $answer_pos < $lentest; $answer_pos++) {
       if ($answerdetail) {
@@ -79,7 +91,7 @@ class Studentanswer extends Controller
         {
           $answerqid = $answerdetail[$j]["questionId"];//获取question已完成的问题Id
           
-          if ($answerqid == $testid) {//如果相同代表已经答过
+          if ($answerqid == $testqid) {//如果相同代表已经答过
             break;
           }
         }
@@ -92,7 +104,7 @@ class Studentanswer extends Controller
     }
     if($answer_pos==$lentest)// 答题结束
     {
-      return "答题结束";
+      return -1;
     }
   }
   /**
@@ -106,14 +118,14 @@ class Studentanswer extends Controller
     //$answerdetail = Session::get('answerdetail', 'index');//获取session内答题
     $lenanswer = count(Session::get('answerdetail', 'index'));//得到已完成答题信息的长度，便于添加
     $data = array();
-    $data['thisScore'] = $answer['answerContent'] == $question['answer'] ? $question['questionScore'] : 0;//判断做答与原答案是否相同并给予相应分数
+    $data['thisScore'] =($answer['answerContent'] == $question['answer'] ? $question['questionScore'] : 0);//判断做答与原答案是否相同并给予相应分数
     $data['answerId'] = $answer_id;
     $data['answerContent'] = $answer['answerContent'];
     $data['questionId'] = $question['Id'];
     answerdetail::add_answerdetail($data);
     
     Session::set("answerdetail.".(string)$lenanswer,$data, 'index');//添加到已完成答题的末尾
-    $score = Session::get("answer_score");
+    $score = Session::get("answer_score",'index');
     Session::set("answer_score", $score + $data['thisScore'], 'index');
   }
   /**
@@ -129,7 +141,8 @@ class Studentanswer extends Controller
       $testarry = self::random_testdetail($testarry);
 
       Session::set('testdetail', $testarry, 'index');
-      Session::set('now_answer_id', -1, 'index');//从-1开始判断为起始位置
+      Session::set('now_answer_id', 0, 'index');//从-1开始判断为起始位置
+      Session::set('next_answer_id', 0, 'index');//从-1开始判断为起始位置
     }
 
   }

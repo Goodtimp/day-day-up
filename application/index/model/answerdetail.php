@@ -25,10 +25,11 @@ class answerdetail extends Model
     $temp_arr = array();
     foreach ($res as $row) {
       $temp_arr['Id'] = $row['Id'];
-      $temp_arr['studenanswerIdtSno'] = $row['answerId'];
+      $temp_arr['answerId'] = $row['answerId'];
       $temp_arr['questionId'] = $row['questionId'];
-      $temp_arr['Isright'] = $row['Isright'];
-      $arr[] = $tmp_arr; 
+      $temp_arr['answerContent'] = $row['answerContent'];
+      $temp_arr['thisScore'] = $row['thisScore'];
+      
     }
     return $arr;
   }
@@ -47,9 +48,10 @@ class answerdetail extends Model
     $temp_arr = array();
     foreach ($res as $row) {
       $temp_arr['Id'] = $row['Id'];
-      $temp_arr['studenanswerIdtSno'] = $row['answerId'];
+      $temp_arr['answerId'] = $row['answerId'];
       $temp_arr['questionId'] = $row['questionId'];
-      $temp_arr['Isright'] = $row['Isright'];
+      $temp_arr['answerContent'] = $row['answerContent'];
+      $temp_arr['thisScore'] = $row['thisScore'];
       $arr[] = $tmp_arr; 
     }
     return $arr;
@@ -91,7 +93,8 @@ class answerdetail extends Model
     return db("answerdetail")->where("Id",$answerdetail["Id"])->update([
       'answerId'=>$answerdetail["answerId"],
       'questionId'=>$answerdetail["questionId"],
-      'Isright'=>$answerdetail["Isright"],
+      'answerContent' => $answerdetail['answerContent'],
+      'thisScore'=>$answerdetail["thisScore"],
     ]);
   }
 
