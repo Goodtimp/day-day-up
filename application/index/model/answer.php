@@ -71,7 +71,7 @@ class answer extends Model
       $temp_arr['studentId'] = $row['studentId'];
       $temp_arr['score'] = $row['score'];
       $temp_arr['testId'] = $row['testId'];
-      $arr[] = $tmp_arr; 
+      $arr[] = $temp_arr; 
     }
     return $arr;
   }

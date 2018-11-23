@@ -2,7 +2,7 @@
 
 /**
  * User:goodtimp
- * LastDate:2018/11/21
+ * LastDate:2018/11/23
  */
 
 namespace app\index\model;
@@ -16,7 +16,7 @@ class student extends Model
    * @param int $sno
    * @return array  {sno,name,Id}
    */
-  public static function get_student()
+  public static function get_students()
   {
 
     $res = db("student")->select();
@@ -31,6 +31,27 @@ class student extends Model
     return $arr;
 
   }
+   /**
+   * 根据sno，name获取学生信息
+   * @param string $sno
+   * @param string $name
+   * @return array  {sno,name,Id}
+   */
+  public static function get_student($sno,$name)
+  {
+
+    $res = db("student")->where('sno',$sno)->where('name',$name)->select();
+
+    $temp_arr = array();
+    foreach ($res as $row) {
+      $temp_arr['sno'] = $row['sno'];
+      $temp_arr['name'] = $row['name'];
+      $temp_arr['Id'] = $row['Id'];
+    }
+    return $temp_arr;
+
+  }
+  
 
   /**
    *  添加学生

@@ -12,6 +12,13 @@ use think\Paginator;
 
 class Studentlogin extends Controller
 {
+  function initialize()
+  {
+    if(session('student_Id','','index')&&session('test_Id', '', 'index'))
+    {
+      $this->redirect('Studentanswer/index');
+    }
+  }
   public function index()
   {
     $tid=input("get.id");
@@ -31,9 +38,11 @@ class Studentlogin extends Controller
       
       if(student::add_student($data))//不存在则将学生信息加入到数据库
       {
+        $stu=student::get_student($data["sno"],$data["name"]);
         // 将登陆信息保存到session，登陆成功
-        session('sno',$data["sno"],'index');// prefix:'index'是指作用域是index部分
-        session('name',$data["name"],'index');// prefix:'index'是指作用域是index部分
+        session('student_Id',$stu['Id'],'index');// prefix:'index'是指作用域是index部分
+        session('student_sno',$stu['sno'],'index');
+        session('student_name',$stu['name'],'index');
         $this->redirect('Studentanswer/index');
       }
       // 需修改
