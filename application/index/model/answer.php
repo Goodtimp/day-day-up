@@ -75,7 +75,6 @@ class answer extends Model
   /**
    *  根据答题id，删除多个答题信息
    * @param array answerids 
- 
    */
   public static function delete_answeres($answerids)
   {
