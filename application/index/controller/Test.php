@@ -45,11 +45,21 @@ class Test extends Father
     return view();
   }
   /**
-   * 添加测试 成功后返回到测试详情页面
+   * 添加测试题目
    */
   public function addtquestion(){
+    if(request()->post())
+    {
+      $data=input("post.");
+      dump($data);
+      // if(tests::add_test($data))
+      // {
+      //   return $this->redirect('Test/index');
+      // }
+    }
+    
     $test_id=input("get.id");
-    dump($test_id);
+    // dump($test_id);
     $test_detail=testdetail::get_testdetail($test_id);
     $test=tests::get_test($test_id);
     if($test)
@@ -64,15 +74,9 @@ class Test extends Father
           'testdetail'=>$test_detail
         ]);
       }
-    }
-    if(request()->post())
-    {
-      $data=input("post.");
-      if(tests::add_test($data))
-      {
-        return $this->redirect('Test/index');
-      }
-    }
+     
+    } 
+    
     return view();
   }
 
