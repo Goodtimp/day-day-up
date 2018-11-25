@@ -35,5 +35,15 @@
     public static function add_question($que){
       return db("question")->insert($que);
     }
-    
+    /**
+   * 根据问题id获取问题
+   * @param int $queid
+   * @return array {Id,courseId,name,startTime,endTime}
+   */
+  public static function get_Question($queid = 0)
+  {
+
+    $res = db("question")->where("Id", $queid)->find(1);
+    return $res;
+  }
  }

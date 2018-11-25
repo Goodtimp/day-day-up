@@ -43,20 +43,9 @@ class test extends Model
   public static function get_test($testid = 0)
   {
 
-    $res = db("test")->where("Id", $testid)->select();
+    $res = db("test")->where("Id", $testid)->find(1);
 
-
-    static $arr = array();
-  
-    foreach ($res as $row) {
-      $arr['Id'] = $row['Id'];
-      $arr['courseId'] = $row['courseId'];
-      $arr['name'] = $row['name'];
-      $arr['startTime'] = $row['startTime'];
-      $arr['endTime'] = $row['endTime'];
-
-    }
-    return $arr;
+    return $res;
   }
   /**
    * 添加测试
