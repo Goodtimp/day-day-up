@@ -57,7 +57,6 @@ class Studentanswer extends Controller
       Session::set('now_answer_id', $next_answer_pos, 'index');//在这里修改，防止中途退出少答题
     }
     $answer_pos = Session::get('now_answer_id', 'index');//当前测试位置
-    dump(Session::get("answer_score", "index"));
     if ($answer_pos == -1) {
       $score = (string)Session::get("answer_score", "index");
       return "考试结束,您的分数为" . $score;
@@ -68,7 +67,8 @@ class Studentanswer extends Controller
     $this->assign([
       'content' => $question['content'],
       'type' => $question['type'],
-      'time' =>strtotime($question['questionTime'])
+      'time' =>strtotime($question['questionTime']),
+      'Num'=>$answer_pos
     ]);
     return view();
   }

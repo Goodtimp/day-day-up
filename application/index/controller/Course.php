@@ -12,16 +12,34 @@ use app\index\model\course as courses;//记录一下错误 如果修改称course
 use think\Controller;
 use think\facade\Session;
 use think\helper\Time;
+use app\index\model\test as testmodel;//记录一下错误 如果修改称courses与控制器内Course冲突
+
 class Course extends Father
 {
   public function index()
   {
     $cou_id = input('get.id');
+    $this->assign([
+      'test' => '',
+    ]);
     if($cou_id)
     {
    //参数
+      $test = testmodel::get_tests($cou_id);//根据id获取课程测试
+      for($i=0;$i<count( $test);$i++){
+        $time=Time()-strtotime($test[$i]["endTime"]);
+      if($time<0)  $test[$i]["status"]="未完成";
+      else{
+        $test[$i]["status"]="已完成";
+      }
+      }
+      $this->assign([
+        'test' => $test,
+      
+      ]);
+      
     }
-    return view();
+    return view("index");
   }
   public function add(){
     if(request()->post())
