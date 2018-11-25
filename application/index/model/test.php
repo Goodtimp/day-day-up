@@ -22,17 +22,17 @@ class test extends Model
     $res = db("test")->where("courseId", $courid)->select();
 
 
-    static $arr = array();
-    $temp_arr = array();
-    foreach ($res as $row) {
-      $temp_arr['Id'] = $row['Id'];
-      $temp_arr['courseId'] = $row['courseId'];
-      $temp_arr['name'] = $row['name'];
-      $temp_arr['startTime'] = $row['startTime'];
-      $temp_arr['endTime'] = $row['endTime'];
-      $arr[] = $tmp_arr; 
-    }
-    return $arr;
+    // static $arr = array();
+    // $temp_arr = array();
+    // foreach ($res as $row) {
+    //   $temp_arr['Id'] = $row['Id'];
+    //   $temp_arr['courseId'] = $row['courseId'];
+    //   $temp_arr['name'] = $row['name'];
+    //   $temp_arr['startTime'] = $row['startTime'];
+    //   $temp_arr['endTime'] = $row['endTime'];
+    //   $arr[] = $tmp_arr; 
+    // }
+    return $res;
 
   }
   /**
@@ -54,7 +54,7 @@ class test extends Model
       $arr['name'] = $row['name'];
       $arr['startTime'] = $row['startTime'];
       $arr['endTime'] = $row['endTime'];
- 
+
     }
     return $arr;
   }
@@ -62,9 +62,16 @@ class test extends Model
    * 添加测试
    * @param array test {Id,courseId,name,startTime,endTime}
    */
-  public static function add_teste($test)
+  public static function add_test($test)
   {
-    return db("test")->insert($test);
+    if(db("test")->insert($test))
+    {
+      $res=db("test")->where("courseId",$test["courseId"])->where("startTime",$test["startTime"])->where('endTime',$test['endTime'])->select();
+      
+      return $res[0];
+      
+    }
+    else return 0;
   }
     /**
    * 删除测试

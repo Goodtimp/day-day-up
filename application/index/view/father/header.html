@@ -1,0 +1,23 @@
+<div class="layui-header">
+  <div class="layui-logo">layui 后台布局</div>
+  <!-- 头部区域（可配合layui已有的水平导航） -->
+  <ul class="layui-nav layui-layout-left">
+    <li class="layui-nav-item"><a href="">题库</a></li>
+    <!-- <li class="layui-nav-item"><a href="{:url('studentlogin/index')}?id=1">开始测试1</a></li>
+    <li class="layui-nav-item"><a href="{:url('Login/index')}">登录</a></li> -->
+   
+  </ul>
+  <ul class="layui-nav layui-layout-right">
+    <li class="layui-nav-item">
+      <a href="javascript:;">
+        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+        {$name} 
+      </a>
+      <dl class="layui-nav-child">
+        <dd><a href="">基本资料</a></dd>
+        <dd><a href="">安全设置</a></dd>
+      </dl>
+    </li>
+    <li class="layui-nav-item"><a href="{:url('Login/exit_user')}">退了</a></li>
+  </ul>
+</div>

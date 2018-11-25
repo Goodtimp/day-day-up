@@ -14,18 +14,18 @@
     */
     public static function get_testdetail($tid=0){
       $res=db("testdetail")->where("testId",$tid)->select();
-      static $arr=array();
-      $temp_arr=array();
-      foreach($res as $row)
-      {
-        $temp_arr['Id']=$row['Id'];
-        $temp_arr['testId']=$row['testId'];
-        $temp_arr['questionId']=$row['questionId'];
-        $temp_arr['questionScore']=$row['questionScore'];
-        $temp_arr['questionTime']=$row['questionTime'];
-        $arr[] = $temp_arr; 
-      }
-      return $arr;
+      // static $arr=array();
+      // $temp_arr=array();
+      // foreach($res as $row)
+      // {
+      //   $temp_arr['Id']=$row['Id'];
+      //   $temp_arr['testId']=$row['testId'];
+      //   $temp_arr['questionId']=$row['questionId'];
+      //   $temp_arr['questionScore']=$row['questionScore'];
+      //   $temp_arr['questionTime']=$row['questionTime'];
+      //   $arr[] = $temp_arr; 
+      // }
+      return $res;
     }
     /**
     * 添加测试详情

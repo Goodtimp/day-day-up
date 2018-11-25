@@ -21,14 +21,14 @@ class student extends Model
 
     $res = db("student")->select();
 
-    static $arr = array();
-    $temp_arr = array();
-    foreach ($res as $row) {
-      $temp_arr['sno'] = $row['sno'];
-      $temp_arr['name'] = $row['name'];
-      $arr[] = $tmp_arr; 
-    }
-    return $arr;
+    // static $arr = array();
+    // $temp_arr = array();
+    // foreach ($res as $row) {
+    //   $temp_arr['sno'] = $row['sno'];
+    //   $temp_arr['name'] = $row['name'];
+    //   $arr[] = $tmp_arr; 
+    // }
+    return $res;
 
   }
    /**

@@ -21,17 +21,17 @@ class helper extends Model
 
     $res = db("helper")->where("teacherId", $tid)->select();
 
-    static $arr = array();
-    $temp_arr = array();
-    foreach ($res as $row) {
-      $temp_arr['Id'] = $row['Id'];
-      $temp_arr['password'] = $row['password'];
-      $temp_arr['name'] = $row['name'];
-      $temp_arr['loginId'] = $row['loginId'];
-      $temp_arr['teacherId'] = $row['teacherId'];
-      $arr[] = $tmp_arr; 
-    }
-    return $arr;
+    // static $arr = array();
+    // $temp_arr = array();
+    // foreach ($res as $row) {
+    //   $temp_arr['Id'] = $row['Id'];
+    //   $temp_arr['password'] = $row['password'];
+    //   $temp_arr['name'] = $row['name'];
+    //   $temp_arr['loginId'] = $row['loginId'];
+    //   $temp_arr['teacherId'] = $row['teacherId'];
+    //   $arr[] = $tmp_arr; 
+    // }
+    return $res;
 
   }
   /**

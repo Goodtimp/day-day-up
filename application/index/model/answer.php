@@ -64,16 +64,8 @@ class answer extends Model
 
     $res = db("answer")->where("studentId",$stuid)->where('testId',$testid)->select();
 
-    static $arr = array();
-    $temp_arr = array();
-    foreach ($res as $row) {
-      $temp_arr['Id'] = $row['Id'];
-      $temp_arr['studentId'] = $row['studentId'];
-      $temp_arr['score'] = $row['score'];
-      $temp_arr['testId'] = $row['testId'];
-      $arr[] = $temp_arr; 
-    }
-    return $arr;
+   
+    return $res;
   }
   /**
    *  添加答题信息

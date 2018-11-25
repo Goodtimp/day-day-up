@@ -14,19 +14,19 @@
     */
     public static function get_questions($cid=0){
       $res=($cid==0?db("question")->select():db("question")->where("categoryId",$cid)->select());
-      static $arr=array();
-      $temp_arr=array();
-      foreach($res as $row)
-      {
-        $temp_arr['Id']=$row['Id'];
-        $temp_arr['categoryId']=$row['categoryId'];
-        $temp_arr['content']=$row['content'];
-        $temp_arr['answer']=$row['answer'];
-        $temp_arr['analysis']=$row['analysis'];
-        $temp_arr['type']=$row['type'];
-        $arr[] = $tmp_arr; 
-      }
-      return $arr;
+      // static $arr=array();
+      // $temp_arr=array();
+      // foreach($res as $row)
+      // {
+      //   $temp_arr['Id']=$row['Id'];
+      //   $temp_arr['categoryId']=$row['categoryId'];
+      //   $temp_arr['content']=$row['content'];
+      //   $temp_arr['answer']=$row['answer'];
+      //   $temp_arr['analysis']=$row['analysis'];
+      //   $temp_arr['type']=$row['type'];
+      //   $arr[] = $tmp_arr; 
+      // }
+      return $res;
     }
     /**
     * 添加question

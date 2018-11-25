@@ -21,17 +21,7 @@ class answerdetail extends Model
 
     $res = db("answerdetail")->where("answerId",$answerid)->select();
 
-    static $arr = array();
-    $temp_arr = array();
-    foreach ($res as $row) {
-      $temp_arr['Id'] = $row['Id'];
-      $temp_arr['answerId'] = $row['answerId'];
-      $temp_arr['questionId'] = $row['questionId'];
-      $temp_arr['answerContent'] = $row['answerContent'];
-      $temp_arr['thisScore'] = $row['thisScore'];
-      
-    }
-    return $arr;
+    return $res;
   }
   
   /**
@@ -44,17 +34,17 @@ class answerdetail extends Model
 
     $res = db("answerdetail")->where("questionId",$qid)->select();
 
-    static $arr = array();
-    $temp_arr = array();
-    foreach ($res as $row) {
-      $temp_arr['Id'] = $row['Id'];
-      $temp_arr['answerId'] = $row['answerId'];
-      $temp_arr['questionId'] = $row['questionId'];
-      $temp_arr['answerContent'] = $row['answerContent'];
-      $temp_arr['thisScore'] = $row['thisScore'];
-      $arr[] = $tmp_arr; 
-    }
-    return $arr;
+    // static $arr = array();
+    // $temp_arr = array();
+    // foreach ($res as $row) {
+    //   $temp_arr['Id'] = $row['Id'];
+    //   $temp_arr['answerId'] = $row['answerId'];
+    //   $temp_arr['questionId'] = $row['questionId'];
+    //   $temp_arr['answerContent'] = $row['answerContent'];
+    //   $temp_arr['thisScore'] = $row['thisScore'];
+    //   $arr[] = $tmp_arr; 
+    // }
+    return $res;
   }
   /**
    *  添加答题详情

@@ -24,17 +24,17 @@
       }
       if($res)
       {
-        static $arr=array();
-        $temp_arr=array();
-        foreach($res as $row)
-        {
-          $temp_arr['Id']=$row['Id'];
-          $temp_arr['name']=$row['name'];
-          $temp_arr['password']=$row['password'];
-          $temp_arr['loginId']=$row['loginId'];
-          $arr[] = $tmp_arr; 
-        }
-        return $arr;
+        // static $arr=array();
+        // $temp_arr=array();
+        // foreach($res as $row)
+        // {
+        //   $temp_arr['Id']=$row['Id'];
+        //   $temp_arr['name']=$row['name'];
+        //   $temp_arr['password']=$row['password'];
+        //   $temp_arr['loginId']=$row['loginId'];
+        //   $arr[] = $temp_arr; 
+        // }
+        return $res;
       }
       else return null;
     }

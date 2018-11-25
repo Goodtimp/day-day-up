@@ -1,0 +1,18 @@
+<div class="layui-side layui-bg-black">
+  <div class="layui-side-scroll">
+    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+    <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+      <li class="layui-nav-item layui-nav-itemed">
+        <a class="" href="javascript:;">课程</a>
+        <dl class="layui-nav-child">
+          {volist name="courses" id="cou" empty=""}
+          <dd><a href="{:url('Course/index')}?id={$cou.Id}">{$cou.name}</a></dd>
+          {/volist}
+          <dd><a href="{:url('Course/add')}">添加课程</a></dd>
+        </dl>
+      </li>
+      
+      <li class="layui-nav-item"><a href="{:url('Test/add')}">创建测试</a></li>
+    </ul>
+  </div>
+</div>
