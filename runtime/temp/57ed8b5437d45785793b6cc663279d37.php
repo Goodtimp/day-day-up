@@ -1,3 +1,4 @@
+<?php /*a:1:{s:86:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentanswer\index.html";i:1543148518;}*/ ?>
 <html>
 
 <head>
@@ -16,8 +17,8 @@
     <div class="layui-anim layui-anim-up login-main" id="form-main">
         <form class="layui-form" role="form" action="" method="post">
             <p>
-                {$Num}
-              {$content}
+                <?php echo htmlentities($Num); ?>
+              <?php echo htmlentities($content); ?>
             </p>
             <div class="ly-input">
                 <input type="text" name="answerContent" required lay-verify="required" placeholder="请输入答案" autocomplete="off"

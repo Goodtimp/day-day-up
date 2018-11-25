@@ -68,7 +68,8 @@ class Studentanswer extends Controller
     $this->assign([
       'content' => $question['content'],
       'type' => $question['type'],
-      'time' =>strtotime($question['questionTime'])
+      'time' =>strtotime($question['questionTime']),
+      'Num'=>$answer_pos
     ]);
     return view();
   }
