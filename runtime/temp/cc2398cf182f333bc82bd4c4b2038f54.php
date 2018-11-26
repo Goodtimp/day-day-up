@@ -1,4 +1,4 @@
-<?php /*a:4:{s:79:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543142165;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:79:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543200615;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,10 +85,11 @@
         </tr>
       <?php if(is_array($test) || $test instanceof \think\Collection || $test instanceof \think\Paginator): $i = 0; $__LIST__ = $test;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$test): $mod = ($i % 2 );++$i;?>
         <tr class="test-tr">
-            <td><a href="<?php echo url('Test/index'); ?>?id=<?php echo htmlentities($test['Id']); ?>"><?php echo htmlentities($test['name']); ?></a></td>
+            <td><?php echo htmlentities($test['name']); ?></td>
             <td><?php echo htmlentities($test['startTime']); ?></a></td>
             <td><?php echo htmlentities($test['endTime']); ?></a></td>
             <td><?php echo htmlentities($test['status']); ?></td>
+            <td><a href="<?php echo url('Test/index'); ?>?id=<?php echo htmlentities($test['Id']); ?>">查看测试</a></td>
         </tr>
        
       <?php endforeach; endif; else: echo "" ;endif; ?>

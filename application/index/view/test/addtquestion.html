@@ -59,7 +59,45 @@
             </div>
           </div>
       </form>
+   <form class="layui-form" action="" method="POST">
+        <div class="layui-form-item" pane="">
+          <label class="layui-form-label">题目类型</label>
+          <div class="layui-input-block">
+            <input type="radio" name="sex" value="3" title="选择题" checked="">
+            <input type="radio" name="sex" value="1" title="填空题">
+            <input type="radio" name="sex" value="1" title="问答题">
+            <input type="radio" name="sex" value="2" title="判断题">
+          </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+          <label class="layui-form-label">题目描述</label>
+          <div class="layui-input-block">
+            <textarea placeholder="请输入题目内容" class="layui-textarea"></textarea>
+          </div>
 
+
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">选择课程</label>
+              <div class="layui-input-inline">
+                <select name="courseId" lay-verify="required" lay-search="">
+                  {volist name="courses" id="cou" empty=""}
+                  <option value={$cou.Id}>{$cou.name}</option>
+
+                  {/volist}
+
+
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button class="layui-btn" lay-submit="" lay-filter="demo1">添加测试</button>
+            </div>
+          </div>
+      </form>
       <div style="padding: 15px;">
 
       </div>
