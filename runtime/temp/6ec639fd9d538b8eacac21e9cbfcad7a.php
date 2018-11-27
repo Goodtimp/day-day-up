@@ -1,4 +1,4 @@
-<?php /*a:4:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543236914;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543303222;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -84,6 +84,7 @@
                                 <div class="textbox">
                                     <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入答案" class="layui-input">
                                 </div>
+                                <div></div>
                             </div>
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
