@@ -40,10 +40,10 @@ class test extends Model
    * @param int $courid
    * @return array {Id,courseId,name,startTime,endTime}
    */
-  public static function get_test($testid = 0)
+  public static function get_test($testid)
   {
 
-    $res = db("test")->where("Id", $testid)->find(1);
+    $res = db("test")->where("Id", $testid)->select()[0];
 
     return $res;
   }
@@ -53,14 +53,7 @@ class test extends Model
    */
   public static function add_test($test)
   {
-    if(db("test")->insert($test))
-    {
-      $res=db("test")->where("courseId",$test["courseId"])->where("startTime",$test["startTime"])->where('endTime',$test['endTime'])->select();
-      
-      return $res[0];
-      
-    }
-    else return 0;
+   return db("test")->insertGetId($test);
   }
     /**
    * 删除测试

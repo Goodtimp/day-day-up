@@ -31,8 +31,8 @@
     * 添加测试详情
     * @param array cour{Id,testId,questionId,questionScore,questionTime}
     */
-    public static function add_testdetail($cour){
-      return db("testdetail")->insert($cour);
+    public static function add_testdetail($data){
+      return db("testdetail")->insert($data);
     }
     /**
     * 根据测试详情id，删除一个测试详情
@@ -47,6 +47,15 @@
     */
     public static function delete_testdetails($tdids){
       return db("testdetail")->delete($tdid);
+    }
+     /**
+    * 更新数据
+    * @param int $id
+    * @param array $data
+    */
+    public static function updata_testdetails($id,$data)
+    {
+      return db("testdetail")->where("Id",$id)->update($data);
     }
     
  }
