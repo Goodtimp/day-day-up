@@ -1,36 +1,23 @@
-<?php /*a:4:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543146788;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543236914;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>教师终端</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>教师终端</title>
 
-  <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
-  <style>
-    .test-tr td,.test-th {
-        height: 50px;
-        width: 170px;
-    }
-
-
-    .test-tr:nth-child(2n) {
-        background-color: #e8ece8;
-    }
-
-    .test-tr:hover {
-        background-color: #c2d2d1;
-    }
-
-    .checked {
-        font-size: 30px;
-        color: #042c6b;
-    }
-  </style>
+    <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
+    <style>
+        .test-message {
+            margin: 20px;
+        }
+    </style>
 </head>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-  <div class="layui-header">
+
+<body class="layui-layout-body" style=" background-color: #F2F2F2;">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
   <div class="layui-logo">layui 后台布局</div>
   <!-- 头部区域（可配合layui已有的水平导航） -->
   <ul class="layui-nav layui-layout-left">
@@ -52,8 +39,7 @@
     </li>
     <li class="layui-nav-item"><a href="<?php echo url('Login/exit_user'); ?>">退了</a></li>
   </ul>
-</div>
-  <div class="layui-side layui-bg-black">
+</div> <div class="layui-side layui-bg-black">
   <div class="layui-side-scroll">
     <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
     <ul class="layui-nav layui-nav-tree"  lay-filter="test">
@@ -72,52 +58,66 @@
   </div>
 </div>
 
-  
-  <div class="layui-body">
-    <!-- 内容主体区域 -->
-    <div style="padding: 15px;width: 500px;">
-      <table class="test-table">
-        <tr class="test-th">
-            <th>测试名称</th>
-            <th>开始时间</th>
-            <th>结束时间</th>
-            
-        </tr>
-        <tr class="test-tr">
-            <td><?php echo htmlentities($test['name']); ?></td>
-            <td><?php echo htmlentities($test['startTime']); ?></a></td>
-            <td><?php echo htmlentities($test['endTime']); ?></a></td>
-        </tr>
-      </table>
-      <table>
-          <tr>
-              <th>题号</th>
-              <th>问题</th>
-          </tr>
-      <?php if(is_array($test_detail) || $test_detail instanceof \think\Collection || $test_detail instanceof \think\Paginator): $i = 0; $__LIST__ = $test_detail;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($i % 2 );++$i;?>
-            <tr>
-                <td><?php echo htmlentities($detail['Num']); ?></td>
-                <td><?php echo htmlentities($detail['content']); ?></td>
-            </tr>
-      <?php endforeach; endif; else: echo "" ;endif; ?>
-      </table>
-    </div>
-  
-  </div>
-  <div class="layui-footer">
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 20px; background-color: #F2F2F2;">
+                <div class="layui-row layui-col-space15">
+                    <div class="">
+                        <div class="layui-card">
+                            <div class="test-message">
+                                <h1><?php echo htmlentities($test['name']); ?></h1>
+                                <a href="<?php echo url('Test/index'); ?>?id=<?php echo htmlentities($test['Id']); ?>">修改测试</a>
+                                <p>开始时间：<?php echo htmlentities($test['startTime']); ?></p>
+                                <p>结束时间：<?php echo htmlentities($test['endTime']); ?></p>
+                            </div>
+                            <?php if(is_array($test_question) || $test_question instanceof \think\Collection || $test_question instanceof \think\Paginator): $i = 0; $__LIST__ = $test_question;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$question): $mod = ($i % 2 );++$i;?>
+                            <div class="layui-card-body question_content">
+                                <div class=""><?php echo htmlentities($question['num']); ?> .<?php echo htmlentities($question['content']); ?></div>
+                                <div class="layui-hide type"><?php echo htmlentities($question['type']); ?></div>
+                                <div class="options">
+                                    <?php if(is_array($question['option']) || $question['option'] instanceof \think\Collection || $question['option'] instanceof \think\Paginator): $i = 0; $__LIST__ = $question['option'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$option): $mod = ($i % 2 );++$i;?>
+                                    <input type="radio" name=<?php echo htmlentities($question['num']); ?> value="男" title="男" checked=""><?php echo htmlentities($option); ?>
+                                    <br/> <?php endforeach; endif; else: echo "" ;endif; ?>
+
+                                </div>
+                                <div class="textbox">
+                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入答案" class="layui-input">
+                                </div>
+                            </div>
+                            <?php endforeach; endif; else: echo "" ;endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-footer">
   <!-- 底部固定区域 -->
   @goodtimp & @someonegirl
 </div>
- 
- 
-</div>
-<script src="/day-day-up/vendor/layui/src/layui.js"></script>
-<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-</script>
+
+
+        </div>
+        <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+        <script src="/day-day-up/public/static/js/jquery-1.11.1.js"></script>
+        <script>
+            //JavaScript代码区域
+            layui.use('element', function () {
+                var element = layui.element;
+            });
+            $(function () {
+                $(".question_content").each(function () {
+                    var type = $(this).children(".type").text();
+                    if (type.trim() == 3) {
+                        $(this).children(".textbox").html("");
+                    }
+                    else {
+                        $(this).children(".options").html("");
+                       
+                    }
+                });
+
+            })
+        </script>
 </body>
+
 </html>

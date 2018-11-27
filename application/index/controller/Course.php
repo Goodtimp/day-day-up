@@ -26,16 +26,8 @@ class Course extends Father
     {
    //参数
       $test = testmodel::get_tests($cou_id);//根据id获取课程测试
-      for($i=0;$i<count( $test);$i++){
-        $time=Time()-strtotime($test[$i]["endTime"]);
-      if($time<0)  $test[$i]["status"]="未完成";
-      else{
-        $test[$i]["status"]="已完成";
-      }
-      }
       $this->assign([
         'test' => $test,
-      
       ]);
       
     }

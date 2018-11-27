@@ -44,10 +44,11 @@
         </tr>
       {volist name="test" id="test" empty=""}
         <tr class="test-tr">
-            <td><a href="{:url('Test/index')}?id={$test.Id}">{$test.name}</a></td>
+            <td>{$test.name}</td>
             <td>{$test.startTime}</a></td>
             <td>{$test.endTime}</a></td>
             <td>{$test.status}</td>
+            <td><a href="{:url('Test/index')}?id={$test.Id}">查看测试</a></td>
         </tr>
        
       {/volist}

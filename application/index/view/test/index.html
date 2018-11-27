@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>教师终端</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>教师终端</title>
 
-  <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
-  <style>
-    .test-tr td,.test-th {
-        height: 50px;
-        width: 170px;
-    }
-
-
-    .test-tr:nth-child(2n) {
-        background-color: #e8ece8;
-    }
-
-    .test-tr:hover {
-        background-color: #c2d2d1;
-    }
-
-    .checked {
-        font-size: 30px;
-        color: #042c6b;
-    }
-  </style>
+    <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
+    <style>
+        .test-message {
+            margin: 20px;
+        }
+    </style>
 </head>
-<body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-  {include file="father/header" /}
-  {include file="father/left" /}
-  
-  <div class="layui-body">
-    <!-- 内容主体区域 -->
-    <div style="padding: 15px;width: 500px;">
-      <table class="test-table">
-        <tr class="test-th">
-            <th>测试名称</th>
-            <th>开始时间</th>
-            <th>结束时间</th>
-            
-        </tr>
-        <tr class="test-tr">
-            <td>{$test.name}</td>
-            <td>{$test.startTime}</a></td>
-            <td>{$test.endTime}</a></td>
-        </tr>
-      </table>
-      <table>
-          <tr>
-              <th>题号</th>
-              <th>问题</th>
-          </tr>
-      {volist name="test_detail" id="detail" empty=""}
-            <tr>
-                <td>{$detail.Num}</td>
-                <td>{$detail.content}</td>
-            </tr>
-      {/volist}
-      </table>
-    </div>
-  
-  </div>
-  {include file="father/footer" /}
- 
- 
-</div>
-<script src="/day-day-up/vendor/layui/src/layui.js"></script>
-<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-</script>
+
+<body class="layui-layout-body" style=" background-color: #F2F2F2;">
+    <div class="layui-layout layui-layout-admin">
+        {include file="father/header" /} {include file="father/left" /}
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 20px; background-color: #F2F2F2;">
+                <div class="layui-row layui-col-space15">
+                    <div class="">
+                        <div class="layui-card">
+                            <div class="test-message">
+                                <h1>{$test.name}</h1>
+                                <a href="{:url('Test/index')}?id={$test.Id}">修改测试</a>
+                                <p>开始时间：{$test.startTime}</p>
+                                <p>结束时间：{$test.endTime}</p>
+                            </div>
+                            {volist name="test_question" id="question" empty=""}
+                            <div class="layui-card-body question_content">
+                                <div class="">{$question.num} .{$question.content}</div>
+                                <div class="layui-hide type">{$question.type}</div>
+                                <div class="options">
+                                    {volist name="question.option" id="option" empty=""}
+                                    <input type="radio" name={$question.num} value="男" title="男" checked="">{$option}
+                                    <br/> {/volist}
+
+                                </div>
+                                <div class="textbox">
+                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入答案" class="layui-input">
+                                </div>
+                            </div>
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {include file="father/footer" /}
+
+
+        </div>
+        <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+        <script src="/day-day-up/public/static/js/jquery-1.11.1.js"></script>
+        <script>
+            //JavaScript代码区域
+            layui.use('element', function () {
+                var element = layui.element;
+            });
+            $(function () {
+                $(".question_content").each(function () {
+                    var type = $(this).children(".type").text();
+                    if (type.trim() == 3) {
+                        $(this).children(".textbox").html("");
+                    }
+                    else {
+                        $(this).children(".options").html("");
+                       
+                    }
+                });
+
+            })
+        </script>
 </body>
+
 </html>
