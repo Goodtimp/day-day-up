@@ -43,7 +43,8 @@
   public static function get_Question($queid = 0)
   {
 
-    $res = db("question")->where("Id", $queid)->find(1);
+    //$res = db("question")->where("Id", $queid)->find(1);
+    $res = db("question")-find();
     return $res;
   }
  }

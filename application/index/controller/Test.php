@@ -16,26 +16,22 @@ use think\facade\Session;
 use think\helper\Time;
 use app\index\Model\test as testModel;
 use app\index\Model\question as questionModel;
-use app\index\model\testdetail;
-use app\index\model\testquestion as testquestionModel;
+use app\index\Model\testquestion as testquestionModel;
 
 class Test extends Father
 {
   public function index()
   {
     $test_id = input('get.id');
-    if ($test_id) {
-      $test = testModel::get_test($test_id);//根据id获取课程测试
-      $test_detail = testdetailModel::get_testdetail($test_id);
-      for ($i = 0; $i < Count($test_detail); $i++) {
-        // $test_detail[$i]["Num"] = $i + 1;
-        // $question = questionModel::get_Question($test_detail[$i]["questionId"]);
-        // $question_content = $question["content"];
-        // $test_detail[$i]["content"] = $question_content[0];需修改content与answer获取方式
-      }
+    if($test_id)
+    {
+      $test = testModel::get_test(2);//根据id获取课程测试
+
+      $test_question=testquestionModel::get_testquestions($test_id);     
+      //dump($test);
       $this->assign([
         'test' => $test,
-        'test_detail' => $test_detail
+        'test_question'=>$test_question
       ]);
     }
     return view("index");

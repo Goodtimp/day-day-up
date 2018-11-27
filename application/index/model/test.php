@@ -20,7 +20,13 @@ class test extends Model
   {
 
     $res = db("test")->where("courseId", $courid)->select();
-
+    for($i=0;$i<Count($res);$i++){
+      $time=Time()-strtotime($res[$i]["endTime"]);
+    if($time<0)  $res[$i]["status"]="未完成";
+    else{
+      $res[$i]["status"]="已完成";
+    }
+    }
 
     // static $arr = array();
     // $temp_arr = array();
