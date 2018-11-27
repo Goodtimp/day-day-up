@@ -50,13 +50,14 @@ class Studentanswer extends Controller
       $next_answer_pos = self::next_question($answer_pos + 1);//寻找下一个未完成的测试
       $question = $testarray[$answer_pos];
       $answer = input('post.');
-      dump($question);
-      dump($answer);
+      // dump($question);
+      // dump($answer);
       self::handle_add_answerdetail($answer, Session::get('answer_id', 'index'), $question);//添加到数据库，并且添加到session
 
       Session::set('now_answer_id', $next_answer_pos, 'index');//在这里修改，防止中途退出少答题
     }
     $answer_pos = Session::get('now_answer_id', 'index');//当前测试位置
+    // dump(Session::get("answer_score", "index"));
     if ($answer_pos == -1) {
       $score = (string)Session::get("answer_score", "index");
       return "考试结束,您的分数为" . $score;
