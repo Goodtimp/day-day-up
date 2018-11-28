@@ -1,4 +1,4 @@
-<?php /*a:6:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543386864;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543386856;s:90:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543406505;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:6:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543414606;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543386856;s:90:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543420093;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -96,8 +96,10 @@
                                        <!-- 填空题与问答题 -->
 
 <div class="my-completion">
-    <form class="layui-form" action="" method="POST">
+    <form class="layui-form" action="../Test/TestQuestionChange" method="POST">
         <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
+        <input name="type" value="" style="display:none" class="type">
+        <input name="question_id" value=<?php echo htmlentities($question['num']); ?> style="display: none;">
         <div class="">第<?php echo htmlentities($question['num']); ?>题 </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">题目描述</label>
@@ -132,12 +134,9 @@
             </div>
     </form>
 </div>
+
                                 </div>
-
-                               
                             </div>
-
-
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
@@ -176,6 +175,7 @@
                     //根据题目类型判断显示输入框还是单选框
                     if (type.trim() == 3) {
                         $(this).children(".textbox").html("");
+                        $(this).next().children(".type").val(type.trim());
                         var right = $(this).children(".right").text();
                         var answer = $(this).children(".options").children(".answer");
                         answer.each(function () {
@@ -189,12 +189,73 @@
                         var answer = $(this).children(".options").children(".answer").text();//获取答案，用来输入框的显示
                         $(this).children(".options").html("");
                         $(this).children(".textbox").children("input").attr("placeholder", answer);
+                        $(this).next().children(".type").val(type.trim());
                     }
                 });
 
 
             })
         </script>
+         <script>
+            layui.use(['form', 'layedit', 'laydate'], function () {
+              var form = layui.form,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                laydate = layui.laydate;
+              //时间设置
+              laydate.render({
+                elem: '#question_time1',
+                format: "mm:ss",
+                value: "10:00",
+                max: "00:59:59",
+                min: "00:00:01",
+                type: 'time'
+              });
+              laydate.render({
+                elem: '#question_time2',
+                format: "mm:ss",
+                value: "10:00",
+                max: "00:59:59",
+                min: "00:00:01",
+                type: 'time'
+              });
+              laydate.render({
+                elem: '#question_time3',
+                format: "mm:ss",
+                value: "10:00",
+                max: "00:59:59",
+                min: "00:00:01",
+                type: 'time'
+              });
+              //自定义验证规则
+              form.verify({
+                content: function (value) {
+                  if (value.length < 1) {
+                    return '请输入题目描述';
+                  } else if (value.length > 600) {
+                    return '学生读题很麻烦，所以题目描述最多600字';
+                  }
+                },
+        
+                score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
+                choise: function (value) {
+                  if (value.length < 1) {
+                    return '请输入答案信息描述';
+                  } else if (value.length > 600) {
+                    return '学生读题很麻烦，答案最多600字';
+                  }
+                },
+        
+                required: function (value) {
+                  if (value == null) {
+                    return '请确定课程时间';
+                  }
+                }
+              });
+        
+        
+            });
+          </script>
 </body>
 
 </html>

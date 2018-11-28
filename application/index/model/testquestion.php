@@ -44,5 +44,13 @@
         $arr[] = $temp_arr; 
       }
       return $arr;
+    
+    
+    }
+    public static function update_testdetail($testdetail_id,$testdetail){
+      return db("testdetail")->where("Id",$testdetail["Id"])->update([
+        'questionScore'=>$testdetail["questionScore"],
+        'questionTime'=>$testdetail["questionTime"]
+      ]);
     }
  }

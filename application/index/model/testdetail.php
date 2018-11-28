@@ -53,9 +53,12 @@
     * @param int $id
     * @param array $data
     */
-    public static function updata_testdetails($id,$data)
+    public static function updata_testdetails($test_id,$question_id,$data)
     {
-      return db("testdetail")->where("Id",$id)->update($data);
+      return db("testdetail")->where("testId",$test_id)->where("questionId",$question_id)->update([
+        'questionScore'=>$data["questionScore"],
+      'questionTime'=>$data["questionTime"]
+      ]);
     }
     
  }

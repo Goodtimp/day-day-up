@@ -46,9 +46,10 @@
     $res = db("question")-find();
     return $res;
   }
-  public static function save_Question($Id,$data){
-    Db::transaction(function () {
-      //db("testdetail")->where("Id",$Id)->update($data);
-  });
+  public static function update_question($question_id,$question){
+    return db("question")->where("Id",$question_id)->update([
+      'content'=>$question["content"],
+      'answer'=>$question["answer"]
+    ]);
   }
  }

@@ -39,11 +39,5 @@ class Question extends Father
 
     return view("questionEditor");
   }
-  public function SaveQuestionChange(){
-    $que_id = input("get.id");
-    if($que_id){
-     
-    }
-    questionModel::save_Question($que_id);
-  }
+
 }
