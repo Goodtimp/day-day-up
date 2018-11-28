@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>教师终端</title>
-
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
   <style>
     .test-tr td,
@@ -57,16 +57,17 @@
         <tbody>
           {volist name="tests" id="test" empty=""}
           <tr>
-            <td>
-              <?php
-              echo substr($test["name"],0,9)
-              ?>
-              <!-- 防止字数太多 -->
+            <td >
+              {$test.name}
+         
               </td>
             <td>{$test.startTime}</a></td>
             <td>{$test.endTime}</a></td>
-            <td>{$test.status}</td>
+            <td class="status">{$test.status}</td>
+            
             <td><a href="{:url('Test/index')}?id={$test.Id}">查看测试</a></td>
+            <td style="display:none;">{$test.Id}</td>
+           
           </tr>
 
           {/volist}
@@ -78,6 +79,16 @@
   </div>
   <script src="/day-day-up/vendor/layui/src/layui.js"></script>
   <script>
+    $(function(){
+      $(".status").each(function(){
+        if($(this).text()=="未完成")
+        {
+          $(this).next().find("a").attr("href","{:url('Test/editortest')}?id={$test.Id}");
+        }
+      })
+     
+     
+    })
     //JavaScript代码区域
     layui.use('element', function () {
       var element = layui.element;

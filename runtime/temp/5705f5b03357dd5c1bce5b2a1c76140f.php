@@ -1,4 +1,4 @@
-<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543381412;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543412851;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>教师终端</title>
-
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
   <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
   <style>
     .test-tr td,
@@ -98,16 +98,17 @@
         <tbody>
           <?php if(is_array($tests) || $tests instanceof \think\Collection || $tests instanceof \think\Paginator): $i = 0; $__LIST__ = $tests;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$test): $mod = ($i % 2 );++$i;?>
           <tr>
-            <td>
-              <?php
-              echo substr($test["name"],0,9)
-              ?>
-              <!-- 防止字数太多 -->
+            <td >
+              <?php echo htmlentities($test['name']); ?>
+         
               </td>
             <td><?php echo htmlentities($test['startTime']); ?></a></td>
             <td><?php echo htmlentities($test['endTime']); ?></a></td>
-            <td><?php echo htmlentities($test['status']); ?></td>
+            <td class="status"><?php echo htmlentities($test['status']); ?></td>
+            
             <td><a href="<?php echo url('Test/index'); ?>?id=<?php echo htmlentities($test['Id']); ?>">查看测试</a></td>
+            <td style="display:none;"><?php echo htmlentities($test['Id']); ?></td>
+           
           </tr>
 
           <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -122,6 +123,16 @@
   </div>
   <script src="/day-day-up/vendor/layui/src/layui.js"></script>
   <script>
+    $(function(){
+      $(".status").each(function(){
+        if($(this).text()=="未完成")
+        {
+          $(this).next().find("a").attr("href","<?php echo url('Test/editortest'); ?>?id=<?php echo htmlentities($test['Id']); ?>");
+        }
+      })
+     
+     
+    })
     //JavaScript代码区域
     layui.use('element', function () {
       var element = layui.element;

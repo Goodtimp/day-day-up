@@ -20,7 +20,6 @@
 
         <div class="layui-body">
             <!-- 内容主体区域 -->
-            
             <div style="padding: 20px; background-color: #F2F2F2;">
                 <div class="layui-row layui-col-space15">
                     <div class="">
@@ -34,11 +33,17 @@
                             {volist name="test_question" id="question" empty=""}
                             <div class="layui-card-body question_content">
 
-                                <div class="view">{include file="question/questionView" /}</div>
-                                <div class="edit layui-hide">{include file="father/footer" /}</div>
+                                <div class="view">
+                                    {include file="question/questionView" /}
+                                </div>
+                                <div class="edit layui-hide">
+                                       {include file="question/questionEditor" /}
+                                </div>
+
+                               
                             </div>
 
-                            
+
                             {/volist}
                         </div>
                     </div>
@@ -49,13 +54,26 @@
 
         </div>
         <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+        <script src="/day-day-up/public/static/js/jquery-1.11.1.js"></script>
         <script>
             //JavaScript代码区域
             layui.use('element', function () {
                 var element = layui.element;
             });
-      
+
             $(function () {
+                $(".Motify").each(function () {
+                    $(this).click(function () {
+                        $(this).parents(".question_content").children(".view").addClass("layui-hide");
+                        $(this).parents(".question_content").children(".edit").removeClass("layui-hide");
+                    })
+                });
+                $(".Save").each(function(){
+                    $(this).click(function(){
+                        $(this).parents(".question_content").children(".view").removeClass("layui-hide");
+                        $(this).parents(".question_content").children(".edit").addClass("layui-hide");
+                    })
+                })
                 $(".view").each(function () {
                     var type = $(this).children(".type").text();
                     //根据题目类型判断显示输入框还是单选框
@@ -76,13 +94,8 @@
                         $(this).children(".textbox").children("input").attr("placeholder", answer);
                     }
                 });
-                
-                //$(".Editor").each(function(){
-                  // $(this).click(function(){
-                      // var div='{include file="father/footer" /}';
-                      // $(this).parents(".question_content").html("").append();
-                 //  })
-                //})
+
+
             })
         </script>
 </body>
