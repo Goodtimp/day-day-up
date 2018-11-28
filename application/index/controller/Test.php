@@ -27,7 +27,7 @@ class Test extends Father
     {
       $test = testModel::get_test(2);//根据id获取课程测试
 
-      $test_question=testquestionModel::get_testquestions($test_id);     
+      $test_question=testquestionModel::get_testquestions($test_id);
       //dump($test);
       $this->assign([
         'test' => $test,

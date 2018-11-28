@@ -33,11 +33,17 @@
                             {volist name="test_question" id="question" empty=""}
                             <div class="layui-card-body question_content">
 
-                                <div class="view">{include file="question/questionView" /}</div>
-                                <div class="edit layui-hide">{include file="father/footer" /}</div>
+                                <div class="view">
+                                    {include file="question/questionView" /}
+                                </div>
+                                <div class="edit layui-hide">
+                                       {include file="question/questionEditor" /}
+                                </div>
+
+                               
                             </div>
 
-                            
+
                             {/volist}
                         </div>
                     </div>
@@ -54,8 +60,20 @@
             layui.use('element', function () {
                 var element = layui.element;
             });
-      
+
             $(function () {
+                $(".Motify").each(function () {
+                    $(this).click(function () {
+                        $(this).parents(".question_content").children(".view").addClass("layui-hide");
+                        $(this).parents(".question_content").children(".edit").removeClass("layui-hide");
+                    })
+                });
+                $(".Save").each(function(){
+                    $(this).click(function(){
+                        $(this).parents(".question_content").children(".view").removeClass("layui-hide");
+                        $(this).parents(".question_content").children(".edit").addClass("layui-hide");
+                    })
+                })
                 $(".view").each(function () {
                     var type = $(this).children(".type").text();
                     //根据题目类型判断显示输入框还是单选框
@@ -76,13 +94,8 @@
                         $(this).children(".textbox").children("input").attr("placeholder", answer);
                     }
                 });
-                
-                //$(".Editor").each(function(){
-                  // $(this).click(function(){
-                      // var div='{include file="father/footer" /}';
-                      // $(this).parents(".question_content").html("").append();
-                 //  })
-                //})
+
+
             })
         </script>
 </body>
