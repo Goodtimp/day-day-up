@@ -1,3 +1,4 @@
+<?php /*a:1:{s:86:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentanswer\index.html";i:1543377418;}*/ ?>
 <html>
 
 <head>
@@ -16,14 +17,14 @@
     <div class="layui-anim layui-anim-up login-main" id="form-main">
         <form class="layui-form" role="form" action="" method="post">
             <p>
-                {$Num}:
-              {$content}
+                <?php echo htmlentities($Num); ?>:
+              <?php echo htmlentities($content); ?>
             </p>
-            {volist name="answer" id="answer"  empty=""}
+            <?php if(is_array($answer) || $answer instanceof \think\Collection || $answer instanceof \think\Paginator): $i = 0; $__LIST__ = $answer;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$answer): $mod = ($i % 2 );++$i;?>
             <p>
-               {$answer}
+               <?php echo htmlentities($answer); ?>
             </p>
-            {/volist}
+            <?php endforeach; endif; else: echo "" ;endif; ?>
             <div class="ly-input">
                 <input type="text" name="answerContent" required lay-verify="required" placeholder="请输入答案" autocomplete="off"
                     class="layui-input"/>

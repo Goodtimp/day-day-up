@@ -39,4 +39,40 @@
       }
       return $arr;
     }
+    /**
+     * 根据answerid，testid 获取某学生未作答的答题信息
+     */
+    public static function get_testdetail_undone($answerid,$testid)
+    {
+      $answerdetails=answerdetail::get_answerdetail_by_aid($answerid);//得到已完成的测试信息
+      $res=self::get_testquestions($testid);//得到全部的测试信息
+      $cnt=0;
+      $length=count($res);
+      foreach($answerdetails as $detail)
+      {
+        for($i=0;$i<$length;$i++)
+        {
+          if(isset($res[$i])&&($res[$i]["questionId"]==$detail["questionId"]))
+          {
+            $cnt++;
+            unset($res[$i]);
+          }
+        }
+      }
+      $arr=array();
+      $j=0;
+      if($cnt!=0)//对数组键值对重新排序
+      {
+        for($i=0;$i<$length;$i++)
+        {
+          if(isset($res[$i]))
+          {
+            $arr[$j]=$res[$i];
+            $j++;
+          }
+        }
+        return array($arr,$cnt);
+      }
+      return array($res,$cnt);
+    }
  }

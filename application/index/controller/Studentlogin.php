@@ -10,16 +10,13 @@ use app\index\model\test as test;
 use think\Controller;
 use think\Paginator;
 use think\facade\Session;
+use app\index\controller\Tools;
 
 class Studentlogin extends Controller
 {
   function initialize()
   {
-    
-    if(Session::has('student_Id', 'index')&&Session::has('test_Id', 'index'))
-    {
-      $this->redirect('Studentanswer/index');
-    }
+    Tools::deleteSession();
   }
   public function index()
   {
@@ -37,16 +34,16 @@ class Studentlogin extends Controller
     }
     if (request()->isPost()) {
       $data = input('post.');
-      
+     // dump($data);
       if(student::add_student($data))//不存在则将学生信息加入到数据库
       {
         $stu=student::get_student($data["sno"],$data["name"]);
         // 将登陆信息保存到session，登陆成功
-        Session::set('student_Id',$stu['Id'],'index');// prefix:'index'是指作用域是index部分
-       
-        Session::set('student_sno',$stu['sno'],'index');
-       
-        Session::set('student_name',$stu['name'],'index');
+        //dump($stu);
+        Session::set('Id',$stu['Id'],'student');// prefix:'index'是指作用域是index部分
+        Session::set('sno',$stu['sno'],'student');
+        Session::set('name',$stu['name'],'student');
+
         $this->redirect('Studentanswer/index');
       }
       // 需修改
@@ -55,6 +52,10 @@ class Studentlogin extends Controller
       // }
       
     }
+
+    $this->assign([
+      "testName"=>Session::get("name",'test'),
+    ]);
     return view();
   }
   /**
@@ -62,17 +63,16 @@ class Studentlogin extends Controller
    */
   function get_test_message($id){
     //if(!session('test_Id','','index'))
-    if(!Session::has('test_Id','index'))
+    if(!Session::has('Id','test'))
     {
       $data=test::get_test($id);
       if($data)
       { 
-        Session::set('test_Id',$data["Id"],'index');
-        Session::set('test_courseId',$data["courseId"],'index');
-       
-        Session::set('test_name',$data["name"],'index');
-        Session::set('test_startTime',strtotime($data["startTime"]),'index');
-        Session::set('test_endTime',strtotime($data["endTime"]),'index');
+        Session::set('Id',$data["Id"],'test');
+        Session::set('courseId',$data["courseId"],'test');
+        Session::set('name',$data["name"],'test');
+        Session::set('startTime',strtotime($data["startTime"]),'test');
+        Session::set('endTime',strtotime($data["endTime"]),'test');
       }
       else{
         return false;
@@ -84,12 +84,11 @@ class Studentlogin extends Controller
    * 判断考试时间
    */
   function judge_test_time(){
-    if(session('test_Id','','index'))
-    if(Session::has("test_Id",'index'))
+    if(Session::has("Id",'index'))
     {
       $now_time=time();
-      $start_time=Session::get("test_startTime",'index');
-      $end_time=Session::get("test_endTime",'index');
+      $start_time=Session::get("startTime",'test');
+      $end_time=Session::get("endTime",'test');
       if($now_time<$start_time)
       {
         return "考试未开始。";

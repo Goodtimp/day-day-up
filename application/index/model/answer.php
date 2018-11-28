@@ -11,6 +11,14 @@ use think\Model;
 
 class answer extends Model
 {
+    /**
+   *  根据答题id获取答题信息
+   * @param int id {Id,studentId,score,testId}
+   */
+  public static function get_answer_by_id($aid)
+  {
+    return  db("answer")->where("Id",$aid)->select()[0];
+  }
   /**
    * 根据学生sno,得到所有的答题
    * @param int $sno
@@ -63,9 +71,12 @@ class answer extends Model
   {
 
     $res = db("answer")->where("studentId",$stuid)->where('testId',$testid)->select();
-
-   
+    if($res)
+    {
+      return $res[0];
+    }
     return $res;
+   
   }
   /**
    *  添加答题信息
@@ -96,7 +107,6 @@ class answer extends Model
    /**
    *  根据答题id，更新答题信息
    * @param array answer {Id,studentId,score,testId}
- 
    */
   public static function update_answere($answer)
   {
@@ -106,5 +116,18 @@ class answer extends Model
       'testId'=>$answer["testId"],
     ]);
   }
+  /**
+   *  根据答题id，加分
+   * @param array answer {Id,studentId,score,testId}
+   */
+  public static function update_score_answere($aid,$addscore)
+  {
+    $score=db("answer")->where("Id",$aid)->select()[0]["score"];
 
+    return db("answer")->where("Id",$aid)->update([
+      'score'=>($score+$addscore),
+    ]);
+  }
+
+  
 }

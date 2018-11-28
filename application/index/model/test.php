@@ -49,8 +49,11 @@ class test extends Model
   public static function get_test($testid)
   {
 
-    $res = db("test")->where("Id", $testid)->select()[0];
-
+    $res = db("test")->where("Id", $testid)->select();
+    if($res)
+    {
+      return $res[0];
+    }
     return $res;
   }
   /**

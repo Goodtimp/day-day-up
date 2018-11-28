@@ -64,7 +64,7 @@ class Test extends Father
       if ($data["question_id"] != 0) {
         $test_detail = Tools::testdetail_modeltestdetail($data);
         //dump($test_detail);
-        testdetail::add_testdetail($test_detail);
+        testdetailModel::add_testdetail($test_detail);
       }
       $test_id=$data["test_id"];
       $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id);
@@ -79,7 +79,7 @@ class Test extends Father
       if ($data["question_id"] != 0) {
         $test_detail = Tools::testdetail_modeltestdetail($data);
         //dump($test_detail);
-        //testdetail::updata_testdetails($data["test_detail_id"],$test_detail);//更新数据库，需要测试详情id，更新数据
+        //testdetailModel::updata_testdetails($data["test_detail_id"],$test_detail);//更新数据库，需要测试详情id，更新数据
       }
       $test_id=$data["test_id"];
       $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id);
@@ -88,7 +88,7 @@ class Test extends Father
   public function deletedetail(){
     if (request()->post()) {
       $data = input("post.");
-      $test_detail = testdetail::delete_testdetail($data["test_detail_id"]);
+      $test_detail = testdetailModel::delete_testdetail($data["test_detail_id"]);
       $test_id=$data["test_id"];
       $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id);
     }

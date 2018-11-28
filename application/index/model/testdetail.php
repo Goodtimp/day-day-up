@@ -5,6 +5,7 @@
  */
 
  namespace app\index\model;
+ use app\index\model\answerdetail;
  use think\Model;
  class testdetail extends Model{
    /**

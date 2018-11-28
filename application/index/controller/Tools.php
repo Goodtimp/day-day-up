@@ -8,7 +8,7 @@
 
 
 namespace app\index\controller;
-
+use think\facade\Session;
 
 class Tools
 {
@@ -84,6 +84,35 @@ class Tools
    $res["questionTime"]=$minute*60+$second;
     return $res;
   }
+  /**
+   * 随机打乱测试详情信息
+   */
+  public static function random_testdetail($detailsarray)
+  {
+    $len = count($detailsarray);
+    for ($i = 0; $i < $len; $i++) {
+      $rand = rand(0, $len - 1);
+      $temp = $detailsarray[$i];
+      $detailsarray[$i] = $detailsarray[$rand];
+      $detailsarray[$rand] = $temp;
+    }
+    return $detailsarray;
+  }
+  /**删除所有student 的Session信息(不包括answer部分) */
+  public static function student_deleteSession()
+  {
+    Session::clear('student');
+    Session::clear('index');
+    Session::clear('test');
+  }
+  /**删除所有session信息 */
+  public static function deleteSession(){
+    Session::clear('student');
+    Session::clear('index');
+    Session::clear('test');
+    Session::clear('answer');
+    Session::clear('teacher');
 
+  }
 
 }

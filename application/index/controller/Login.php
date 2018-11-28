@@ -42,6 +42,7 @@ class Login extends Controller{
   {
     $arr=teacher::get_teacher($data['username']);
     $f=false;
+    
     foreach($arr as $row)
     {
       if($row['password']==$data["password"])
