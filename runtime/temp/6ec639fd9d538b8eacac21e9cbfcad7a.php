@@ -1,4 +1,4 @@
-<?php /*a:4:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543303222;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:5:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543330820;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543329016;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -73,19 +73,29 @@
                             </div>
                             <?php if(is_array($test_question) || $test_question instanceof \think\Collection || $test_question instanceof \think\Paginator): $i = 0; $__LIST__ = $test_question;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$question): $mod = ($i % 2 );++$i;?>
                             <div class="layui-card-body question_content">
-                                <div class=""><?php echo htmlentities($question['num']); ?> .<?php echo htmlentities($question['content']); ?></div>
-                                <div class="layui-hide type"><?php echo htmlentities($question['type']); ?></div>
-                                <div class="options">
-                                    <?php if(is_array($question['option']) || $question['option'] instanceof \think\Collection || $question['option'] instanceof \think\Paginator): $i = 0; $__LIST__ = $question['option'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$option): $mod = ($i % 2 );++$i;?>
-                                    <input type="radio" name=<?php echo htmlentities($question['num']); ?> value="男" title="男" checked=""><?php echo htmlentities($option); ?>
-                                    <br/> <?php endforeach; endif; else: echo "" ;endif; ?>
 
-                                </div>
-                                <div class="textbox">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入答案" class="layui-input">
-                                </div>
-                                <div></div>
+                                <div class="view"><div class=""><?php echo htmlentities($question['num']); ?> .<?php echo htmlentities($question['content']); ?></div>
+                                <div class="layui-hide right"><?php echo htmlentities($question['right']); ?></div>
+                                <div class="layui-hide type"><?php echo htmlentities($question['type']); ?></div>
+    <div class="options">
+        <?php if(is_array($question['answer']) || $question['answer'] instanceof \think\Collection || $question['answer'] instanceof \think\Paginator): $i = 0; $__LIST__ = $question['answer'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$option): $mod = ($i % 2 );++$i;?>
+        <input type="radio" name=<?php echo htmlentities($question['num']); ?> value="<?php echo htmlentities($option); ?>" title="男" checked="false">
+        <span class="answer"><?php echo htmlentities($option); ?></span>
+        <br/> <?php endforeach; endif; else: echo "" ;endif; ?>
+    </div>
+    <div class="textbox">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+    </div>
+    <div class="Edit ">
+        <input type="button" value="修改题目" class="Editor"/>
+     </div></div>
+                                <div class="edit layui-hide"><div class="layui-footer">
+  <!-- 底部固定区域 -->
+  @goodtimp & @someonegirl
+</div></div>
                             </div>
+
+                            
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
@@ -105,18 +115,29 @@
             layui.use('element', function () {
                 var element = layui.element;
             });
+      
             $(function () {
-                $(".question_content").each(function () {
+                $(".view").each(function () {
                     var type = $(this).children(".type").text();
+                    //根据题目类型判断显示输入框还是单选框
                     if (type.trim() == 3) {
                         $(this).children(".textbox").html("");
+                        var right = $(this).children(".right").text();
+                        var answer = $(this).children(".options").children(".answer");
+                        answer.each(function () {
+                            if ($(this).text().trim() == right.trim()) {
+                                $(this).prev().prop("checked", true);
+                            }
+                        })
+
                     }
                     else {
+                        var answer = $(this).children(".options").children(".answer").text();//获取答案，用来输入框的显示
                         $(this).children(".options").html("");
-                       
+                        $(this).children(".textbox").children("input").attr("placeholder", answer);
                     }
                 });
-
+              
             })
         </script>
 </body>

@@ -8,6 +8,8 @@
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
   </script>
   <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
+  
+
 </head>
 
 <body class="layui-layout-body">
@@ -18,10 +20,11 @@
     <div class="layui-body" style="padding-right:100px;">
 
       <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend>{$test_name}</legend>
+        <legend>{$test.name}</legend>
       </fieldset>
-
-        {include file="test/onequestion" /}
+      
+        {include file="test/viewquestion" /} 
+  
    
 
       <div style="padding: 15px;">

@@ -1,103 +1,198 @@
 <div calss="my-onequestion">
-<form class="layui-form" action="addtquestion" method="POST">
-  <div class="layui-form-item">
-    <label class="layui-form-label">题目类型</label>
-    <div class="layui-input-block my-cate">
-      <input type="radio" name="type" value="3" title="选择题" checked="">
-      <input type="radio" name="type" value="1" title="填空题">
-      <input type="radio" name="type" value="1" title="问答题">
-      <input type="radio" name="type" value="2" title="判断题">
+  <form class="layui-form" action="adddetail" method="POST">
+    <div class="layui-form-item">
+      <label class="layui-form-label">题目类型</label>
+      <div class="layui-input-block my-cate">
+        <input type="radio" name="type" value="3" title="选择题" checked="">
+        <input type="radio" name="type" value="1" title="填空题">
+        <input type="radio" name="type" value="1" title="问答题">
+        <input type="radio" name="type" value="2" title="判断题">
+      </div>
     </div>
-  </div>
+  </form>
+
+
+  <!-- 填空题与问答题 -->
+
   <div class="my-completion">
-    <div class="layui-form-item layui-form-text">
-      <label class="layui-form-label">题目描述</label>
-      <div class="layui-input-block">
-        <textarea placeholder="请输入题目内容"  lay-verify="content"  class="layui-textarea"></textarea>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">正确答案</label>
-      <div class="layui-input-block">
-        <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="请输入正确答案" class="layui-input">
-      </div>
-    </div>
-  </div>
-  <div class="my-choice">
-    <div class="layui-form-item layui-form-text">
-      <label class="layui-form-label">题目描述</label>
-      <div class="layui-input-block">
-        <textarea placeholder="请输入题目内容，默认A选项为正确选项，学生端获取到题目为乱序。" lay-verify="content"  name="question_content" class="layui-textarea"></textarea>
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label">正确选项</label>
-      <div class="layui-input-block">
-        <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="请在该选项输入正确答案" class="layui-input">
-      </div>
-    </div>
-    <div class="my-option">
-      <div class="layui-form-item">
-        <label class="layui-form-label">其他选项</label>
+    <form class="layui-form" action="adddetail" method="POST">
+      <input name="test_id" value={$test.Id} style="display: none;">
+
+      <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
-          <input type="text" name="false_answer" lay-verify="choise" autocomplete="off" placeholder="请输入错误选项" class="layui-input">
+          <textarea placeholder="请输入题目内容" lay-verify="content" name="content" class="layui-textarea"></textarea>
         </div>
       </div>
-    </div>
-    <div class="layui-form-item">
-      <div class="layui-input-block">
-        <a class="layui-btn layui-btn-primary my-new-option">添加新选项</a>
-        <a class="layui-btn layui-btn-primary my-delete-option">删除最后一个选项</a>
+      <div class="layui-form-item">
+        <label class="layui-form-label">正确答案</label>
+        <div class="layui-input-block">
+          <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="请输入正确答案" class="layui-input">
+        </div>
       </div>
-    </div>
+
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">做答时间</label>
+          <div class="layui-input-inline">
+            <input type="text" class="layui-input" name="time" id="question_time1" placeholder="">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">该题分值</label>
+          <div class="layui-input-inline">
+            <input type="text" name="score" lay-verify="score" name="question_score" placeholder="请输入该题目分值"
+              autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" name="type" value="1" lay-submit="" lay-filter="demo1">添加题目</button>
+        </div>
+      </div>
+    </form>
   </div>
+
+  <!-- 选择题 -->
+
+  <div class="my-choice">
+    <form class="layui-form" action="adddetail" method="POST">
+      <input name="test_id" value={$test.Id} style="display: none;">
+
+      <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">题目描述</label>
+        <div class="layui-input-block">
+          <textarea placeholder="请输入题目内容，默认A选项为正确选项，学生端获取到题目为乱序。" lay-verify="content" name="content" class="layui-textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">做答时间</label>
+          <div class="layui-input-inline">
+            <input type="text" class="layui-input" name="time" id="question_time2" placeholder="">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">该题分值</label>
+          <div class="layui-input-inline">
+            <input type="text" name="score" lay-verify="score" name="question_score" placeholder="请输入该题目分值"
+              autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      </div>
+
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">正确选项</label>
+        <div class="layui-input-block">
+          <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="请在该选项输入正确答案" class="layui-input">
+        </div>
+      </div>
+      <div class="my-option">
+        <div class="layui-form-item">
+          <label class="layui-form-label">其他选项</label>
+          <div class="layui-input-block">
+            <input type="text" name="false_answer_1" lay-verify="choise" autocomplete="off" placeholder="请输入错误选项" class="layui-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <input name="false_number" value="1" style="display: none;" id="new-option">
+          <a class="layui-btn layui-btn-primary my-new-option" name="false_number" value="1">添加新选项</a>
+          <a class="layui-btn layui-btn-primary my-delete-option">删除最后一个选项</a>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit="" name="type" value="3" lay-filter="demo1">添加题目</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- 判断题 -->
+
   <div class="my-checking">
-    <div class="layui-form-item layui-form-text">
-      <label class="layui-form-label">题目描述</label>
-      <div class="layui-input-block">
-        <textarea placeholder="请输入题目内容" lay-verify="content"  class="layui-textarea"></textarea>
-      </div>
-    </div>
-    <div class="layui-form-item" pane="">
-      <label class="layui-form-label">答案</label>
-      <div class="layui-input-block">
-        <input type="radio" name="true_answer" value="1" title="True" checked="">
-        <input type="radio" name="false_answer" value="0" title="False">
+    <form class="layui-form" action="adddetail" method="POST">
+      <input name="test_id" value={$test.Id} style="display: none;">
 
+      <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">题目描述</label>
+        <div class="layui-input-block">
+          <textarea placeholder="请输入题目内容" lay-verify="content" name="content" class="layui-textarea"></textarea>
+        </div>
       </div>
-    </div>
+      <div class="layui-form-item" pane="">
+        <label class="layui-form-label">答案</label>
+        <div class="layui-input-block">
+          <input type="radio" name="true_answer" value="1" title="True" checked="">
+          <input type="radio" name="false_answer" value="0" title="False">
+
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">做答时间</label>
+          <div class="layui-input-inline">
+            <input type="text" class="layui-input" name="time" id="question_time3" placeholder="">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">该题分值</label>
+          <div class="layui-input-inline">
+            <input type="text" lay-verify="score" name="question_score" placeholder="请输入该题目分值" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <div class="layui-input-block">
+          <button class="layui-btn" lay-submit="" name="type" value="2" lay-filter="demo1">添加题目</button>
+        </div>
+      </div>
+    </form>
   </div>
 
-  <div class="layui-form-item">
-    <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">添加题目</button>
-    </div>
-  </div>
+
   <script src="/day-day-up/vendor/layui/src/layui.js"></script>
- 
+
   <script>
-    
     $(function () {
+      var num_falsechoise = 1
       $(".my-new-option").click(function () {
         var html = $(".my-option").first().html();
         $(this).parents(".layui-form-item").before(html);
+
+        num_falsechoise = num_falsechoise + 1;
+        $("#new-option").attr("value", num_falsechoise);
+        $(this).parents(".layui-form-item").prev().find("input").attr("name", "false_answer_" + num_falsechoise
+          .toString()); //标记每个选项 保证post不冲突
+
       })
       $(".my-delete-option").click(function () {
-        var choise=$(this).parents(".layui-form-item").prev();
-        if(!choise.hasClass("my-option"))
-        {
+        var choise = $(this).parents(".layui-form-item").prev();
+        if (!choise.hasClass("my-option")) {
           choise.remove();
+          num_falsechoise = num_falsechoise - 1;
+          $("#new-option").attr("value", num_falsechoise);
         }
-       
+
       })
     })
     window.onload = function () {
-      choise();
+      choisetype();
       $(".my-cate .layui-unselect").click(function () {
-        choise();
+        choisetype();
       })
 
-      function choise() {
+      function choisetype() {
         $(".my-cate .layui-unselect").each(function () {
           if ($(this).hasClass("layui-form-radioed")) {
             var type = $(this).prev().val();
@@ -119,59 +214,64 @@
       }
     }
   </script>
- <script>
+  <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
       var form = layui.form,
         layer = layui.layer,
         layedit = layui.layedit,
         laydate = layui.laydate;
-
-      //日期
+      //时间设置
       laydate.render({
-        elem: '#date'
+        elem: '#question_time1',
+        format: "mm:ss",
+        value: "10:00",
+        max: "00:59:59",
+        min: "00:00:01",
+        type: 'time'
       });
       laydate.render({
-        elem: '#date1'
+        elem: '#question_time2',
+        format: "mm:ss",
+        value: "10:00",
+        max: "00:59:59",
+        min: "00:00:01",
+        type: 'time'
       });
-
-      //创建一个编辑器
-      var editIndex = layedit.build('LAY_demo_editor');
-
+      laydate.render({
+        elem: '#question_time3',
+        format: "mm:ss",
+        value: "10:00",
+        max: "00:59:59",
+        min: "00:00:01",
+        type: 'time'
+      });
       //自定义验证规则
       form.verify({
-
         content: function (value) {
-          layedit.sync(editIndex);
+          if (value.length < 1) {
+            return '请输入题目描述';
+          } else if (value.length > 600) {
+            return '学生读题很麻烦，所以题目描述最多600字';
+          }
+        },
+
+        score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
+        choise: function (value) {
+          if (value.length < 1) {
+            return '请输入答案信息描述';
+          } else if (value.length > 600) {
+            return '学生读题很麻烦，答案最多600字';
+          }
+        },
+
+        required: function (value) {
+          if (value == null) {
+            return '请确定课程时间';
+          }
         }
       });
 
-      //监听指定开关
-      form.on('switch(switchTest)', function (data) {
-        layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
-          offset: '6px'
-        });
-        layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-      });
 
-      //监听提交
-      // form.on('submit(demo1)', function (data) {
-      //   layer.alert(JSON.stringify(data.field), {
-      //     title: '最终的提交信息'
-      //   })
-      //   return false;
-      // });
-
-      // //表单初始赋值
-      // form.val('example', {
-      //   "username": "贤心" // "name": "value"
-      //   , "password": "123456"
-      //   , "interest": 1
-      //   , "like[write]": true //复选框选中状态
-      //   , "close": true //开关状态
-      //   , "sex": "女"
-      //   , "desc": "我爱 layui"
-      // })
     });
   </script>
-</form>
 </div>

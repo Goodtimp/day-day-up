@@ -33,7 +33,7 @@
     * @param array que{Id,categoryId,content,answer,analysis,type}
     */
     public static function add_question($que){
-      return db("question")->insert($que);
+      return db("question")->insertGetId($que);
     }
     /**
    * 根据问题id获取问题
