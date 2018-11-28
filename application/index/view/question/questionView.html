@@ -1,0 +1,15 @@
+<div class="">{$question.num} .{$question.content}</div>
+                                <div class="layui-hide right">{$question.right}</div>
+                                <div class="layui-hide type">{$question.type}</div>
+    <div class="options">
+        {volist name="question.answer" id="option" empty=""}
+        <input type="radio" name={$question.num} value="{$option}" title="男" checked="false">
+        <span class="answer">{$option}</span>
+        <br/> {/volist}
+    </div>
+    <div class="textbox">
+        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+    </div>
+    <div class="Edit ">
+        <input type="button" value="修改题目" class="Editor"/>
+     </div>

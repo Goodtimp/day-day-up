@@ -32,19 +32,12 @@
                             </div>
                             {volist name="test_question" id="question" empty=""}
                             <div class="layui-card-body question_content">
-                                <div class="">{$question.num} .{$question.content}</div>
-                                <div class="layui-hide type">{$question.type}</div>
-                                <div class="options">
-                                    {volist name="question.option" id="option" empty=""}
-                                    <input type="radio" name={$question.num} value="男" title="男" checked="">{$option}
-                                    <br/> {/volist}
 
-                                </div>
-                                <div class="textbox">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入答案" class="layui-input">
-                                </div>
-                                <div></div>
+                                <div class="view">{include file="question/questionView" /}</div>
+                                <div class="edit layui-hide">{include file="father/footer" /}</div>
                             </div>
+
+                            
                             {/volist}
                         </div>
                     </div>
@@ -61,18 +54,35 @@
             layui.use('element', function () {
                 var element = layui.element;
             });
+      
             $(function () {
-                $(".question_content").each(function () {
+                $(".view").each(function () {
                     var type = $(this).children(".type").text();
+                    //根据题目类型判断显示输入框还是单选框
                     if (type.trim() == 3) {
                         $(this).children(".textbox").html("");
+                        var right = $(this).children(".right").text();
+                        var answer = $(this).children(".options").children(".answer");
+                        answer.each(function () {
+                            if ($(this).text().trim() == right.trim()) {
+                                $(this).prev().prop("checked", true);
+                            }
+                        })
+
                     }
                     else {
+                        var answer = $(this).children(".options").children(".answer").text();//获取答案，用来输入框的显示
                         $(this).children(".options").html("");
-                       
+                        $(this).children(".textbox").children("input").attr("placeholder", answer);
                     }
                 });
-
+                
+                //$(".Editor").each(function(){
+                  // $(this).click(function(){
+                      // var div='{include file="father/footer" /}';
+                      // $(this).parents(".question_content").html("").append();
+                 //  })
+                //})
             })
         </script>
 </body>
