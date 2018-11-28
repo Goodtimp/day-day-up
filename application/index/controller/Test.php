@@ -25,7 +25,7 @@ class Test extends Father
     $test_id = input('get.id');
     if($test_id)
     {
-      $test = testModel::get_test(2);//根据id获取课程测试
+      $test = testModel::get_test($test_id);//根据id获取课程测试
 
       $test_question=testquestionModel::get_testquestions($test_id);     
       //dump($test);

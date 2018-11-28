@@ -1,4 +1,4 @@
-<?php /*a:6:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543319237;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543318202;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543377648;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:6:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543319237;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543411124;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543377648;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -70,7 +70,7 @@
     <?php if(is_array($testdetail) || $testdetail instanceof \think\Collection || $testdetail instanceof \think\Paginator): $i = 0; $__LIST__ = $testdetail;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($i % 2 );++$i;?>
         <div class="layui-colla-item">
             <h2 class="layui-colla-title">
-              <span style="width:80%;overflow: hidden;"><?php echo htmlentities($detail['briefcontent']); ?></span>
+              <span style="width:80%;overflow: hidden;"><?php echo substr($detail["content"],0,60) ?></span>
               <span style="float:right;color:red;"><?php echo htmlentities($detail['questionScore']); ?>分</span>
             </h2>
             <div class="layui-colla-content">

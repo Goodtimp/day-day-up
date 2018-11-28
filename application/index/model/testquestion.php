@@ -23,7 +23,9 @@
       
       foreach($res_test as $row)
       {
-        $res_question=db("question")->where("Id",$row["questionId"])->select()[0];
+        $res_question=db("question")->where("Id",$row["questionId"])->select();
+        if(!$res_question) continue; //判断是否存在quesition
+        $res_question=$res_question[0];
         $temp_arr['Id']=$row['Id'];
         $temp_arr['testId']=$row['testId'];
         $temp_arr['questionId']=$row['questionId'];
@@ -38,7 +40,7 @@
         shuffle($temp_arr["answer"]);//用来打乱选择题的选项
         $temp_arr['type']=$res_question['type'];//约定： 1 为填空 ；2为判断；3为选择
         $temp_arr['analysis']=$res_question['analysis'];//题目解析 
-        $temp_arr["briefcontent"]=substr($temp_arr['content'],0,60)."...";
+        //$temp_arr["briefcontent"]=substr($temp_arr['content'],0,60)."...";//前台修改 弃用
         $arr[] = $temp_arr; 
       }
       return $arr;
@@ -78,5 +80,48 @@
         return array($arr,$cnt);
       }
       return array($res,$cnt);
+    }
+
+
+
+
+
+    
+   /**
+    * 根据答题id，得到答题问题详情
+    * @param int $aid
+    * @return array {Id,answerId,questionId,thisScore,answerContent,content,answer,analysis,type}
+    */
+    public static function get_answerquestions($aid=0,$tid){
+      $res_test=db("testdetail")->where("testId",$tid)->select();
+      static $arr=array();
+      $temp_arr=array();
+      
+      foreach($res_test as $row)
+      {
+        $res_question=db("question")->where("Id",$row["questionId"])->select();
+        if(!$res_question) continue; //判断是否存在quesition
+        $res_question=$res_question[0];
+        $temp_arr['categoryId']=$res_question['categoryId'];
+        $temp_arr['content']=$res_question['content'];//约定：选择题选项用 
+        $temp_arr['answer']=explode("OUT-", $res_question['answer']);//OUT-来表示选择题选项内容 例如:int为几个字节？OUT-: 1 OUT-: 2 OUT-: 4 正确答案 选择题为：答案 填空题：答案 判断题:T F
+        
+        $temp_arr['type']=$res_question['type'];//约定： 1 为填空 ；2为判断；3为选择
+        $temp_arr['analysis']=$res_question['analysis'];//题目解析 
+        
+        $res_answer=db("answerdetail")->where("questionId",$row["questionId"])->where("answerId",$aid)->select();
+        if($res_answer)
+        {
+          $res_answer=$res_answer[0];
+          $temp_arr["thisScore"]=$res_answer["thisScore"];
+          $temp_arr["answerContent"]=$res_answer["answerContent"];
+        }
+        else {
+          $temp_arr["thisScore"]="";
+          $temp_arr["answerContent"]="";
+        }        
+        $arr[] = $temp_arr; 
+      }
+      return $arr;
     }
  }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -7,66 +8,82 @@
 
   <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
   <style>
-    .test-tr td,.test-th {
-        height: 50px;
-        width: 170px;
+    .test-tr td,
+    .test-th {
+      height: 50px;
+      width: 170px;
     }
 
 
     .test-tr:nth-child(2n) {
-        background-color: #e8ece8;
+      background-color: #e8ece8;
     }
 
     .test-tr:hover {
-        background-color: #c2d2d1;
+      background-color: #c2d2d1;
     }
 
     .checked {
-        font-size: 30px;
-        color: #042c6b;
+      font-size: 30px;
+      color: #042c6b;
     }
   </style>
 </head>
+
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-  {include file="father/header" /}
-  {include file="father/left" /}
-  
-  <div class="layui-body">
-    <!-- 内容主体区域 -->
-    <div style="padding: 15px;width: 800px;">
-      <table class="test-table">
-        <tr class="test-th">
+  <div class="layui-layout layui-layout-admin">
+    {include file="father/header" /}
+    {include file="father/left" /}
+
+    <div class="layui-body" style="padding:10px;">
+      <!-- 内容主体区域 -->
+      <table class="layui-table">
+        <colgroup>
+          <col width="150">
+          <col width="200">
+          <col width="200">
+          <col width="100">
+          <col>
+        </colgroup>
+        <thead>
+          <tr>
             <th>测试名称</th>
             <th>开始时间</th>
             <th>结束时间</th>
             <th>完成状态</th>
-        </tr>
-      {volist name="test" id="test" empty=""}
-        <tr class="test-tr">
-            <td>{$test.name}</td>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {volist name="tests" id="test" empty=""}
+          <tr>
+            <td>
+              <?php
+              echo substr($test["name"],0,9)
+              ?>
+              <!-- 防止字数太多 -->
+              </td>
             <td>{$test.startTime}</a></td>
             <td>{$test.endTime}</a></td>
             <td>{$test.status}</td>
             <td><a href="{:url('Test/index')}?id={$test.Id}">查看测试</a></td>
-        </tr>
-       
-      {/volist}
+          </tr>
+
+          {/volist}
+        </tbody>
       </table>
     </div>
-  
+
+    {include file="father/footer" /}
   </div>
-  {include file="father/footer" /}
- 
- 
-</div>
-<script src="/day-day-up/vendor/layui/src/layui.js"></script>
-<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-</script>
+  <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+  <script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+      var element = layui.element;
+
+    });
+  </script>
 </body>
+
 </html>

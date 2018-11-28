@@ -103,7 +103,7 @@ class Tools
   {
     Session::clear('student');
     Session::clear('index');
-    Session::clear('test');
+    Session::clear('Id','test');
   }
   /**删除所有session信息 */
   public static function deleteSession(){
@@ -115,4 +115,17 @@ class Tools
 
   }
 
+  /**
+   * 判断考试时间
+   */
+  public static function judge_test_time($start_time,$end_time)
+  {
+    $now_time = time();
+    if ($now_time < $start_time) {
+      return -1;
+    } else if ($now_time > $end_time) {
+      return 1;
+    }
+    return 0;
+  }
 }

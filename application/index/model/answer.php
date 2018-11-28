@@ -2,7 +2,7 @@
 
 /**
  * User:goodtimp
- * LastDate:2018/11/21
+ * LastDate:2018/11/28
  */
 
 namespace app\index\model;
@@ -17,7 +17,9 @@ class answer extends Model
    */
   public static function get_answer_by_id($aid)
   {
-    return  db("answer")->where("Id",$aid)->select()[0];
+    $res=db("answer")->where("Id",$aid)->select();
+    if($res) return $res[0];
+    return  $res;
   }
   /**
    * 根据学生sno,得到所有的答题
@@ -117,13 +119,14 @@ class answer extends Model
     ]);
   }
   /**
+   * 由触发器取代
    *  根据答题id，加分
    * @param array answer {Id,studentId,score,testId}
    */
   public static function update_score_answere($aid,$addscore)
   {
     $score=db("answer")->where("Id",$aid)->select()[0]["score"];
-
+  
     return db("answer")->where("Id",$aid)->update([
       'score'=>($score+$addscore),
     ]);
