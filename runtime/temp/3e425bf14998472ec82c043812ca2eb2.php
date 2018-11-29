@@ -1,3 +1,4 @@
+<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543321280;}*/ ?>
 <html>
 
 <head>
@@ -13,7 +14,7 @@
 <body>
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-        <legend>{$testName}</legend>
+        <legend><?php echo htmlentities($testName); ?></legend>
     </fieldset>
     <div class="layui-anim layui-anim-up login-main" id="form-main" style="padding-right:10px;">
         <form class="layui-form" action="" method="POST" lay-filter="example">

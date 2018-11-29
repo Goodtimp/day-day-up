@@ -19,20 +19,19 @@ class Course extends Father
   public function index()
   {
     $cou_id = input('get.id');
-    $this->assign([
-      'test' => '',
-    ]);
+ 
     if($cou_id)
     {
    //参数
       $test = testmodel::get_tests($cou_id);//根据id获取课程测试
       $this->assign([
-        'test' => $test,
+        'tests' => $test,
       ]);
       
     }
     return view("index");
   }
+
   public function add(){
     if(request()->post())
     {

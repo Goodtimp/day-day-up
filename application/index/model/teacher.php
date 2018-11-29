@@ -36,7 +36,7 @@
         // }
         return $res;
       }
-      else return null;
+      else return $res;
     }
     /**
     * 添加教师

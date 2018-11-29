@@ -1,0 +1,86 @@
+<form class="layui-form" role="form" action="" method="post">
+    <div class="layui-form-item layui-form-text">
+        <h3 style="text-indent: 2em;">
+            {$Num} : {$content}
+        </h3>
+    </div>
+
+    <div class="my-choice-answer">
+        <div class="layui-form-item">
+            <div class="layui-input-block my-cate" style="margin-left:1em">
+                {volist name="answers" id="answer" empty=""}
+                <input type="radio" value={$answer} title="{$answer}" checked="">
+                <br />
+                {/volist}
+            </div>
+        </div>
+    </div>
+    <div class="my-checking-answer">
+        <div class="layui-form-item">
+            <div class="layui-input-block" >
+                <input type="radio" value="T" title="正确" checked="">
+                <br>
+                <input type="radio" value="F" title="错误">
+
+            </div>
+        </div>
+    </div>
+    <div class="my-completion-answer">
+        <div class="layui-form-item layui-form-text">
+            <div class="layui-input-block" style="margin-left:1em">
+                <textarea placeholder="请输入答案" ; class="layui-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <div class="ly-input" style="margin-left:2em">
+            <button class="layui-btn layui-btn-danger ly-submit" id="ly-submit" lay-submit lay-filter="formDemo">提交</button>
+        </div>
+    </div>
+</form>
+
+
+<script src="/day-day-up/vendor/layui/src/layui.js"></script>
+<script>
+    $(function () {
+        var type = "<?php echo $type  ?>"
+
+        $(".my-completion-answer").hide();
+        $(".my-checking-answer").hide();
+        $(".my-choice-answer").hide();
+        if (type == 2) {
+            $(".my-checking-answer").show().find("input").attr("name", "answerContent");
+        } else if (type == 1) {
+            $(".my-completion-answer").show().find("textarea").attr("lay-verify", "answerContent").attr("name",
+                "answerContent");
+
+        } else {
+            $(".my-choice-answer").show().find("input").attr("name", "answerContent");
+
+        }
+
+    })
+</script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+
+        //自定义验证规则
+        form.verify({
+            answerContent: function (value) {
+                if (value.length < 1) {
+                    return '请输入答案';
+                } else if (value.length > 600) {
+                    return '所以题目做答请控制在600字';
+                }
+            },
+
+        });
+
+
+    });
+</script>

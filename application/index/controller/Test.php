@@ -31,7 +31,7 @@ class Test extends Father
       //dump($test);
       $this->assign([
         'test' => $test,
-        'test_question'=>$test_question
+        'test_question' => $test_question
       ]);
     }
     return view("index");
@@ -46,31 +46,33 @@ class Test extends Father
       $test_id = testModel::add_test($data);
 
       if ($test_id > 0) {
-        $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id); //需修改
+        $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id); //需修改
       } else {
         $this->error("未知因素,添加失败");
       }
     }
     return view();
   }
-  
-  public function adddetail(){
+
+  public function adddetail()
+  {
     if (request()->post()) {
       $data = input("post.");
       $question_data = Tools::testdetail_modelquestion($data);
       //dump($question_data);
-      $data["question_id"]=questionModel::add_question($question_data);
+      $data["question_id"] = questionModel::add_question($question_data);
       //$data["question_id"] = 1;//测试数据，保证程序正常运行
       if ($data["question_id"] != 0) {
         $test_detail = Tools::testdetail_modeltestdetail($data);
         //dump($test_detail);
-        testdetail::add_testdetail($test_detail);
+        testdetailModel::add_testdetail($test_detail);
       }
-      $test_id=$data["test_id"];
-      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id);
+      $test_id = $data["test_id"];
+      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
     }
   }
-  public function editordetail(){
+  public function editordetail()
+  {
     if (request()->post()) {
       $data = input("post.");
       $question_data = Tools::testdetail_modelquestion($data);
@@ -79,18 +81,19 @@ class Test extends Father
       if ($data["question_id"] != 0) {
         $test_detail = Tools::testdetail_modeltestdetail($data);
         //dump($test_detail);
-        //testdetail::updata_testdetails($data["test_detail_id"],$test_detail);//更新数据库，需要测试详情id，更新数据
+        //testdetailModel::updata_testdetails($data["test_detail_id"],$test_detail);//更新数据库，需要测试详情id，更新数据
       }
-      $test_id=$data["test_id"];
-      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id);
+      $test_id = $data["test_id"];
+      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
     }
   }
-  public function deletedetail(){
+  public function deletedetail()
+  {
     if (request()->post()) {
       $data = input("post.");
-      $test_detail = testdetail::delete_testdetail($data["test_detail_id"]);
-      $test_id=$data["test_id"];
-      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id='.$test_id);
+      $test_detail = testdetailModel::delete_testdetail($data["test_detail_id"]);
+      $test_id = $data["test_id"];
+      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
     }
   }
   /**
@@ -101,10 +104,10 @@ class Test extends Father
     $test_id = input("get.id");
     // dump($test_id);
     $test = testModel::get_test($test_id);//获取测试信息
-   
+
     if ($test) {
       $test_detail = testquestionModel::get_testquestions($test_id);//获取测试详情信息
-    
+
       $this->assign([
         'test' => $test,
       ]);
