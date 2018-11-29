@@ -33,6 +33,8 @@
         $temp_arr['questionTime']=$row['questionTime'];
         //题目详情部分
         $temp_arr["num"]=$num++;
+        $temp_arr["Score"]=$row["questionScore"];
+        $temp_arr["Time"]=$row["questionTime"];
         $temp_arr['categoryId']=$res_question['categoryId'];
         $temp_arr['content']=$res_question['content'];//约定：选择题选项用 OUT-来表示选项内容 例如:int为几个字节？OUT-: 1 OUT-: 2 OUT-: 4
         $temp_arr['answer']=explode("OUT-", $res_question['answer']);//正确答案 选择题为：答案 填空题：答案 判断题:T F
@@ -123,5 +125,13 @@
         $arr[] = $temp_arr; 
       }
       return $arr;
+    
+    
+    }
+    public static function update_testdetail($testdetail_id,$testdetail){
+      return db("testdetail")->where("Id",$testdetail["Id"])->update([
+        'questionScore'=>$testdetail["questionScore"],
+        'questionTime'=>$testdetail["questionTime"]
+      ]);
     }
  }

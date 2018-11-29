@@ -42,9 +42,14 @@
    */
   public static function get_Question($queid = 0)
   {
-
     //$res = db("question")->where("Id", $queid)->find(1);
     $res = db("question")-find();
     return $res;
+  }
+  public static function update_question($question_id,$question){
+    return db("question")->where("Id",$question_id)->update([
+      'content'=>$question["content"],
+      'answer'=>$question["answer"]
+    ]);
   }
  }

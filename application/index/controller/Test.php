@@ -23,10 +23,11 @@ class Test extends Father
   public function index()
   {
     $test_id = input('get.id');
-    if ($test_id) {
+    if($test_id)
+    {
       $test = testModel::get_test($test_id);//根据id获取课程测试
 
-      $test_question = testquestionModel::get_testquestions($test_id);     
+      $test_question=testquestionModel::get_testquestions($test_id);
       //dump($test);
       $this->assign([
         'test' => $test,
@@ -119,6 +120,19 @@ class Test extends Father
     }
 
     return view();
+  }
+  public function TestQuestionChange(){
+    if (request()->post()) {
+      $data = input("post.");
+      $question_data = Tools::testdetail_modelquestion($data);
+      questionModel::update_question($data["question_id"],$question_data);//更新问题
+        $test_detail = Tools::testdetail_modeltestdetail($data);
+        testdetailModel::updata_testdetails($data["test_id"],$data["question_id"],$test_detail);//更新测试问题详情
+      $test_id=$data["test_id"];
+      dump($test_detail);
+      $this->redirect('/day-day-up/public/index.php/index/test/index?id='.$test_id);
+    }
+    questionModel::save_Question($que_id);
   }
 
 }

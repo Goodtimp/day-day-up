@@ -81,7 +81,7 @@ class Tools
     $second=intval($data["time"][3].$data["time"][4]);
   
    // $res["questionTime"]=mktime(8,$minute,$second,1,1,1970);//1970-1-1 08：00为初始日期 果断弃用
-   $res["questionTime"]=$minute*60+$second;
+   $res["questionTime"]=($minute*60+$second);
     return $res;
   }
   /**

@@ -14,6 +14,7 @@ use think\facade\Session;
 use think\helper\Time;
 use app\index\model\test as testmodel;//记录一下错误 如果修改称courses与控制器内Course冲突
 use app\index\model\testquestion as testquestionModel;
+use app\index\model\question as questionModel;
 class Question extends Father
 {
   public function questionEditor()
@@ -38,4 +39,5 @@ class Question extends Father
 
     return view("questionEditor");
   }
+
 }
