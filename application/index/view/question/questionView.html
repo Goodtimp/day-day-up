@@ -1,9 +1,9 @@
-<div class="">{$question.num} .{$question.content}</div>
-<div class="layui-hide right">{$question.right}</div>
-<div class="layui-hide type">{$question.type}</div>
+<div class="">{$detail.num} .{$detail.content}</div>
+<div class="layui-hide right">{$detail.right}</div>
+<div class="layui-hide type">{$detail.type}</div>
 <div class="options">
-    {volist name="question.answer" id="option" empty=""}
-    <input type="radio" name={$question.num} value="{$option}" title="男" checked="false">
+    {volist name="detail.answer" id="option" empty=""}
+    <input type="radio" name={$detail.num} value="{$option}" title="男" checked="false">
     <span class="answer">{$option}</span>
     <br/> {/volist}
 </div>
