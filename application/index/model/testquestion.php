@@ -33,6 +33,8 @@
         $temp_arr['questionTime']=$row['questionTime'];
         //题目详情部分
         $temp_arr["num"]=$num++;
+       
+
         $temp_arr["Score"]=$row["questionScore"];
         $temp_arr["Time"]=$row["questionTime"];
         $temp_arr['categoryId']=$res_question['categoryId'];

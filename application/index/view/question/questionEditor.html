@@ -4,18 +4,18 @@
     <form class="layui-form" action="../Test/TestQuestionChange" method="POST">
         <input name="test_id" value={$test.Id} style="display: none;">
         <input name="type" value="" style="display:none" class="type">
-        <input name="question_id" value={$question.num} style="display: none;">
-        <div class="">第{$question.num}题 </div>
+        <input name="detail_id" value={$detail.num} style="display: none;">
+        <div class="">第{$detail.num}题 </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">题目描述</label>
             <div class="layui-input-block">
-                <textarea placeholder="" lay-verify="content" name="content" class="layui-textarea">{$question.content}</textarea>
+                <textarea placeholder="" lay-verify="content" name="content" class="layui-textarea">{$detail.content}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">正确答案</label>
             <div class="layui-input-block">
-                <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="" class="layui-input" value="{$question.right}">
+                <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="" class="layui-input" value="{$detail.right}">
             </div>
         </div>
 
@@ -23,13 +23,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">做答时间</label>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input" name="time" id="question_time1" placeholder="" value="{$question.Time}">
+                    <input type="text" class="layui-input" name="time" id="detail_time1" placeholder="" value="{$detail.Time}">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">该题分值</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="score" lay-verify="score" name="question_score" placeholder="" autocomplete="off" class="layui-input" value="{$question.Score}">
+                    <input type="text" name="score" lay-verify="score" name="detail_score" placeholder="" autocomplete="off" class="layui-input" value="{$detail.Score}">
                 </div>
             </div>
         </div>

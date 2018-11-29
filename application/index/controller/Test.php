@@ -129,8 +129,8 @@ class Test extends Father
         $test_detail = Tools::testdetail_modeltestdetail($data);
         testdetailModel::updata_testdetails($data["test_id"],$data["question_id"],$test_detail);//更新测试问题详情
       $test_id=$data["test_id"];
-      dump($test_detail);
-      $this->redirect('/day-day-up/public/index.php/index/test/index?id='.$test_id);
+      dump($data);
+      $this->redirect('/day-day-up/public/index.php/index/test/index?id='.$test_id&$data);
     }
     questionModel::save_Question($que_id);
   }

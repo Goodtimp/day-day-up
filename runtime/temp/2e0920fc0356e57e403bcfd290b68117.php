@@ -1,4 +1,4 @@
-<?php /*a:6:{s:82:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543385898;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:84:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543320564;s:83:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543412640;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:8:{s:82:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543385898;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:84:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543467440;s:88:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543466002;s:90:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543467055;s:83:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543452392;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -70,16 +70,76 @@
     <?php if(is_array($testdetail) || $testdetail instanceof \think\Collection || $testdetail instanceof \think\Paginator): $i = 0; $__LIST__ = $testdetail;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($i % 2 );++$i;?>
         <div class="layui-colla-item">
             <h2 class="layui-colla-title">
-              <span style="width:80%;overflow: hidden;"><?php echo htmlentities($detail['briefcontent']); ?></span>
+              <span style="width:80%;overflow: hidden;"><?php echo substr($detail["content"],0,60) ?></span>
               <span style="float:right;color:red;"><?php echo htmlentities($detail['questionScore']); ?>分</span>
             </h2>
             <div class="layui-colla-content">
-              <h2>题目内容:<?php echo htmlentities($detail['content']); ?></h2>
-              <?php if(is_array($detail['answer']) || $detail['answer'] instanceof \think\Collection || $detail['answer'] instanceof \think\Paginator): $i = 0; $__LIST__ = $detail['answer'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$answer): $mod = ($i % 2 );++$i;?>
-              <p>
-                 <?php echo htmlentities($answer); ?>
-              </p>
-              <?php endforeach; endif; else: echo "" ;endif; ?>
+              <div class="layui-card-body question_content">
+
+                  <div class="view">
+                      <div class=""><?php echo htmlentities($detail['num']); ?> .<?php echo htmlentities($detail['content']); ?></div>
+<div class="layui-hide right"><?php echo htmlentities($detail['right']); ?></div>
+<div class="layui-hide type"><?php echo htmlentities($detail['type']); ?></div>
+<div class="options">
+    <?php if(is_array($detail['answer']) || $detail['answer'] instanceof \think\Collection || $detail['answer'] instanceof \think\Paginator): $i = 0; $__LIST__ = $detail['answer'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$option): $mod = ($i % 2 );++$i;?>
+    <input type="radio" name=<?php echo htmlentities($detail['num']); ?> value="<?php echo htmlentities($option); ?>" title="男" checked="false">
+    <span class="answer"><?php echo htmlentities($option); ?></span>
+    <br/> <?php endforeach; endif; else: echo "" ;endif; ?>
+</div>
+<div class="textbox">
+    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+</div>
+
+<div class="">
+        <input type="button" value="修改题目" class="Motify" />
+    </div>
+                  </div>
+                  <div class="edit layui-hide">
+                         <!-- 填空题与问答题 -->
+
+<div class="my-completion">
+    <form class="layui-form" action="../Test/TestQuestionChange" method="POST">
+        <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
+        <input name="type" value="" style="display:none" class="type">
+        <input name="detail_id" value=<?php echo htmlentities($detail['num']); ?> style="display: none;">
+        <div class="">第<?php echo htmlentities($detail['num']); ?>题 </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目描述</label>
+            <div class="layui-input-block">
+                <textarea placeholder="" lay-verify="content" name="content" class="layui-textarea"><?php echo htmlentities($detail['content']); ?></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-block">
+                <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="" class="layui-input" value="<?php echo htmlentities($detail['right']); ?>">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">做答时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="time" id="detail_time1" placeholder="" value="<?php echo htmlentities($detail['Time']); ?>">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">该题分值</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="score" lay-verify="score" name="detail_score" placeholder="" autocomplete="off" class="layui-input" value="<?php echo htmlentities($detail['Score']); ?>">
+                </div>
+            </div>
+        </div>
+        
+        <div class="">
+                <input type="submit" value="保存" class="Save" />
+            </div>
+    </form>
+    <div></div>
+</div>
+
+                  </div>
+              </div>
             </div>
           </div>
     <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -238,7 +298,7 @@
         <div class="layui-inline">
           <label class="layui-form-label">该题分值</label>
           <div class="layui-input-inline">
-            <input type="text" lay-verify="score" name="question_score" placeholder="请输入该题目分值" autocomplete="off" class="layui-input">
+            <input type="text" name="score" lay-verify="score" name="question_score" placeholder="请输入该题目分值" autocomplete="off" class="layui-input">
           </div>
         </div>
       </div>
@@ -377,13 +437,111 @@
   layui.use(['element', 'layer'], function () {
     var element = layui.element;
     var layer = layui.layer;
-
-    // //监听折叠
-    // element.on('collapse(test)', function (data) {
-    //   layer.msg('展开状态：' + data.show);
-    // });
   });
-</script> 
+</script>
+  <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+  <script src="/day-day-up/public/static/js/jquery-1.11.1.js"></script>
+  <script>
+      $(function () {
+          $(".Motify").each(function () {
+              $(this).click(function () {
+                  $(this).parents(".question_content").children(".view").addClass("layui-hide");
+                  $(this).parents(".question_content").children(".edit").removeClass("layui-hide");
+                  alert($(this).parents(".question_content").children(".Save").val());
+              })
+          });
+          $(".Save").each(function(){
+              $(this).click(function(){
+                  $(this).parents(".question_content").children(".view").removeClass("layui-hide");
+                  $(this).parents(".question_content").children(".edit").addClass("layui-hide");
+              })
+          })
+          $(".view").each(function () {
+              var type = $(this).children(".type").text();
+              //根据题目类型判断显示输入框还是单选框
+              if (type.trim() == 3) {
+                  $(this).children(".textbox").html("");
+                  $(this).next().children(".type").val(type.trim());
+                  var right = $(this).children(".right").text();
+                  var answer = $(this).children(".options").children(".answer");
+                  answer.each(function () {
+                      if ($(this).text().trim() == right.trim()) {
+                          $(this).prev().prop("checked", true);
+                      }
+                  })
+
+              }
+              else {
+                  var answer = $(this).children(".options").children(".answer").text();//获取答案，用来输入框的显示
+                  $(this).children(".options").html("");
+                  $(this).children(".textbox").children("input").attr("placeholder", answer);
+                  $(this).next().children(".type").val(type.trim());
+              }
+          });
+
+
+      })
+  </script>
+   <script>
+      layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form,
+          layer = layui.layer,
+          layedit = layui.layedit,
+          laydate = layui.laydate;
+        //时间设置
+        laydate.render({
+          elem: '#question_time1',
+          format: "mm:ss",
+          value: "10:00",
+          max: "00:59:59",
+          min: "00:00:01",
+          type: 'time'
+        });
+        laydate.render({
+          elem: '#question_time2',
+          format: "mm:ss",
+          value: "10:00",
+          max: "00:59:59",
+          min: "00:00:01",
+          type: 'time'
+        });
+        laydate.render({
+          elem: '#question_time3',
+          format: "mm:ss",
+          value: "10:00",
+          max: "00:59:59",
+          min: "00:00:01",
+          type: 'time'
+        });
+        //自定义验证规则
+        form.verify({
+          content: function (value) {
+            if (value.length < 1) {
+              return '请输入题目描述';
+            } else if (value.length > 600) {
+              return '学生读题很麻烦，所以题目描述最多600字';
+            }
+          },
+  
+          score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
+          choise: function (value) {
+            if (value.length < 1) {
+              return '请输入答案信息描述';
+            } else if (value.length > 600) {
+              return '学生读题很麻烦，答案最多600字';
+            }
+          },
+  
+          required: function (value) {
+            if (value == null) {
+              return '请确定课程时间';
+            }
+          }
+        });
+  
+  
+      });
+    </script> 
       <div style="padding: 15px;">
 
       </div>

@@ -1,4 +1,4 @@
-<?php /*a:6:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543414606;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543386856;s:90:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543420093;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:6:{s:77:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543453094;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543386856;s:90:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543453996;s:80:"D:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -133,6 +133,7 @@
                 <input type="submit" value="保存" class="Save" />
             </div>
     </form>
+    <div></div>
 </div>
 
                                 </div>
