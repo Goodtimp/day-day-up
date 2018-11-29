@@ -25,17 +25,15 @@ class Studentanswer extends Controller
    */
   function initialize()
   {
-    
+    if (!Session::has('Id', 'test') || !Session::has('Id', 'student')) {
+      $this->redirect('Studentlogin/index');//判断是否登陆和test信息
+    }
    
-    
     if (Session::has("Id", 'test')) {//判断是否在规定时间
       $msg = Tools::judge_test_time(Session::get("startTime", 'test'),Session::get("endTime", 'test'));//判断考试时间
+     
       if ($msg ==1) {//时间已过
-        $data = array();
-        $data['studentId'] = Session::get('Id', 'student');//prefix参数为前缀，有无是有区别的
-        $data['testId'] = Session::get('Id', 'test');
-        $data['score'] = 0;
-        self::addsession_answer($data,false);//添加已做答信息
+        self::addsession_answer(false);//添加已做答信息
         $this->redirect('Studentfinish/index');
       }
       else if($msg==-1)//未开始
@@ -47,16 +45,8 @@ class Studentanswer extends Controller
     }
 
 
-    if (!Session::has('Id', 'test') || !Session::has('Id', 'student')) {
-      $this->redirect('Studentlogin/index');//判断是否登陆和test信息
-    }
-   
     if (!Session::has('Id', 'answer')) {//添加做答概述
-      $data = array();
-      $data['studentId'] = Session::get('Id', 'student');//prefix参数为前缀，有无是有区别的
-      $data['testId'] = Session::get('Id', 'test');
-      $data['score'] = 0;
-      self::addsession_answer($data,true);
+      self::addsession_answer(true);
     }
 
     self::initsession_testdetail();//得到未完成的题目信息
@@ -91,7 +81,7 @@ class Studentanswer extends Controller
     }
 
     if ( count($testarray)<=0) {
-      Tools::student_deleteSession();
+      // Tools::student_deleteSession_exceptanswer();
       $this->redirect('Studentfinish/index'); 
     }
   
@@ -120,7 +110,7 @@ class Studentanswer extends Controller
   {
     //$answerdetail = Session::get('answerdetail', 'index');//获取session内答题
     $data = array();
-    $data['thisScore'] = ($answer['answerContent'] == $question['answer'][0] ? $question['questionScore'] : 0);//判断做答与原答案是否相同并给予相应分数
+    $data['thisScore'] = ($answer['answerContent']== $question['right'] ? $question['questionScore'] : 0);//判断做答与原答案是否相同并给予相应分数
     $data['answerId'] = $answer_id;
     $data['answerContent'] = $answer['answerContent'];
     $data['questionId'] = $question['questionId'];
@@ -153,8 +143,12 @@ class Studentanswer extends Controller
    * @param array $data {studentId,score,testId}
    * @return 'Id', 'answer'
    */
-  function addsession_answer($data,$f)
+  function addsession_answer($f)
   {
+    $data = array();
+    $data['studentId'] = Session::get('Id', 'student');//prefix参数为前缀，有无是有区别的
+    $data['testId'] = Session::get('Id', 'test');
+    $data['score'] = 0;
     $answer = answerModel::get_answer_by_testid_stuid($data["testId"], $data["studentId"]);//获取答题信息
     if (!$answer&&$f) {
       answerModel::add_answere($data);

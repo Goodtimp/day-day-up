@@ -37,7 +37,7 @@
         $temp_arr["Time"]=$row["questionTime"];
         $temp_arr['categoryId']=$res_question['categoryId'];
         $temp_arr['content']=$res_question['content'];//约定：选择题选项用 OUT-来表示选项内容 例如:int为几个字节？OUT-: 1 OUT-: 2 OUT-: 4
-        $temp_arr['answer']=explode("OUT-", $res_question['answer']);//正确答案 选择题为：答案 填空题：答案 判断题:T F
+        $temp_arr['answer']=explode("OUT-:", $res_question['answer']);//正确答案 选择题为：答案 填空题：答案 判断题:T F
         $temp_arr["right"]=$temp_arr["answer"][0];//用来保存选择题的正确选项
         shuffle($temp_arr["answer"]);//用来打乱选择题的选项
         $temp_arr['type']=$res_question['type'];//约定： 1 为填空 ；2为判断；3为选择
@@ -106,8 +106,9 @@
         $res_question=$res_question[0];
         $temp_arr['categoryId']=$res_question['categoryId'];
         $temp_arr['content']=$res_question['content'];//约定：选择题选项用 
-        $temp_arr['answer']=explode("OUT-", $res_question['answer']);//OUT-来表示选择题选项内容 例如:int为几个字节？OUT-: 1 OUT-: 2 OUT-: 4 正确答案 选择题为：答案 填空题：答案 判断题:T F
-        
+        $temp_arr['answer']=explode("OUT-:", $res_question['answer']);//OUT-:来表示选择题选项内容 例如:int为几个字节？OUT-: 1 OUT-: 2 OUT-: 4 正确答案 选择题为：答案 填空题：答案 判断题:T F
+        $temp_arr["right"]=$temp_arr["answer"][0];//用来保存选择题的正确选项
+        shuffle($temp_arr["answer"]);//用来打乱选择题的选项
         $temp_arr['type']=$res_question['type'];//约定： 1 为填空 ；2为判断；3为选择
         $temp_arr['analysis']=$res_question['analysis'];//题目解析 
         

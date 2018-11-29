@@ -17,7 +17,7 @@ class Studentlogin extends Controller
 {
   function initialize()
   {
-    Tools::deleteSession();
+    Tools::student_deleteSession();
   }
   public function index()
   {

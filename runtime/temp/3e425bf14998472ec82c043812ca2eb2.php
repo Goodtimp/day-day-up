@@ -1,4 +1,4 @@
-<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543321280;}*/ ?>
+<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543484065;}*/ ?>
 <html>
 
 <head>
@@ -59,7 +59,7 @@
                     return '姓名最多10个字';
                 }
             },
-            sno:[/^\+?[1-9][0-9]*$/, '请输入全为数字的学号'],
+            sno:[/^\d*$/, '请输入全为数字的学号'],
         });
 
 

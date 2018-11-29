@@ -44,7 +44,7 @@ class Tools
     $answer=$data["true_answer"];//获取正确选项并加入答案描述，默认第一个选项为正确，用‘OUT-’分割
     for($i=1;$i<=intval($data["false_number"]);$i++)//判断错误选项的数量
     {
-      $answer=$answer." OUT-:".$data[("false_answer_".strval($i))];//获得错误选项并加入答案描述
+      $answer=$answer."OUT-:".$data[("false_answer_".strval($i))];//获得错误选项并加入答案描述
     }
     $res["type"]=$data["type"];
     $res["content"]=$data["content"];
@@ -98,21 +98,13 @@ class Tools
     }
     return $detailsarray;
   }
-  /**删除所有student 的Session信息(不包括answer部分) */
-  public static function student_deleteSession()
-  {
-    Session::clear('student');
-    Session::clear('index');
-    Session::clear('Id','test');
-  }
-  /**删除所有session信息 */
-  public static function deleteSession(){
+
+  /**删除所有student的session信息 */
+  public static function student_deleteSession(){
     Session::clear('student');
     Session::clear('index');
     Session::clear('test');
     Session::clear('answer');
-    Session::clear('teacher');
-
   }
 
   /**

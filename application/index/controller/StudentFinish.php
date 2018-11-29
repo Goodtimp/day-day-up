@@ -21,10 +21,10 @@ class Studentfinish extends Controller
   {
     if(!Session::has('Id', 'answer'))
     {
-      $this->error("您未参加该考试",'Studentlogin/index?id='.(Session::get('Id','test')));
+      $this->error("您未参加该考试",'/day-day-up/public/index.php/index/studentlogin/index?id='.(Session::get('Id','test')));
     }
     $id=Session::get('Id', 'answer');
-    Tools::deleteSession();
+    Tools::student_deleteSession();
     
     $answer=answerModel::get_answer_by_id($id);
     Session::set('Id', $answer['Id'], 'answer');

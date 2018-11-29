@@ -17,8 +17,8 @@
     {volist name="details" id="detail" empty=""}
         <h3>问题 ： {$detail.content}</h3>
         
-        <h4 style="color:red;"> 你的答案：<?php echo $detail["answerContent"]>0?"":$detail["answer"][0]; ?></h4>
-        <h4 style="color:red;">  <?php echo $detail["thisScore"]>0?"":$detail["answer"][0]; ?></h4>
+        <h4 style="color:red;"> 你的答案：{$detail.answerContent}</h4>
+        <h4 style="color:red;">  <?php echo $detail["thisScore"]>0?"":$detail["right"]; ?></h4>
         <p style="color:red;">{$detail.thisScore}</p>
       
     {/volist}
