@@ -1,4 +1,4 @@
-<?php /*a:6:{s:77:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543411310;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543411337;s:90:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543411331;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:6:{s:77:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543461213;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543411337;s:90:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionEditor.html";i:1543461213;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -96,48 +96,48 @@
                                        <!-- 填空题与问答题 -->
 
 <div class="my-completion">
-        <form class="layui-form" action="" method="POST">
-            <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
-            <div class="">第<?php echo htmlentities($question['num']); ?>题 </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">题目描述</label>
-                <div class="layui-input-block">
-                    <textarea placeholder="" lay-verify="content" name="content" class="layui-textarea"><?php echo htmlentities($question['content']); ?></textarea>
+    <form class="layui-form" action="../Test/TestQuestionChange" method="POST">
+        <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
+        <input name="type" value="" style="display:none" class="type">
+        <input name="question_id" value=<?php echo htmlentities($question['num']); ?> style="display: none;">
+        <div class="">第<?php echo htmlentities($question['num']); ?>题 </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">题目描述</label>
+            <div class="layui-input-block">
+                <textarea placeholder="" lay-verify="content" name="content" class="layui-textarea"><?php echo htmlentities($question['content']); ?></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">正确答案</label>
+            <div class="layui-input-block">
+                <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="" class="layui-input" value="<?php echo htmlentities($question['right']); ?>">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">做答时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="time" id="question_time1" placeholder="" value="<?php echo htmlentities($question['Time']); ?>">
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">正确答案</label>
-                <div class="layui-input-block">
-                    <input type="text" name="true_answer" lay-verify="choise" autocomplete="off" placeholder="" class="layui-input" value="<?php echo htmlentities($question['right']); ?>">
+            <div class="layui-inline">
+                <label class="layui-form-label">该题分值</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="score" lay-verify="score" name="question_score" placeholder="" autocomplete="off" class="layui-input" value="<?php echo htmlentities($question['Score']); ?>">
                 </div>
             </div>
-    
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">做答时间</label>
-                    <div class="layui-input-inline">
-                        <input type="text" class="layui-input" name="time" id="question_time1" placeholder="" value="<?php echo htmlentities($question['Time']); ?>">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">该题分值</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="score" lay-verify="score" name="question_score" placeholder="" autocomplete="off" class="layui-input" value="<?php echo htmlentities($question['Score']); ?>">
-                    </div>
-                </div>
+        </div>
+        
+        <div class="">
+                <input type="submit" value="保存" class="Save" />
             </div>
-            
-            <div class="">
-                    <input type="submit" value="保存" class="Save" />
-                </div>
-        </form>
-    </div>
+    </form>
+    <div></div>
+</div>
+
                                 </div>
-
-                               
                             </div>
-
-
                             <?php endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
@@ -176,6 +176,7 @@
                     //根据题目类型判断显示输入框还是单选框
                     if (type.trim() == 3) {
                         $(this).children(".textbox").html("");
+                        $(this).next().children(".type").val(type.trim());
                         var right = $(this).children(".right").text();
                         var answer = $(this).children(".options").children(".answer");
                         answer.each(function () {
@@ -189,12 +190,73 @@
                         var answer = $(this).children(".options").children(".answer").text();//获取答案，用来输入框的显示
                         $(this).children(".options").html("");
                         $(this).children(".textbox").children("input").attr("placeholder", answer);
+                        $(this).next().children(".type").val(type.trim());
                     }
                 });
 
 
             })
         </script>
+         <script>
+            layui.use(['form', 'layedit', 'laydate'], function () {
+              var form = layui.form,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                laydate = layui.laydate;
+              //时间设置
+              laydate.render({
+                elem: '#question_time1',
+                format: "mm:ss",
+                value: "10:00",
+                max: "00:59:59",
+                min: "00:00:01",
+                type: 'time'
+              });
+              laydate.render({
+                elem: '#question_time2',
+                format: "mm:ss",
+                value: "10:00",
+                max: "00:59:59",
+                min: "00:00:01",
+                type: 'time'
+              });
+              laydate.render({
+                elem: '#question_time3',
+                format: "mm:ss",
+                value: "10:00",
+                max: "00:59:59",
+                min: "00:00:01",
+                type: 'time'
+              });
+              //自定义验证规则
+              form.verify({
+                content: function (value) {
+                  if (value.length < 1) {
+                    return '请输入题目描述';
+                  } else if (value.length > 600) {
+                    return '学生读题很麻烦，所以题目描述最多600字';
+                  }
+                },
+        
+                score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
+                choise: function (value) {
+                  if (value.length < 1) {
+                    return '请输入答案信息描述';
+                  } else if (value.length > 600) {
+                    return '学生读题很麻烦，答案最多600字';
+                  }
+                },
+        
+                required: function (value) {
+                  if (value == null) {
+                    return '请确定课程时间';
+                  }
+                }
+              });
+        
+        
+            });
+          </script>
 </body>
 
 </html>

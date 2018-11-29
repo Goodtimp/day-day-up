@@ -26,21 +26,16 @@ class Studentanswer extends Controller
   function initialize()
   {
     
-    if (!Session::has('Id', 'test') || !Session::has('Id', 'student')) {
-      $this->redirect('Studentlogin/index');//判断是否登陆和test信息
-    }
    
-    if (!Session::has('Id', 'answer')) {//添加做答概述
-      $data = array();
-      $data['studentId'] = Session::get('Id', 'student');//prefix参数为前缀，有无是有区别的
-      $data['testId'] = Session::get('Id', 'test');
-      $data['score'] = 0;
-      self::addsession_answer($data);
-    }
     
     if (Session::has("Id", 'test')) {//判断是否在规定时间
       $msg = Tools::judge_test_time(Session::get("startTime", 'test'),Session::get("endTime", 'test'));//判断考试时间
       if ($msg ==1) {//时间已过
+        $data = array();
+        $data['studentId'] = Session::get('Id', 'student');//prefix参数为前缀，有无是有区别的
+        $data['testId'] = Session::get('Id', 'test');
+        $data['score'] = 0;
+        self::addsession_answer($data,false);//添加已做答信息
         $this->redirect('Studentfinish/index');
       }
       else if($msg==-1)//未开始
@@ -51,6 +46,18 @@ class Studentanswer extends Controller
       $this->error('考试不存在','Studentlogin/index?id='.(Session::get("Id", 'test')));
     }
 
+
+    if (!Session::has('Id', 'test') || !Session::has('Id', 'student')) {
+      $this->redirect('Studentlogin/index');//判断是否登陆和test信息
+    }
+   
+    if (!Session::has('Id', 'answer')) {//添加做答概述
+      $data = array();
+      $data['studentId'] = Session::get('Id', 'student');//prefix参数为前缀，有无是有区别的
+      $data['testId'] = Session::get('Id', 'test');
+      $data['score'] = 0;
+      self::addsession_answer($data,true);
+    }
 
     self::initsession_testdetail();//得到未完成的题目信息
   }
@@ -142,20 +149,22 @@ class Studentanswer extends Controller
   }
  
   /**
-   * 初始化，判断数据库内是否存在相应答题概略，存在则取出，不存在则创建
+   * 初始化，判断数据库内是否存在相应答题概略，存在则取出，不存在则创建,f为false则不创建
    * @param array $data {studentId,score,testId}
    * @return 'Id', 'answer'
    */
-  function addsession_answer($data)
+  function addsession_answer($data,$f)
   {
     $answer = answerModel::get_answer_by_testid_stuid($data["testId"], $data["studentId"]);//获取答题信息
-    if (!$answer) {
+    if (!$answer&&$f) {
       answerModel::add_answere($data);
       $answer = answerModel::get_answer_by_testid_stuid($data["testId"], $data["studentId"]);
     }
-    Session::set('Id', $answer['Id'], 'answer');
-    Session::set('score', $answer['score'], 'answer');
-   
+    if($answer)
+    {
+      Session::set('Id', $answer['Id'], 'answer');
+      Session::set('score', $answer['score'], 'answer');
+    }
   }
   
 

@@ -21,7 +21,7 @@ class Studentfinish extends Controller
   {
     if(!Session::has('Id', 'answer'))
     {
-      $this->redirect('Studentlogin/index');
+      $this->error("您未参加该考试",'Studentlogin/index?id='.(Session::get('Id','test')));
     }
     $id=Session::get('Id', 'answer');
     Tools::deleteSession();

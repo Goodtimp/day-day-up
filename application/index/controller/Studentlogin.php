@@ -24,7 +24,7 @@ class Studentlogin extends Controller
     $tid = input("get.id");
 
     if (!self::get_test_message($tid)) {
-      return "<h1>".'无此考试'."</h1>";
+      return "<h1>无此考试</h1>";
     }
     //post
     if (request()->isPost()) {

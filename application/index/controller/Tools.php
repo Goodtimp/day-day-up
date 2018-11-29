@@ -120,7 +120,7 @@ class Tools
    */
   public static function judge_test_time($start_time,$end_time)
   {
-    $now_time = time();
+    $now_time = Time();
     if ($now_time < $start_time) {
       return -1;
     } else if ($now_time > $end_time) {
