@@ -49,13 +49,9 @@
       {
         return 0;
       }
-      $res=db("teacher")->where("name",$tearch["name"])->select();
-      if($res)
-      {
-        return -1;
-      }
       
       return db("teacher")->insert($tearch);
+      
     }
    
     

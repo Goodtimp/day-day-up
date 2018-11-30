@@ -1,4 +1,4 @@
-<?php /*a:4:{s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\index\index.html";i:1543059745;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\index\index.html";i:1543557806;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543573705;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>

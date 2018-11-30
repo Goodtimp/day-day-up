@@ -8,7 +8,7 @@
 
 namespace app\index\controller;
 
-use app\index\model\course as courses;//记录一下错误 如果修改称courses与控制器内Course冲突
+use app\index\model\course as courseModel;//记录一下错误 如果修改称courses与控制器内Course冲突
 use think\Controller;
 use think\facade\Session;
 use think\helper\Time;
@@ -19,32 +19,57 @@ class Course extends Father
   public function index()
   {
     $cou_id = input('get.id');
- 
-    if($cou_id)
-    {
-   //参数
+
+    if ($cou_id && self::verify($cou_id)) {
       $test = testmodel::get_tests($cou_id);//根据id获取课程测试
       $this->assign([
+        'couId'=>$cou_id,
         'tests' => $test,
       ]);
-      
+      return view();
     }
-    return view("index");
+    return redirect("index/index");
   }
-
-  public function add(){
-    if(request()->post())
-    {
-      $data=input("post.");
-      $data["teacherId"]=Session::get("Id", 'teacher');
-    
+  /**
+   * 添加课程
+   */
+  public function add()
+  {
+    if (request()->post()) {
+      $data = input("post.");
+      $data["teacherId"] = Session::get("Id", 'teacher');
       self::add_course($data);
+      return redirect("course/index");
     }
     return view();
   }
-  private function add_course($data)
+
+  /**
+   * 删除课程
+   */
+  public function delete()
   {
-    $cou = new courses();
+    if (request()->post()) {
+      $data = input("post.");
+      if(self::verify($data["Id"]))
+      {
+        courseModel::delete_course($data["Id"]);
+      }
+    }
+    return redirect("index/index");
+  }
+  /**
+   * 验证
+   */
+  static function verify($cou_id)
+  {
+    $cou = courseModel::get_course_by_id($cou_id);
+    if ($cou && Session::get("Id", "teacher") == $cou["teacherId"]) return true;
+    return false;
+  }
+  private function add_course($data)//避免创建时间的添加
+  {
+    $cou = new courseModel();
     $cou->name = $data['name'];
     $cou->teacherId = $data['teacherId'];
     $cou->save();

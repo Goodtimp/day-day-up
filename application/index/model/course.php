@@ -22,7 +22,6 @@ class course extends Model
   public static function get_course($tid = 0)
   {
     $res = db("course")->where("teacherId", $tid)->select();
-
     return $res;
   }
   /**
@@ -44,6 +43,21 @@ class course extends Model
   public static function delete_course($courid)
   {
     return db("course")->where("Id", $courid)->delete();
+  }
+
+    /**
+   * 课程id得到课程
+   * @param int $tid
+   * @return array {Id,teacherId,createTime,name}
+   */
+  public static function get_course_by_id($cid = 0)
+  {
+    $res = db("course")->where("Id", $cid)->select();
+    if($res)
+    {
+      return $res[0];
+    }
+    return $res;
   }
 
 }

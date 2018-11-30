@@ -8,15 +8,15 @@
 
 namespace app\index\controller;
 
-use app\index\Model\testdetail as testdetailModel;
+use app\index\model\testdetail as testdetailModel;
 use app\index\controller\Tools as Tools;
 
 use think\Controller;
 use think\facade\Session;
 use think\helper\Time;
-use app\index\Model\test as testModel;
-use app\index\Model\question as questionModel;
-use app\index\Model\mymodel as testquestionModel;
+use app\index\model\test as testModel;
+use app\index\model\question as questionModel;
+use app\index\model\mymodel as testquestionModel;
 
 class Test extends Father
 {

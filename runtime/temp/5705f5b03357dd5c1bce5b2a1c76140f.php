@@ -1,4 +1,4 @@
-<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543489993;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543574075;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543573705;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -78,6 +78,11 @@
 
     <div class="layui-body" style="padding:10px;">
       <!-- 内容主体区域 -->
+      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+          <form action="delete" method="POST">
+          <button class="layui-btn my-delete-btn" type="submit" value="<?php echo htmlentities($couId); ?>" name="Id" style="float:right;">删除测试</button>
+        </form>
+        </fieldset>
       <table class="layui-table">
         <colgroup>
           <col width="150">
@@ -124,6 +129,7 @@
   <script src="/day-day-up/vendor/layui/src/layui.js"></script>
   <script>
     $(function(){
+
       $(".status").each(function(){
         if($(this).text()=="未完成")
         {

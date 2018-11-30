@@ -8,7 +8,7 @@
 
 namespace app\index\controller;
 use app\index\model\test as testModel;
-use app\index\Model\mymodel as myModel;
+use app\index\model\mymodel as myModel;
 use app\index\controller\Tools as Tools;
 use think\Controller;
 use think\facade\Session;
