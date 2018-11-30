@@ -36,11 +36,11 @@
       return db("testdetail")->insert($data);
     }
     /**
-    * 根据测试详情id，删除一个测试详情
+    * 根据测试详情的questionid和 testid，删除一个测试详情
     * @param int tdid
     */
-    public static function delete_testdetail($tdid){
-      return db("testdetail")->where("Id",$tdid)->delete();
+    public static function delete_testdetail($tid,$qid){
+      return db("testdetail")->where("questionId",$qid)->where("testId",$tid)->delete();
     }
      /**
     * 根据测试详情id，删除多个测试详情

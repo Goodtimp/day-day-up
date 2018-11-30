@@ -1,4 +1,4 @@
-<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543412851;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543489993;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543065665;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -127,7 +127,8 @@
       $(".status").each(function(){
         if($(this).text()=="未完成")
         {
-          $(this).next().find("a").attr("href","<?php echo url('Test/editortest'); ?>?id=<?php echo htmlentities($test['Id']); ?>");
+          var id=$(this).next().next().text();
+          $(this).next().find("a").attr("href","<?php echo url('Test/editortest'); ?>?id="+id);
         }
       })
      

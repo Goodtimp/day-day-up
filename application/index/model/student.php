@@ -51,7 +51,17 @@ class student extends Model
     return $temp_arr;
 
   }
-  
+   /**
+   * id获取学生信息
+   * @param string $id
+   * @return array  {sno,name,Id}
+   */
+  public static function get_student_byId($id)
+  {
+    $res = db("student")->where('Id',$id)->select();
+    if($res) return $res[0];
+    return $res;
+  }
 
   /**
    *  添加学生

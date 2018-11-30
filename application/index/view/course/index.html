@@ -83,7 +83,8 @@
       $(".status").each(function(){
         if($(this).text()=="未完成")
         {
-          $(this).next().find("a").attr("href","{:url('Test/editortest')}?id={$test.Id}");
+          var id=$(this).next().next().text();
+          $(this).next().find("a").attr("href","{:url('Test/editortest')}?id="+id);
         }
       })
      

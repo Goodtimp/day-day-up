@@ -2,7 +2,7 @@
 
 /**
  * User:goodtimp
- * LastDate:2018/11/27
+ * LastDate:2018/11/29
  */
 
 
@@ -16,23 +16,28 @@ use think\facade\Session;
 use think\helper\Time;
 use app\index\Model\test as testModel;
 use app\index\Model\question as questionModel;
-use app\index\Model\testquestion as testquestionModel;
+use app\index\Model\mymodel as testquestionModel;
 
 class Test extends Father
 {
   public function index()
   {
-    $test_id = input('get.id');
-    if($test_id)
-    {
-      $test = testModel::get_test($test_id);//根据id获取课程测试
+    $test_id = input("get.id");
+    // dump($test_id);
+    $test = testModel::get_test($test_id);//获取测试信息
 
-      $test_question=testquestionModel::get_testquestions($test_id);
-      //dump($test);
+    if ($test) {
+      $testdetail = testquestionModel::get_testquestions($test_id);//获取测试详情信息
+
       $this->assign([
         'test' => $test,
-        'test_question' => $test_question
       ]);
+      $this->assign([
+        'testdetail' => $testdetail
+      ]);
+      
+     // dump($test);
+      //dump($test_detail);
     }
     return view("index");
   }
@@ -87,14 +92,15 @@ class Test extends Father
       $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
     }
   }
-  public function deletedetail()
+  public function deletedetail($testid,$id)
   {
-    if (request()->post()) {
-      $data = input("post.");
-      $test_detail = testdetailModel::delete_testdetail($data["test_detail_id"]);
-      $test_id = $data["test_id"];
-      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
+    if(Session::has("Id", 'teacher'))
+    {
+      //$test_detail = testdetailModel::delete_testdetail($testid,$id);
+      //return josn($test_detail);
     }
+    return 0;
+
   }
   /**
    * 添加测试题目
@@ -121,18 +127,21 @@ class Test extends Father
 
     return view();
   }
-  public function TestQuestionChange(){
+  public function TestQuestionChange()
+  {
     if (request()->post()) {
       $data = input("post.");
       $question_data = Tools::testdetail_modelquestion($data);
-      questionModel::update_question($data["question_id"],$question_data);//更新问题
-        $test_detail = Tools::testdetail_modeltestdetail($data);
-        testdetailModel::updata_testdetails($data["test_id"],$data["question_id"],$test_detail);//更新测试问题详情
-      $test_id=$data["test_id"];
+      questionModel::update_question($data["question_id"], $question_data);//更新问题
+      $test_detail = Tools::testdetail_modeltestdetail($data);
+      testdetailModel::updata_testdetails($data["test_id"], $data["question_id"], $test_detail);//更新测试问题详情
+      $test_id = $data["test_id"];
       dump($data);
-      $this->redirect('/day-day-up/public/index.php/index/test/index?id='.$test_id&$data);
+      $this->redirect('/day-day-up/public/index.php/index/test/index?id=' . $test_id & $data);
     }
     questionModel::save_Question($que_id);
   }
+
+
 
 }

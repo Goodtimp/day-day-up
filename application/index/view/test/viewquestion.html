@@ -1,34 +1,35 @@
 <div class="my-viewquestion">
   <div class="layui-collapse" lay-filter="test">
     <!-- 已经添加的题目部分 -->
-    {volist name="testdetail" id="detail"  empty=""}
-        <div class="layui-colla-item">
-            <h2 class="layui-colla-title">
-              <span style="width:80%;overflow: hidden;"><?php echo substr($detail["content"],0,60) ?></span>
-              <span style="float:right;color:red;">{$detail.questionScore}分</span>
-            </h2>
-            <div class="layui-colla-content">
-              <div class="layui-card-body question_content">
-
-                  <div class="view">
-                      {include file="question/questionView" /}
-                  </div>
-                  <div class="edit layui-hide">
-                         {include file="question/questionEditor" /}
-                  </div>
-              </div>
-            </div>
-          </div>
-    {/volist}
-    
-
-    <!-- 添加新题目 -->
+    {volist name="testdetail" id="detail" empty=""}
     <div class="layui-colla-item">
-        <h2 class="layui-colla-title">添加新题目</h2>
-        <div class="layui-colla-content layui-show">
-            {include file="test/onequestion" /}
+      <h2 class="layui-colla-title">
+        <span style="width:80%;overflow: hidden;">
+          <?php echo substr($detail["content"],0,60) ?></span>
+        <span style="float:right;color:red;">{$detail.questionScore}分</span>
+
+        <button class="layui-btn layui-btn-primary layui-btn-sm my-btn-delete" value="{$detail.questionId}"><i class="layui-icon"></i></button>
+      </h2>
+      <div class="layui-colla-content">
+        <div class="layui-card-body question_content">
+
+          <div class="view">
+            {include file="question/questionView" /}
+          </div>
+
         </div>
       </div>
+    </div>
+    {/volist}
+
+
+    <!-- 添加新题目 -->
+    <div class="layui-colla-item my-addquesion">
+      <h2 class="layui-colla-title">添加新题目</h2>
+      <div class="layui-colla-content layui-show">
+        {include file="test/onequestion" /}
+      </div>
+    </div>
 
   </div>
 
@@ -40,106 +41,113 @@
     var layer = layui.layer;
   });
 </script>
-  <script src="/day-day-up/vendor/layui/src/layui.js"></script>
-  <script src="/day-day-up/public/static/js/jquery-1.11.1.js"></script>
-  <script>
-      $(function () {
-          $(".Motify").each(function () {
-              $(this).click(function () {
-                  $(this).parents(".question_content").children(".view").addClass("layui-hide");
-                  $(this).parents(".question_content").children(".edit").removeClass("layui-hide");
-                  alert($(this).parents(".question_content").children(".Save").val());
-              })
-          });
-          $(".Save").each(function(){
-              $(this).click(function(){
-                  $(this).parents(".question_content").children(".view").removeClass("layui-hide");
-                  $(this).parents(".question_content").children(".edit").addClass("layui-hide");
-              })
-          })
-          $(".view").each(function () {
-              var type = $(this).children(".type").text();
-              //根据题目类型判断显示输入框还是单选框
-              if (type.trim() == 3) {
-                  $(this).children(".textbox").html("");
-                  $(this).next().children(".type").val(type.trim());
-                  var right = $(this).children(".right").text();
-                  var answer = $(this).children(".options").children(".answer");
-                  answer.each(function () {
-                      if ($(this).text().trim() == right.trim()) {
-                          $(this).prev().prop("checked", true);
-                      }
-                  })
-
-              }
-              else {
-                  var answer = $(this).children(".options").children(".answer").text();//获取答案，用来输入框的显示
-                  $(this).children(".options").html("");
-                  $(this).children(".textbox").children("input").attr("placeholder", answer);
-                  $(this).next().children(".type").val(type.trim());
-              }
-          });
-
-
+<script src="/day-day-up/vendor/layui/src/layui.js"></script>
+<script>
+  $(function () {
+    $(".layui-btn-sm").click(function () {
+      var questionId = $(this).attr("value");
+      var testId = "{$test.Id}";
+      $.ajax({
+        url: "{:url('Test/deletedetail')}",
+        type: "post",
+        data: {
+          testid: testId,
+          id: questionId
+        },
+        success: function (data) {
+          window.location.reload();
+        }
       })
-  </script>
-   <script>
-      layui.use(['form', 'layedit', 'laydate'], function () {
-        var form = layui.form,
-          layer = layui.layer,
-          layedit = layui.layedit,
-          laydate = layui.laydate;
-        //时间设置
-        laydate.render({
-          elem: '#question_time1',
-          format: "mm:ss",
-          value: "10:00",
-          max: "00:59:59",
-          min: "00:00:01",
-          type: 'time'
-        });
-        laydate.render({
-          elem: '#question_time2',
-          format: "mm:ss",
-          value: "10:00",
-          max: "00:59:59",
-          min: "00:00:01",
-          type: 'time'
-        });
-        laydate.render({
-          elem: '#question_time3',
-          format: "mm:ss",
-          value: "10:00",
-          max: "00:59:59",
-          min: "00:00:01",
-          type: 'time'
-        });
-        //自定义验证规则
-        form.verify({
-          content: function (value) {
-            if (value.length < 1) {
-              return '请输入题目描述';
-            } else if (value.length > 600) {
-              return '学生读题很麻烦，所以题目描述最多600字';
-            }
-          },
-  
-          score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
-          choise: function (value) {
-            if (value.length < 1) {
-              return '请输入答案信息描述';
-            } else if (value.length > 600) {
-              return '学生读题很麻烦，答案最多600字';
-            }
-          },
-  
-          required: function (value) {
-            if (value == null) {
-              return '请确定课程时间';
-            }
+    })
+    $(".Motify").each(function () {
+      $(this).click(function () {
+        $(this).parents(".question_content").children(".view").addClass("layui-hide");
+        $(this).parents(".question_content").children(".edit").removeClass("layui-hide");
+        alert($(this).parents(".question_content").children(".Save").val());
+      })
+    });
+    $(".Save").each(function () {
+      $(this).click(function () {
+        $(this).parents(".question_content").children(".view").removeClass("layui-hide");
+        $(this).parents(".question_content").children(".edit").addClass("layui-hide");
+      })
+    })
+    $(".view").each(function () {
+      var type = $(this).children(".type").text();
+      //根据题目类型判断显示输入框还是单选框
+      if (type.trim() == 3) {
+        $(this).children(".textbox").html("");
+        $(this).next().children(".type").val(type.trim());
+        var right = $(this).children(".right").text();
+        var answer = $(this).children(".options").children(".answer");
+        answer.each(function () {
+          if ($(this).text().trim() == right.trim()) {
+            $(this).prev().prop("checked", true);
           }
-        });
-  
-  
+        })
+      } else {
+        var answer = $(this).children(".options").children(".answer").text(); //获取答案，用来输入框的显示
+        $(this).children(".options").html("");
+        $(this).children(".textbox").children("input").attr("placeholder", answer);
+        $(this).next().children(".type").val(type.trim());
+      }
+    });
+  })
+</script>
+
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+      var form = layui.form,
+        layer = layui.layer,
+        layedit = layui.layedit,
+        laydate = layui.laydate;
+      //时间设置
+      laydate.render({
+        elem: '#question_time1',
+        format: "mm:ss",
+        value: "10:00",
+        max: "00:59:59",
+        min: "00:00:01",
+        type: 'time'
       });
-    </script>
+      laydate.render({
+        elem: '#question_time2',
+        format: "mm:ss",
+        value: "10:00",
+        max: "00:59:59",
+        min: "00:00:01",
+        type: 'time'
+      });
+      laydate.render({
+        elem: '#question_time3',
+        format: "mm:ss",
+        value: "10:00",
+        max: "00:59:59",
+        min: "00:00:01",
+        type: 'time'
+      });
+      //自定义验证规则
+      form.verify({
+        content: function (value) {
+          if (value.length < 1) {
+            return '请输入题目描述';
+          } else if (value.length > 600) {
+            return '学生读题很麻烦，所以题目描述最多600字';
+          }
+        },
+        score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
+        choise: function (value) {
+          if (value.length < 1) {
+            return '请输入答案信息描述';
+          } else if (value.length > 600) {
+            return '学生读题很麻烦，答案最多600字';
+          }
+        },
+        required: function (value) {
+          if (value == null) {
+            return '请确定课程时间';
+          }
+        }
+      });
+    });
+  </script>

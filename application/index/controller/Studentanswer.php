@@ -11,7 +11,7 @@ use app\index\controller\Tools as Tools;
 use app\index\controller\Studentfinish as Studentfinish;
 use app\index\model\answer as answerModel;
 use think\Controller;
-use app\index\model\testquestion as testquestioin;
+use app\index\model\mymodel as testquestioin;
 use app\index\model\answerdetail as answerdetail;
 use think\Paginator;
 use think\facade\Session;

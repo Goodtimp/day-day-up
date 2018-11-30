@@ -11,7 +11,7 @@ use think\Controller;
 use think\facade\Session;
 use app\index\controller\Tools as Tools;
 use app\index\model\test as testModel;
-use app\index\model\testquestion as testquestionModel;
+use app\index\model\mymodel as testquestionModel;
 use app\index\model\answer as answerModel;
 
 

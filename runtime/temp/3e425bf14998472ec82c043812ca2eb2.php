@@ -1,6 +1,6 @@
-<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543484065;}*/ ?>
+<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543487758;}*/ ?>
 <html>
-
+    
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-
+   
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
         <legend><?php echo htmlentities($testName); ?></legend>
     </fieldset>
