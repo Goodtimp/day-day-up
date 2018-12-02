@@ -63,11 +63,9 @@ class Studentanswer extends Controller
 
     //post获取提交的题目
     if (request()->post()) {
-      $question = $testarray[$now_pos];//得到当前题目信息
-      
+      $question = $testarray[$now_pos];//得到当前题目信息  
       $answer = input('post.');
-      // dump($question);
-      // dump($answer);
+    
       self::handle_add_answerdetail($answer, Session::get('Id', 'answer'), $question);//添加到数据库
       
       unset($testarray[$now_pos]);//删除已完成信息
@@ -80,19 +78,18 @@ class Studentanswer extends Controller
       Session::set('finishcount', $finishcount, 'index');
     }
 
-    if ( count($testarray)<=0) {
-      // Tools::student_deleteSession_exceptanswer();
+    if (count($testarray)<=0) {//如果已经完成
       $this->redirect('Studentfinish/index'); 
     }
-  
   
     $question = $testarray[$now_pos];//获得当前qustion
   
     $this->assign([
       'content' => $question['content'],
       'type' => $question['type'],
+      'endtime'=>date("m/d H:i",Session::get("endTime", 'test')),
       'answers' =>($question['type']==3? $question['answer']:""),
-      'time' =>strtotime($question['questionTime']),
+      'time' =>$question['questionTime'],
       'testName' => Session::get("name",'test'),
       'Num'=>$finishcount+1
     ]);
