@@ -26,7 +26,7 @@ class Studentanswer extends Controller
   function initialize()
   {
     if (!Session::has('Id', 'test') || !Session::has('Id', 'student')) {
-      $this->redirect('Studentlogin/index');//判断是否登陆和test信息
+      $this->redirect('/stulogin/');//判断是否登陆和test信息
     }
    
     if (Session::has("Id", 'test')) {//判断是否在规定时间
@@ -38,10 +38,10 @@ class Studentanswer extends Controller
       }
       else if($msg==-1)//未开始
       {
-        $this->error('考试未开始','Studentlogin/index?id='.(Session::get("Id", 'test')));
+        $this->error('考试未开始','/stulogin/'.(Session::get("Id", 'test')));
       }
     } else {
-      $this->error('考试不存在','Studentlogin/index?id='.(Session::get("Id", 'test')));
+      $this->error('考试不存在','/stulogin/'.(Session::get("Id", 'test')));
     }
 
 

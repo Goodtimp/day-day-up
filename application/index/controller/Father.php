@@ -17,7 +17,7 @@ class Father extends Controller
   protected function initialize()
   {
     if (!Session::has("Id", 'teacher')) {
-      $this->redirect("login/index");
+      $this->redirect("/login");
     }
     $courses = self::get_courses_teacher_id(Session::get("Id", 'teacher'));//得到当前session内老师的课程信息
 

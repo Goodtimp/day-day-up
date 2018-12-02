@@ -1,4 +1,4 @@
-<?php /*a:7:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543490868;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543573705;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543495715;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543491976;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543495882;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:7:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543581923;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543721785;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543742543;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543491976;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543722388;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +8,7 @@
   <title>教师终端</title>
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
   </script>
-  <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
+  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
   
 
 </head>
@@ -20,8 +20,6 @@
   <!-- 头部区域（可配合layui已有的水平导航） -->
   <ul class="layui-nav layui-layout-left">
     <li class="layui-nav-item"><a href="">题库</a></li>
-    <!-- <li class="layui-nav-item"><a href="<?php echo url('studentlogin/index'); ?>?id=1">开始测试1</a></li>
-    <li class="layui-nav-item"><a href="<?php echo url('Login/index'); ?>">登录</a></li> -->
    
   </ul>
   <ul class="layui-nav layui-layout-right">
@@ -46,13 +44,13 @@
         <a class="" href="javascript:;">课程</a>
         <dl class="layui-nav-child">
           <?php if(is_array($courses) || $courses instanceof \think\Collection || $courses instanceof \think\Paginator): $i = 0; $__LIST__ = $courses;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cou): $mod = ($i % 2 );++$i;?>
-          <dd><a href="<?php echo url('Course/index'); ?>?id=<?php echo htmlentities($cou['Id']); ?>"><?php echo htmlentities($cou['name']); ?></a></dd>
+          <dd><a href="/course/<?php echo htmlentities($cou['Id']); ?>"><?php echo htmlentities($cou['name']); ?></a></dd>
           <?php endforeach; endif; else: echo "" ;endif; ?>
-          <dd><a href="<?php echo url('Course/add'); ?>">添加课程</a></dd>
+          <dd><a href="/course/add">添加课程</a></dd>
         </dl>
       </li>
       
-      <li class="layui-nav-item"><a href="<?php echo url('Test/add'); ?>">创建测试</a></li>
+      <li class="layui-nav-item"><a href="/test/add">创建测试</a></li>
     </ul>
   </div>
 </div>
@@ -65,7 +63,7 @@
 
           <a href="<?php echo url('Test/excel'); ?>">测试导出</a>
         </legend>
-        <a href="https://cli.im/api/qrcode/code?text=/day-day-up/public/index.php/index/studentlogin/index.html?id=<?php echo htmlentities($test['Id']); ?>&mhid=50OTDAu7k8ghMHcrLtdWMa0"><button class="layui-btn" style="float:right;">生成测试二维码</button></a>
+        <a href="https://cli.im/api/qrcode/code?text=http://722first.club/index/studentlogin/index.html?id=<?php echo htmlentities($test['Id']); ?>&mhid=50OTDAu7k8ghMHcrLtdWMa0"><button class="layui-btn" style="float:right;">生成测试二维码</button></a>
       </fieldset>
       
         <div class="my-viewquestion">
@@ -126,7 +124,7 @@
   <!-- 填空题与问答题 -->
 
   <div class="my-completion">
-    <form class="layui-form" action="adddetail" method="POST">
+    <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
 
       <div class="layui-form-item layui-form-text">
@@ -169,7 +167,7 @@
   <!-- 选择题 -->
 
   <div class="my-choice">
-    <form class="layui-form" action="adddetail" method="POST">
+    <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
 
       <div class="layui-form-item layui-form-text">
@@ -230,7 +228,7 @@
   <!-- 判断题 -->
 
   <div class="my-checking">
-    <form class="layui-form" action="adddetail" method="POST">
+    <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
 
       <div class="layui-form-item layui-form-text">
@@ -274,7 +272,7 @@
   </div>
 
 
-  <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+  <script src="/vendor/layui/src/layui.js"></script>
 
 
   <script>
@@ -399,22 +397,24 @@
     var layer = layui.layer;
   });
 </script>
-<script src="/day-day-up/vendor/layui/src/layui.js"></script>
+<script src="/vendor/layui/src/layui.js"></script>
 <script>
   $(function () {
     $(".layui-btn-sm").click(function () {
       var questionId = $(this).attr("value");
       var testId = "<?php echo htmlentities($test['Id']); ?>";
       $.ajax({
-        url: "<?php echo url('Test/deletedetail'); ?>",
+        url: "<?php echo url('index/Test/deletedetail'); ?>",
         type: "post",
         data: {
           testid: testId,
           id: questionId
         },
         success: function (data) {
+          if(data==0) alert("删除失败");
           window.location.reload();
-        }
+        },
+       
       })
     })
     $(".Motify").each(function () {

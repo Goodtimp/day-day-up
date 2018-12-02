@@ -33,8 +33,8 @@ return [
     // 标签库标签结束标记
     'taglib_end'   => '}',
     'tpl_replace_string' => [
-        '__ROOT__' => '/day-day-up/public/index.php/',
-        '__STATIC__' => '/day-day-up/public/static/',
+        '__ROOT__' => '/',
+        '__STATIC__' => '/static/',
     ]
 
 ];

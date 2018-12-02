@@ -22,7 +22,8 @@ class Test extends Father
 {
   public function index()
   {
-    $test_id = input("get.id");
+    $test_id = input("id");
+    
     // dump($test_id);
     $test = testModel::get_test($test_id);//获取测试信息
 
@@ -51,7 +52,7 @@ class Test extends Father
       $test_id = testModel::add_test($data);
 
       if ($test_id > 0) {
-        $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id); //需修改
+        $this->redirect('/test/editor/' . $test_id); //需修改
       } else {
         $this->error("未知因素,添加失败");
       }
@@ -73,7 +74,7 @@ class Test extends Father
         testdetailModel::add_testdetail($test_detail);
       }
       $test_id = $data["test_id"];
-      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
+      $this->redirect('/test/editor/' . $test_id);
     }
   }
   public function editordetail()
@@ -89,15 +90,15 @@ class Test extends Father
         //testdetailModel::updata_testdetails($data["test_detail_id"],$test_detail);//更新数据库，需要测试详情id，更新数据
       }
       $test_id = $data["test_id"];
-      $this->redirect('/day-day-up/public/index.php/index/Test/editortest?id=' . $test_id);
+      $this->redirect('/test/editor/' . $test_id);
     }
   }
   public function deletedetail($testid,$id)
   {
     if(Session::has("Id", 'teacher'))
     {
-      //$test_detail = testdetailModel::delete_testdetail($testid,$id);
-      //return josn($test_detail);
+      testdetailModel::delete_testdetail($testid,$id);
+      return 1;
     }
     return 0;
 
@@ -107,8 +108,8 @@ class Test extends Father
    */
   public function editortest()
   {
-    $test_id = input("get.id");
-    // dump($test_id);
+    $test_id = input("id");
+ 
     $test = testModel::get_test($test_id);//获取测试信息
 
     if ($test) {
@@ -137,7 +138,7 @@ class Test extends Father
       testdetailModel::updata_testdetails($data["test_id"], $data["question_id"], $test_detail);//更新测试问题详情
       $test_id = $data["test_id"];
       dump($data);
-      $this->redirect('/day-day-up/public/index.php/index/test/index?id=' . $test_id & $data);
+      $this->redirect('/test/' . $test_id);
     }
     questionModel::save_Question($que_id);
   }

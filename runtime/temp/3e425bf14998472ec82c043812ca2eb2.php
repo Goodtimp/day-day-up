@@ -1,4 +1,4 @@
-<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543487758;}*/ ?>
+<?php /*a:1:{s:85:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\studentlogin\index.html";i:1543580435;}*/ ?>
 <html>
     
 <head>
@@ -8,7 +8,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/day-day-up/vendor/layui/dist/css/layui.css" media="all">
+    <link rel="stylesheet" href="/vendor/layui/dist/css/layui.css" media="all">
 </head>
 
 <body>
@@ -40,7 +40,7 @@
             </div>
         </form>
     </div>
-    <script src="/day-day-up/vendor/layui/dist/layui.js" charset="utf-8"></script>
+    <script src="/vendor/layui/dist/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {

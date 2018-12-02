@@ -6,13 +6,13 @@
         <a class="" href="javascript:;">课程</a>
         <dl class="layui-nav-child">
           {volist name="courses" id="cou" empty=""}
-          <dd><a href="{:url('Course/index')}?id={$cou.Id}">{$cou.name}</a></dd>
+          <dd><a href="/course/{$cou.Id}">{$cou.name}</a></dd>
           {/volist}
-          <dd><a href="{:url('Course/add')}">添加课程</a></dd>
+          <dd><a href="/course/add">添加课程</a></dd>
         </dl>
       </li>
       
-      <li class="layui-nav-item"><a href="{:url('Test/add')}">创建测试</a></li>
+      <li class="layui-nav-item"><a href="/test/add">创建测试</a></li>
     </ul>
   </div>
 </div>

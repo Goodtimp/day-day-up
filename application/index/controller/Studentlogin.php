@@ -21,7 +21,7 @@ class Studentlogin extends Controller
   }
   public function index()
   {
-    $tid = input("get.id");
+    $tid = input("id");
 
     if (!self::get_test_message($tid)) {
       return "<h1>无此考试</h1>";
@@ -39,11 +39,11 @@ class Studentlogin extends Controller
         Session::set('sno', $stu['sno'], 'student');
         Session::set('name', $stu['name'], 'student');
 
-        $this->redirect('Studentanswer/index');
+        $this->redirect('/stuanswer/');
       }
       // 需修改
       // else{
-      //   $this->error("请重新输入",'login/index',$wait=1);
+      //   $this->error("请重新输入",'login',$wait=1);
       // }
 
     }

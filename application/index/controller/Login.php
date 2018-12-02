@@ -18,7 +18,7 @@ class Login extends Controller
   {
     if (Session::has("Id", 'teacher'))//如果session已经有了，就直接跳转
     {
-      return redirect('index/index');
+      return redirect('/');
     }
     $this->assign([
       'msg' => '',
@@ -31,7 +31,7 @@ class Login extends Controller
         ]);
         return view();
       }
-      return redirect('index/index');
+      return redirect('/');
     }
     return view();
   }
@@ -83,7 +83,7 @@ class Login extends Controller
       } else {
         $data["username"] = $data["loginId"];
         self::verifyLogin($data);
-        return redirect('index/index');
+        return redirect('/');
       }
     }
     return view();

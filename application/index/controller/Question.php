@@ -19,7 +19,7 @@ class Question extends Father
 {
   public function questionEditor()
   {
-    $test_id = input("get.id");
+    $test_id = input("id");
     // dump($test_id);
     $test = testModel::get_test($test_id);//获取测试信息
    

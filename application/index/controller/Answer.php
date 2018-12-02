@@ -18,7 +18,7 @@ class Answer extends Father
 {
   public function index()
   {
-    $testid = input("get.id");
+    $testid = input("id");
    
     $test=testModel::get_test($testid);
     if($test)
@@ -46,7 +46,7 @@ class Answer extends Father
    */
   public function excel()
   {
-    $testid = input("get.id");
+    $testid = input("id");
     $test=testModel::get_test($testid);
     if($test)
     {

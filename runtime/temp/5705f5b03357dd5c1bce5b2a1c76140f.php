@@ -1,4 +1,4 @@
-<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543574075;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543061840;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543573705;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:79:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\course\index.html";i:1543743143;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543721785;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>教师终端</title>
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
+  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
   <style>
     .test-tr td,
     .test-th {
@@ -38,8 +38,6 @@
   <!-- 头部区域（可配合layui已有的水平导航） -->
   <ul class="layui-nav layui-layout-left">
     <li class="layui-nav-item"><a href="">题库</a></li>
-    <!-- <li class="layui-nav-item"><a href="<?php echo url('studentlogin/index'); ?>?id=1">开始测试1</a></li>
-    <li class="layui-nav-item"><a href="<?php echo url('Login/index'); ?>">登录</a></li> -->
    
   </ul>
   <ul class="layui-nav layui-layout-right">
@@ -64,13 +62,13 @@
         <a class="" href="javascript:;">课程</a>
         <dl class="layui-nav-child">
           <?php if(is_array($courses) || $courses instanceof \think\Collection || $courses instanceof \think\Paginator): $i = 0; $__LIST__ = $courses;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$cou): $mod = ($i % 2 );++$i;?>
-          <dd><a href="<?php echo url('Course/index'); ?>?id=<?php echo htmlentities($cou['Id']); ?>"><?php echo htmlentities($cou['name']); ?></a></dd>
+          <dd><a href="/course/<?php echo htmlentities($cou['Id']); ?>"><?php echo htmlentities($cou['name']); ?></a></dd>
           <?php endforeach; endif; else: echo "" ;endif; ?>
-          <dd><a href="<?php echo url('Course/add'); ?>">添加课程</a></dd>
+          <dd><a href="/course/add">添加课程</a></dd>
         </dl>
       </li>
       
-      <li class="layui-nav-item"><a href="<?php echo url('Test/add'); ?>">创建测试</a></li>
+      <li class="layui-nav-item"><a href="/test/add">创建测试</a></li>
     </ul>
   </div>
 </div>
@@ -79,8 +77,8 @@
     <div class="layui-body" style="padding:10px;">
       <!-- 内容主体区域 -->
       <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-          <form action="delete" method="POST">
-          <button class="layui-btn my-delete-btn" type="submit" value="<?php echo htmlentities($couId); ?>" name="Id" style="float:right;">删除测试</button>
+          <form action="/index/Course/delete" method="POST">
+          <button class="layui-btn my-delete-btn" type="submit" value="<?php echo htmlentities($couId); ?>" name="Id" style="float:right;">删除课程</button>
         </form>
         </fieldset>
       <table class="layui-table">
@@ -111,7 +109,7 @@
             <td><?php echo htmlentities($test['endTime']); ?></a></td>
             <td class="status"><?php echo htmlentities($test['status']); ?></td>
             
-            <td><a href="<?php echo url('Test/index'); ?>?id=<?php echo htmlentities($test['Id']); ?>">查看测试</a></td>
+            <td><a href="/test/<?php echo htmlentities($test['Id']); ?>">查看测试</a></td>
             <td style="display:none;"><?php echo htmlentities($test['Id']); ?></td>
            
           </tr>
@@ -126,7 +124,7 @@
   @goodtimp & @someonegirl
 </div>
   </div>
-  <script src="/day-day-up/vendor/layui/src/layui.js"></script>
+  <script src="/vendor/layui/src/layui.js"></script>
   <script>
     $(function(){
 
@@ -134,7 +132,7 @@
         if($(this).text()=="未完成")
         {
           var id=$(this).next().next().text();
-          $(this).next().find("a").attr("href","<?php echo url('Test/editortest'); ?>?id="+id);
+          $(this).next().find("a").attr("href","/test/editor/"+id);
         }
       })
      

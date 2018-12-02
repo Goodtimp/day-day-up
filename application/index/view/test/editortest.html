@@ -7,7 +7,7 @@
   <title>教师终端</title>
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
   </script>
-  <link rel="stylesheet" href="/day-day-up/vendor/layui/src/css/layui.css">
+  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
   
 
 </head>
@@ -24,7 +24,7 @@
 
           <a href="{:url('Test/excel')}">测试导出</a>
         </legend>
-        <a href="https://cli.im/api/qrcode/code?text=http://722first.club__ROOT__index/studentlogin/index.html?id={$test.Id}&mhid=50OTDAu7k8ghMHcrLtdWMa0"><button class="layui-btn" style="float:right;">生成测试二维码</button></a>
+        <a href="https://cli.im/api/qrcode/code?text=http://722first.club/stulogin/{$test.Id}&mhid=50OTDAu7k8ghMHcrLtdWMa0"><button class="layui-btn" style="float:right;">生成测试二维码</button></a>
       </fieldset>
       
         {include file="test/viewquestion" /} 

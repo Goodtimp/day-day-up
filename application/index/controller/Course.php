@@ -18,7 +18,7 @@ class Course extends Father
 {
   public function index()
   {
-    $cou_id = input('get.id');
+    $cou_id = input('id');
 
     if ($cou_id && self::verify($cou_id)) {
       $test = testmodel::get_tests($cou_id);//根据id获取课程测试
@@ -28,7 +28,7 @@ class Course extends Father
       ]);
       return view();
     }
-    return redirect("index/index");
+    return redirect("/");
   }
   /**
    * 添加课程
@@ -39,7 +39,7 @@ class Course extends Father
       $data = input("post.");
       $data["teacherId"] = Session::get("Id", 'teacher');
       self::add_course($data);
-      return redirect("course/index");
+      return redirect("/");
     }
     return view();
   }
@@ -56,7 +56,8 @@ class Course extends Father
         courseModel::delete_course($data["Id"]);
       }
     }
-    return redirect("index/index");
+
+    return redirect("/");
   }
   /**
    * 验证
