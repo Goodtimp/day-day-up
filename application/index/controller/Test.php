@@ -18,27 +18,19 @@ use app\index\model\test as testModel;
 use app\index\model\question as questionModel;
 use app\index\model\mymodel as testquestionModel;
 
+
 class Test extends Father
 {
   public function index()
   {
     $test_id = input("id");
-    
-    // dump($test_id);
     $test = testModel::get_test($test_id);//获取测试信息
-
     if ($test) {
       $testdetail = testquestionModel::get_testquestions($test_id);//获取测试详情信息
-
       $this->assign([
         'test' => $test,
-      ]);
-      $this->assign([
         'testdetail' => $testdetail
       ]);
-      
-     // dump($test);
-      //dump($test_detail);
     }
     return view("index");
   }
@@ -65,12 +57,9 @@ class Test extends Father
     if (request()->post()) {
       $data = input("post.");
       $question_data = Tools::testdetail_modelquestion($data);
-      //dump($question_data);
       $data["question_id"] = questionModel::add_question($question_data);
-      //$data["question_id"] = 1;//测试数据，保证程序正常运行
       if ($data["question_id"] != 0) {
         $test_detail = Tools::testdetail_modeltestdetail($data);
-        //dump($test_detail);
         testdetailModel::add_testdetail($test_detail);
       }
       $test_id = $data["test_id"];
@@ -82,12 +71,9 @@ class Test extends Father
     if (request()->post()) {
       $data = input("post.");
       $question_data = Tools::testdetail_modelquestion($data);
-      // $data["question_id"]=questionModel::add_question($question_data);
       $data["question_id"] = 1;//测试数据，保证程序正常运行
       if ($data["question_id"] != 0) {
         $test_detail = Tools::testdetail_modeltestdetail($data);
-        //dump($test_detail);
-        //testdetailModel::updata_testdetails($data["test_detail_id"],$test_detail);//更新数据库，需要测试详情id，更新数据
       }
       $test_id = $data["test_id"];
       $this->redirect('/test/editor/' . $test_id);
@@ -109,7 +95,6 @@ class Test extends Father
   public function editortest()
   {
     $test_id = input("id");
- 
     $test = testModel::get_test($test_id);//获取测试信息
 
     if ($test) {
@@ -117,15 +102,9 @@ class Test extends Father
 
       $this->assign([
         'test' => $test,
-      ]);
-      $this->assign([
         'testdetail' => $test_detail
       ]);
-      
-     // dump($test);
-      //dump($test_detail);
     }
-
     return view();
   }
   public function TestQuestionChange()
@@ -142,7 +121,33 @@ class Test extends Father
     }
     questionModel::save_Question($que_id);
   }
-
-
+  /**
+   * 现在开始 ，并设置结束时间为很久以后
+   */
+  public function startnow($testid){
+    if($testid)
+    {
+      if(testModel::verify(Session::get("Id","teacher"),$testid))
+      {
+        testModel::start_test($testid);
+        return 1;
+      }
+    }
+    return 0;
+  }/**
+   * 现在结束 
+   */
+  public function endnow($testid){
+    if($testid)
+    {
+      if(testModel::verify(Session::get("Id","teacher"),$testid))
+      {
+        testModel::end_test($testid);
+        return 1;
+      }
+     
+    }
+    return 0;
+  }
 
 }

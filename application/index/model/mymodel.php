@@ -155,4 +155,23 @@
       }
       return $arr;
     }
+
+    /**
+     * 根据教师id得到测试与课程信息
+     * @param int $tid
+     */
+    public static function get_coursetest($tid)
+    {
+      $cous=course::get_course($tid);
+      $arr=array();
+      $temp=array();
+      foreach($cous as $cou)
+      {
+        $test=test::get_tests($cou["Id"]);
+        $temp=$cou;
+        $temp["tests"]=$test;
+        $arr[]=$temp;
+      }
+      return $arr;
+    }
  }

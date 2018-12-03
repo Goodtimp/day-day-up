@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>手机教师端</title>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
+  <style>
+    .test-tr td,
+    .test-th {
+      height: 50px;
+      width: 170px;
+    }
+
+
+    .test-tr:nth-child(2n) {
+      background-color: #e8ece8;
+    }
+
+    .test-tr:hover {
+      background-color: #c2d2d1;
+    }
+
+    .checked {
+      font-size: 30px;
+      color: #042c6b;
+    }
+  </style>
+</head>
+
+<body class="layui-layout-body">
+  <div class="layui-layout layui-layout-admin">
+    {include file="father/header" /}
+  
+
+    <div class="layui-body">     
+        {include file="moblie/coursetest" /}
+    </div>
+
+    {include file="father/footer" /}
+  </div>
+  <script src="/vendor/layui/src/layui.js"></script>
+  <script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+      var element = layui.element;
+
+    });
+  </script>
+  <!-- 当为手机端时 -->
+     <script src="__STATIC__/js/goodtimp.js">
+     </script>
+</body>
+
+</html>

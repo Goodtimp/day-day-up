@@ -1,0 +1,134 @@
+<div class="my-viewquestion">
+  <div class="layui-collapse" lay-filter="test">
+    <!-- 已经添加的题目部分 -->
+    {volist name="arr" id="course" empty=""}
+    <div class="layui-colla-item">
+      <h2 class="layui-colla-title">
+        <span style="width:80%;overflow: hidden;">
+          <?php echo substr($course["name"],0,60) ?></span>
+      </h2>
+      <div class="layui-colla-content">
+        <div class="layui-card-body question_content">
+          <div class="view">
+            <table class="layui-table">
+              <colgroup>
+                <col width="150">
+                <col width="200">
+                <col width="200">
+
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>测试名称</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+
+                  <th>状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                {volist name="course.tests" id="test" empty=""}
+                <!-- 嵌套循环 -->
+            
+                  <tr>
+                    <td>
+                        <a href="/test/{$test.Id}">
+                      {$test.name}  </a>
+                    </td>
+                    <td> <a href="/test/{$test.Id}">{$test.startTime}
+                </a></td>
+                <td> <a href="/test/{$test.Id}">{$test.endTime}</a></td>
+                <td class="status"><a href="/test/{$test.Id}">{$test.status}</a></td>
+                <td style="display:none;">{$test.Id}</td>
+            
+                </tr>
+                
+                {/volist}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    {/volist}
+
+
+
+  </div>
+
+</div>
+
+<script>
+  layui.use(['element', 'layer'], function () {
+    var element = layui.element;
+    var layer = layui.layer;
+  });
+</script>
+<script src="/vendor/layui/src/layui.js"></script>
+
+
+<script>
+   $(".status").each(function(){
+        if($(this).text()=="未开始")
+        {
+          var id=$(this).next().text();
+          $(this).parents("tr").find("a").attr("href","/test/editor/"+id);
+        }
+      })
+  layui.use(['form', 'layedit', 'laydate'], function () {
+    var form = layui.form,
+      layer = layui.layer,
+      layedit = layui.layedit,
+      laydate = layui.laydate;
+    //时间设置
+    laydate.render({
+      elem: '#question_time1',
+      format: "mm:ss",
+      value: "10:00",
+      max: "00:59:59",
+      min: "00:00:01",
+      type: 'time'
+    });
+    laydate.render({
+      elem: '#question_time2',
+      format: "mm:ss",
+      value: "10:00",
+      max: "00:59:59",
+      min: "00:00:01",
+      type: 'time'
+    });
+    laydate.render({
+      elem: '#question_time3',
+      format: "mm:ss",
+      value: "10:00",
+      max: "00:59:59",
+      min: "00:00:01",
+      type: 'time'
+    });
+    //自定义验证规则
+    form.verify({
+      content: function (value) {
+        if (value.length < 1) {
+          return '请输入题目描述';
+        } else if (value.length > 600) {
+          return '学生读题很麻烦，所以题目描述最多600字';
+        }
+      },
+      score: [/^\+?[1-9][0-9]*$/, '请输入正整数分值'],
+      choise: function (value) {
+        if (value.length < 1) {
+          return '请输入答案信息描述';
+        } else if (value.length > 600) {
+          return '学生读题很麻烦，答案最多600字';
+        }
+      },
+      required: function (value) {
+        if (value == null) {
+          return '请确定课程时间';
+        }
+      }
+    });
+  });
+</script>

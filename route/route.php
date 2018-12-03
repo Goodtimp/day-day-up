@@ -13,6 +13,8 @@ Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
 
+
+
 //学生部分
 Route::rule('stulogin/:id','index/studentlogin/index');
 Route::rule('stulogin/','index/studentlogin/index');
@@ -21,8 +23,11 @@ Route::rule('stuanswer/','index/studentanswer/index');
 
 
 //教师部分路由
-Route::get('hello/:name', 'index/hello');
 
+
+
+
+//pc部分
 Route::rule('course/add','index/course/add');
 Route::rule('course/:id','index/course/index');
 

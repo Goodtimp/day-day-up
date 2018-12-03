@@ -1,4 +1,4 @@
-<?php /*a:7:{s:77:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543722552;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543721785;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543742543;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543491976;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543722388;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:7:{s:77:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\index.html";i:1543830699;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543742543;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543491976;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543722388;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -9,18 +9,17 @@
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
   </script>
   <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
-  
+
 
 </head>
 
 <body class="layui-layout-body">
   <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-  <div class="layui-logo">layui 后台布局</div>
+  <div class="layui-logo">教师端</div>
   <!-- 头部区域（可配合layui已有的水平导航） -->
   <ul class="layui-nav layui-layout-left">
     <li class="layui-nav-item"><a href="">题库</a></li>
-   
   </ul>
   <ul class="layui-nav layui-layout-right">
     <li class="layui-nav-item">
@@ -61,13 +60,13 @@
       <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
         <legend><?php echo htmlentities($test['name']); ?>
 
-   
+
         </legend>
         <a href="/answer/<?php echo htmlentities($test['Id']); ?>">
-          <button class="layui-btn" style="float:right;">查看测试情况</button></a>
-         </fieldset>
-      
-        <div class="my-viewquestion">
+          <button class="layui-btn" style="float:right;margin-right: 10px;">查看测试情况</button></a>
+      </fieldset>
+
+      <div class="my-viewquestion">
   <div class="layui-collapse" lay-filter="test">
     <!-- 已经添加的题目部分 -->
     <?php if(is_array($testdetail) || $testdetail instanceof \think\Collection || $testdetail instanceof \think\Paginator): $i = 0; $__LIST__ = $testdetail;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($i % 2 );++$i;?>
@@ -510,12 +509,16 @@
       });
     });
   </script>
- 
+
       <div style="padding: 15px;">
-        
-         
-      
+
+
+
       </div>
+      <div style="margin:0 auto;width:100px;">
+        <button class="layui-btn" id="btn-startNow">现在开始</button>
+      </div>
+
     </div>
     <div class="layui-footer">
   <!-- 底部固定区域 -->
@@ -526,13 +529,53 @@
   </div>
   <script>
     $(function () {
-        $(".my-addquesion").hide();
-        $(".my-btn-delete").hide();
+      if("<?php echo htmlentities($test['status']); ?>"=="进行中")
+      {
+        $("#btn-startNow").text("现在结束").attr("id","btn-endNow");
+      }
+
+      $("#btn-endNow").click(function () {
+        var testId = "<?php echo htmlentities($test['Id']); ?>";
+   
+        $.ajax({
+          url: "<?php echo url('index/test/endnow'); ?>",
+          type: "post",
+          data: {
+            testid: testId,
+          },
+          success: function (data) {
+            if (data == 0) alert("未知原因，结束失败");
+            window.location.reload();
+          },error:function(data){
+            alert("操作失败，请重新登录获取清楚session");
+          }
+        })
+      })
+
+      $("#btn-startNow").click(function () {
+        var testId = "<?php echo htmlentities($test['Id']); ?>";
+        $.ajax({
+          url: "<?php echo url('index/test/startnow'); ?>",
+          type: "post",
+          data: {
+            testid: testId,
+          },
+          success: function (data) {    
+            if (data == 0) alert("未知原因，开始失败");
+            window.location.reload();
+          },
+          error:function(data){
+             alert("操作失败，请重新登录获取清楚session");
+          }
+        })
+      })
+      $(".my-addquesion").remove();
+      $(".my-btn-delete").remove();
     })
   </script>
+  <script src="/public/static//js/goodtimp.js">
+  </script>
 
-  
 </body>
 
 </html>
-

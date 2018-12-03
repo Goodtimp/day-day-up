@@ -34,7 +34,7 @@ return [
     'taglib_end'   => '}',
     'tpl_replace_string' => [
         '__ROOT__' => '/',
-        '__STATIC__' => '/static/',
+        '__STATIC__' => '/public/static/',
     ]
 
 ];

@@ -87,7 +87,7 @@
     $(function(){
 
       $(".status").each(function(){
-        if($(this).text()=="未完成")
+        if($(this).text()=="未开始")
         {
           var id=$(this).next().next().text();
           $(this).next().find("a").attr("href","/test/editor/"+id);

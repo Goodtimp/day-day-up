@@ -1,34 +1,79 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>教师终端</title>
 
-  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>教师终端</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="__STATIC__/js/goodtimp.js">
+    </script>
+    
+    <script>
+        $(function () {
+            var mobile_flag = isMobile(); // false为PC端，true为手机端
+
+            if (mobile_flag) {
+                window.location.href = "/index/Moblie/index/"
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
 </head>
+
 <body class="layui-layout-body">
-<div class="layui-layout layui-layout-admin">
-  {include file="father/header" /}
-  {include file="father/left" /}
-  
-  <div class="layui-body">
-    <!-- 内容主体区域 -->
-    <div style="padding: 15px;">
-     
+    <div class="layui-layout layui-layout-admin">
+        {include file="father/header" /}
+        {include file="father/left" /}
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">
+
+            </div>
+        </div>
+        {include file="father/footer" /}
+
+
     </div>
-  </div>
-  {include file="father/footer" /}
- 
- 
-</div>
-<script src="/vendor/layui/src/layui.js"></script>
-<script>
-//JavaScript代码区域
-layui.use('element', function(){
-  var element = layui.element;
-  
-});
-</script>
+    <script src="/vendor/layui/src/layui.js"></script>
+    <script>
+        function isMobile() {
+            var userAgentInfo = navigator.userAgent;
+            var mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+            var mobile_flag = false;
+            //根据userAgent判断是否是手机
+            for (var v = 0; v < mobileAgents.length; v++) {
+                if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+                    mobile_flag = true;
+                    break;
+                }
+            }
+            var screen_width = window.screen.width;
+            var screen_height = window.screen.height;
+
+            //根据屏幕分辨率判断是否是手机
+            if (screen_width < 500 && screen_height < 800) {
+                mobile_flag = true;
+            }
+            return mobile_flag;
+        }
+
+        $(function () {
+            var mobile_flag = isMobile(); // false为PC端，true为手机端
+
+            if (mobile_flag) {
+
+            }
+        });
+
+
+        //JavaScript代码区域
+        layui.use('element', function () {
+            var element = layui.element;
+
+        });
+    </script>
 </body>
+
 </html>
