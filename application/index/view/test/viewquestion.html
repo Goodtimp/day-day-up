@@ -1,11 +1,11 @@
 <div class="my-viewquestion">
   <div class="layui-collapse" lay-filter="test">
     <!-- 已经添加的题目部分 -->
-    {volist name="testdetail" id="detail" empty=""}
+    {volist name="testdetail" id="detail" key="num" empty=""}
     <div class="layui-colla-item">
       <h2 class="layui-colla-title">
         <span style="width:80%;overflow: hidden;">
-          <?php echo substr($detail["content"],0,60) ?></span>
+         <?php echo substr($detail["content"],0,60) ?></span>
         <span style="float:right;color:red;">{$detail.questionScore}分</span>
 
         <button class="layui-btn layui-btn-primary layui-btn-sm my-btn-delete" value="{$detail.questionId}"><i class="layui-icon"></i></button>
@@ -14,7 +14,22 @@
         <div class="layui-card-body question_content">
 
           <div class="view">
-            {include file="question/questionView" /}
+              <div class="">题目 ： {$detail.content}</div>
+              <div class="layui-hide right">{$detail.right}</div>
+              {volist name="detail.images" id="image" empty=""}
+              <img src="/{$image}" style="width:100px;"/>
+              {/volist}
+              <div class="layui-hide type">{$detail.type}</div>
+              <div class="options">
+                  {volist name="detail.answer" id="option" empty=""}
+                  <input type="radio" name="{$num}" value="{$option}" checked="false">
+                  <span class="answer">{$option}</span>
+                  <br /> {/volist}
+              </div>
+              <div class="textbox">
+                  <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+              </div>
+              
           </div>
 
         </div>
@@ -149,6 +164,34 @@
           if (value == null) {
             return '请确定课程时间';
           }
+        }
+      });
+    });
+  </script>
+
+
+<!-- 文件上传 -->
+<script>
+    layui.use('upload', function () {
+      var $ = layui.jquery,
+        upload = layui.upload;
+      
+      //多图片上传
+      upload.render({
+        elem: '#test2',
+        url: "{:url('index/Test/uploadimage')}",
+        method:'post',
+        multiple: true,
+        before: function (obj) {
+          //预读本地文件示例，不支持ie8
+          obj.preview(function (index, file, result) {
+            $('#demo2').append('<img src="' + result + '" alt="' + file.name +
+              '" class="layui-upload-img" style="width:100px;"/> ')
+          });
+        },
+        done: function (res) {
+          var btn='<input name="images[]" value="'+res["savename"]+'" >';
+          $(".my-uploadform").html($(".my-uploadform").html()+btn);
         }
       });
     });

@@ -13,12 +13,29 @@ use think\facade\Session;
 
 class Tools
 {
+
+  private static function handle_image($images)
+  {
+    $res="";
+    $f=false;
+    if($images)
+    {
+      foreach($images as $image)
+      {
+        if($f) $res=$res.",";
+        $res=$res.$image;
+        $f=true;
+      }
+    }
+    return $res;
+  }
   /**
    * 判断题
    */
   private static function question_modelquestion_checking($data)
   {
     $res = array();
+    $res["images"]=array_key_exists("images",$data)?self::handle_image($data["images"]):NULL;//图片处理
     $res["answer"] = ($data["answer"] == "1" ? "T" : "F");//获取正确答案
     $res["type"] = $data["type"];
     //$res["analysis"]=$data["analysis"];//获取分析数据
@@ -32,7 +49,8 @@ class Tools
   {
     $res = array();
    // $res["analysis"]=$data["analysis"];//获取分析数据
-    $res["answer"] = $data["true_answer"];//获取正确答案
+   $res["images"]=array_key_exists("images",$data)?self::handle_image($data["images"]):NULL;//图片处理
+     $res["answer"] = $data["true_answer"];//获取正确答案
     $res["type"] = $data["type"];
     $res["content"] = $data["content"];//获取content
     return $res;
@@ -44,7 +62,8 @@ class Tools
   {
     $res = array();
     //$res["analysis"]=$data["analysis"];//获取分析数据
-
+    $res["images"]=array_key_exists("images",$data)?self::handle_image($data["images"]):NULL;//图片处理
+    
     $answer = $data["true_answer"];//获取正确选项并加入答案描述，默认第一个选项为正确，用‘OUT-’分割
     for ($i = 1; $i <= intval($data["false_number"]); $i++)//判断错误选项的数量
     {

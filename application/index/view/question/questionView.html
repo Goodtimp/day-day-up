@@ -1,11 +1,16 @@
-<div class="">{$detail.num} .{$detail.content}</div>
+
+<!-- 此文件已被替换  -->
+<div class="">题目 ： {$detail.content}</div>
 <div class="layui-hide right">{$detail.right}</div>
+{volist name="detail.images" id="image" empty=""}
+<img src="/{$image}" style="width:100px;"/>
+{/volist}
 <div class="layui-hide type">{$detail.type}</div>
 <div class="options">
-    {volist name="detail.answer" id="option" empty=""}
-    <input type="radio" name={$detail.num} value="{$option}" title="男" checked="false">
+    {volist name="detail.answer" id="option" key="num" empty=""}
+    <input type="radio" name="{$num}" value="{$option}" checked="false">
     <span class="answer">{$option}</span>
-    <br/> {/volist}
+    <br /> {/volist}
 </div>
 <div class="textbox">
     <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">

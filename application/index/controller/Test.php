@@ -56,6 +56,7 @@ class Test extends Father
   {
     if (request()->post()) {
       $data = input("post.");
+     
       $question_data = Tools::testdetail_modelquestion($data);
       $data["question_id"] = questionModel::add_question($question_data);
       if ($data["question_id"] != 0) {
@@ -79,11 +80,10 @@ class Test extends Father
       $this->redirect('/test/editor/' . $test_id);
     }
   }
-  public function deletedetail($testid,$id)
+  public function deletedetail($testid, $id)
   {
-    if(Session::has("Id", 'teacher'))
-    {
-      testdetailModel::delete_testdetail($testid,$id);
+    if (Session::has("Id", 'teacher')) {
+      testdetailModel::delete_testdetail($testid, $id);
       return 1;
     }
     return 0;
@@ -124,30 +124,48 @@ class Test extends Father
   /**
    * 现在开始 ，并设置结束时间为很久以后
    */
-  public function startnow($testid){
-    if($testid)
-    {
-      if(testModel::verify(Session::get("Id","teacher"),$testid))
-      {
+  public function startnow($testid)
+  {
+    if ($testid) {
+      if (testModel::verify(Session::get("Id", "teacher"), $testid)) {
         testModel::start_test($testid);
         return 1;
       }
     }
     return 0;
-  }/**
+  }
+  /**
    * 现在结束 
    */
-  public function endnow($testid){
-    if($testid)
-    {
-      if(testModel::verify(Session::get("Id","teacher"),$testid))
-      {
+  public function endnow($testid)
+  {
+    if ($testid) {
+      if (testModel::verify(Session::get("Id", "teacher"), $testid)) {
         testModel::end_test($testid);
         return 1;
       }
-     
+
     }
     return 0;
   }
-
+  /**
+   * 上传图片
+   */
+  public function uploadimage()
+  {
+    $upload="static/upload/image/";
+    $file = request()->file('file');
+    // 移动到框架应用根目录/public/uploads/ 目录下
+    $info = $file->move($upload);//路径无法使用 __STATIC__ 需解决 
+    $reubfo = array();  //定义一个返回的数组
+    if($info){
+        $reubfo['code']= 1;
+        $reubfo['savename'] = $upload.$info->getSaveName(); 
+    }else{
+        // 上传失败获取错误信息
+        $reubfo['code']= 0;
+        $reubfo['err'] = $file->getError();
+    }
+    return $reubfo;
+  }
 }

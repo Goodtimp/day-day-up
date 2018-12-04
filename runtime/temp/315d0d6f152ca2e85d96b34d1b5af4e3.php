@@ -1,4 +1,4 @@
-<?php /*a:7:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543833986;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543742543;s:88:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\question\questionView.html";i:1543491976;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543722388;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:6:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543836405;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543904736;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543840062;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +8,7 @@
   <title>教师终端</title>
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
   </script>
-  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css">
+  <link rel="stylesheet" href="/vendor/layui/src/css/layui.css" media="all">
  
 
 </head>
@@ -68,7 +68,7 @@
         <div class="my-viewquestion">
   <div class="layui-collapse" lay-filter="test">
     <!-- 已经添加的题目部分 -->
-    <?php if(is_array($testdetail) || $testdetail instanceof \think\Collection || $testdetail instanceof \think\Paginator): $i = 0; $__LIST__ = $testdetail;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($i % 2 );++$i;?>
+    <?php if(is_array($testdetail) || $testdetail instanceof \think\Collection || $testdetail instanceof \think\Paginator): $num = 0; $__LIST__ = $testdetail;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$detail): $mod = ($num % 2 );++$num;?>
     <div class="layui-colla-item">
       <h2 class="layui-colla-title">
         <span style="width:80%;overflow: hidden;">
@@ -81,19 +81,22 @@
         <div class="layui-card-body question_content">
 
           <div class="view">
-            <div class=""><?php echo htmlentities($detail['num']); ?> .<?php echo htmlentities($detail['content']); ?></div>
-<div class="layui-hide right"><?php echo htmlentities($detail['right']); ?></div>
-<div class="layui-hide type"><?php echo htmlentities($detail['type']); ?></div>
-<div class="options">
-    <?php if(is_array($detail['answer']) || $detail['answer'] instanceof \think\Collection || $detail['answer'] instanceof \think\Paginator): $i = 0; $__LIST__ = $detail['answer'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$option): $mod = ($i % 2 );++$i;?>
-    <input type="radio" name=<?php echo htmlentities($detail['num']); ?> value="<?php echo htmlentities($option); ?>" title="男" checked="false">
-    <span class="answer"><?php echo htmlentities($option); ?></span>
-    <br/> <?php endforeach; endif; else: echo "" ;endif; ?>
-</div>
-<div class="textbox">
-    <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
-</div>
-
+              <div class="">题目 ： <?php echo htmlentities($detail['content']); ?></div>
+              <div class="layui-hide right"><?php echo htmlentities($detail['right']); ?></div>
+              <?php if(is_array($detail['images']) || $detail['images'] instanceof \think\Collection || $detail['images'] instanceof \think\Paginator): $i = 0; $__LIST__ = $detail['images'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$image): $mod = ($i % 2 );++$i;?>
+              <img src="/<?php echo htmlentities($image); ?>" style="width:100px;"/>
+              <?php endforeach; endif; else: echo "" ;endif; ?>
+              <div class="layui-hide type"><?php echo htmlentities($detail['type']); ?></div>
+              <div class="options">
+                  <?php if(is_array($detail['answer']) || $detail['answer'] instanceof \think\Collection || $detail['answer'] instanceof \think\Paginator): $i = 0; $__LIST__ = $detail['answer'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$option): $mod = ($i % 2 );++$i;?>
+                  <input type="radio" name="<?php echo htmlentities($num); ?>" value="<?php echo htmlentities($option); ?>" checked="false">
+                  <span class="answer"><?php echo htmlentities($option); ?></span>
+                  <br /> <?php endforeach; endif; else: echo "" ;endif; ?>
+              </div>
+              <div class="textbox">
+                  <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+              </div>
+              
           </div>
 
         </div>
@@ -118,14 +121,24 @@
       </div>
     </div>
   </form>
-
+<!-- 图片上传 -->
+<div class="layui-upload">
+    <button type="button" class="layui-btn" id="test2">图片上传</button>
+    <span>图片选择后即为上传，图片显示顺序为上传顺序，请在题目中标注好图1、图2...</span>
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+      预览图：
+      <div class="layui-upload-list" id="demo2"></div>
+    </blockquote>
+  </div>
+  <!-- 图片上传 -->
 
   <!-- 填空题与问答题 -->
-
   <div class="my-completion">
     <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
-
+  <!-- 图片上传的form表单部分 -->
+  <div class="my-uploadform" style="display: none;"></div>
+  <!--  -->
       <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
@@ -168,7 +181,9 @@
   <div class="my-choice">
     <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
-
+  <!-- 图片上传的form表单部分 -->
+  <div class="my-uploadform" style="display: none;"></div>
+  <!--  -->
       <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
@@ -229,7 +244,9 @@
   <div class="my-checking">
     <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value=<?php echo htmlentities($test['Id']); ?> style="display: none;">
-
+      <!-- 图片上传的form表单部分 -->
+      <div class="my-uploadform" style="display: none;"></div>
+      <!--  -->
       <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
@@ -382,6 +399,7 @@
       });
     });
   </script>
+ 
 </div>
       </div>
     </div>
@@ -508,7 +526,34 @@
       });
     });
   </script>
- 
+
+
+<!-- 文件上传 -->
+<script>
+    layui.use('upload', function () {
+      var $ = layui.jquery,
+        upload = layui.upload;
+      
+      //多图片上传
+      upload.render({
+        elem: '#test2',
+        url: "<?php echo url('index/Test/uploadimage'); ?>",
+        method:'post',
+        multiple: true,
+        before: function (obj) {
+          //预读本地文件示例，不支持ie8
+          obj.preview(function (index, file, result) {
+            $('#demo2').append('<img src="' + result + '" alt="' + file.name +
+              '" class="layui-upload-img" style="width:100px;"/> ')
+          });
+        },
+        done: function (res) {
+          var btn='<input name="images[]" value="'+res["savename"]+'" >';
+          $(".my-uploadform").html($(".my-uploadform").html()+btn);
+        }
+      });
+    });
+  </script> 
       
 
       <div style="padding: 15px;">

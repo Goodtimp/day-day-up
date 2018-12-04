@@ -83,10 +83,11 @@ class Studentanswer extends Controller
     }
   
     $question = $testarray[$now_pos];//获得当前qustion
-  
+   
     $this->assign([
       'content' => $question['content'],
       'type' => $question['type'],
+      'images'=>$question['images'],
       'endtime'=>date("m/d H:i",Session::get("endTime", 'test')),
       'answers' =>($question['type']==3? $question['answer']:""),
       'time' =>$question['questionTime'],

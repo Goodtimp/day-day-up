@@ -33,12 +33,19 @@
         $temp_arr['questionId']=$row['questionId'];
         $temp_arr['questionScore']=$row['questionScore'];
         $temp_arr['questionTime']=$row['questionTime'];
-        //题目详情部分
-        $temp_arr["num"]=$num++;
-       
-
         $temp_arr["Score"]=$row["questionScore"];
         $temp_arr["Time"]=$row["questionTime"];
+
+        // 题目部分
+        if(array_key_exists("images",$res_question)) 
+        {
+          if($res_question["images"]=="") $temp_arr["images"]=null;
+          else $temp_arr["images"]=explode(",",$res_question["images"]);
+        }
+        else{
+          $temp_arr["images"]=null;
+        }
+
         $temp_arr['categoryId']=$res_question['categoryId'];
         $temp_arr['content']=$res_question['content'];//约定：选择题选项用 OUT-来表示选项内容 例如:int为几个字节？OUT-: 1 OUT-: 2 OUT-: 4
         $temp_arr['answer']=explode("OUT-:", $res_question['answer']);//正确答案 选择题为：答案 填空题：答案 判断题:T F
@@ -60,7 +67,7 @@
       $res=self::get_testquestions($testid);//得到全部的测试信息
       $cnt=0;
       $length=count($res);
-      foreach($answerdetails as $detail)
+      foreach($answerdetails as $detail)//删除后数组后面的元素不会补充需重新排序
       {
         for($i=0;$i<$length;$i++)
         {

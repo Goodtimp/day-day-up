@@ -4,7 +4,12 @@
             {$Num} : {$content}
         </h3>
     </div>
-
+    {volist name="images" id="image" key="num" empty=""}
+    <img src="/{$image}" style="width:100%;"/>
+    <br/>
+    <div style="text-align: center;"><p>图 {$num}</p></div>
+    <br/>
+    {/volist}
     <div class="my-choice-answer">
         <div class="layui-form-item">
             <div class="layui-input-block my-cate" style="margin-left:1em">

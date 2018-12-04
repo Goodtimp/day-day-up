@@ -10,14 +10,24 @@
       </div>
     </div>
   </form>
-
+<!-- 图片上传 -->
+<div class="layui-upload">
+    <button type="button" class="layui-btn" id="test2">图片上传</button>
+    <span>图片选择后即为上传，图片显示顺序为上传顺序，请在题目中标注好图1、图2...</span>
+    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+      预览图：
+      <div class="layui-upload-list" id="demo2"></div>
+    </blockquote>
+  </div>
+  <!-- 图片上传 -->
 
   <!-- 填空题与问答题 -->
-
   <div class="my-completion">
     <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value={$test.Id} style="display: none;">
-
+  <!-- 图片上传的form表单部分 -->
+  <div class="my-uploadform" style="display: none;"></div>
+  <!--  -->
       <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
@@ -60,7 +70,9 @@
   <div class="my-choice">
     <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value={$test.Id} style="display: none;">
-
+  <!-- 图片上传的form表单部分 -->
+  <div class="my-uploadform" style="display: none;"></div>
+  <!--  -->
       <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
@@ -121,7 +133,9 @@
   <div class="my-checking">
     <form class="layui-form" action="/index/test/adddetail" method="POST">
       <input name="test_id" value={$test.Id} style="display: none;">
-
+      <!-- 图片上传的form表单部分 -->
+      <div class="my-uploadform" style="display: none;"></div>
+      <!--  -->
       <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">题目描述</label>
         <div class="layui-input-block">
@@ -274,4 +288,5 @@
       });
     });
   </script>
+ 
 </div>
