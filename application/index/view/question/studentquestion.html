@@ -5,9 +5,13 @@
         </h3>
     </div>
     {volist name="images" id="image" key="num" empty=""}
-    <img src="/{$image}" style="width:100%;"/>
+  
+   
     <br/>
-    <div style="text-align: center;"><p>图 {$num}</p></div>
+    <div style="text-align: center;">
+            <img src="/{$image}" class="my-stuimage" style="margin:0 auto;max-width:80%;"/>
+            <p>图 {$num}</p></div>
+
     <br/>
     {/volist}
     <div class="my-choice-answer">
@@ -64,7 +68,37 @@
             $(".my-choice-answer").show().find("input").attr("name", "answerContent");
 
         }
+        function isMobile() {
+    var userAgentInfo = navigator.userAgent;
+    var mobileAgents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+    var mobile_flag = false;
+    //根据userAgent判断是否是手机
+    for (var v = 0; v < mobileAgents.length; v++) {
+        if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+            mobile_flag = true;
+            break;
+        }
+    }
+    var screen_width = window.screen.width;
+    var screen_height = window.screen.height;
 
+    //根据屏幕分辨率判断是否是手机
+    if (screen_width < 500 && screen_height < 800) {
+        mobile_flag = true;
+    }
+    return mobile_flag;
+}
+
+function mobliecss() {
+   $(".my-stuimage").css("width","100%;").css("max-width","100%");
+}
+
+$(function () {
+            var mobile_flag = isMobile(); // false为PC端，true为手机端
+            if (mobile_flag) {
+                mobliecss();
+            }
+        })
     })
 </script>
 <script>

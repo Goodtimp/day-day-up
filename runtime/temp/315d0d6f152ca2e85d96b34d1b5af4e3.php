@@ -1,4 +1,4 @@
-<?php /*a:6:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543836405;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543904736;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543840062;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:6:{s:82:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\editortest.html";i:1543908203;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:84:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\viewquestion.html";i:1543905689;s:83:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\test\onequestion.html";i:1543840062;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -72,7 +72,7 @@
     <div class="layui-colla-item">
       <h2 class="layui-colla-title">
         <span style="width:80%;overflow: hidden;">
-          <?php echo substr($detail["content"],0,60) ?></span>
+         <?php echo substr($detail["content"],0,60) ?></span>
         <span style="float:right;color:red;"><?php echo htmlentities($detail['questionScore']); ?>分</span>
 
         <button class="layui-btn layui-btn-primary layui-btn-sm my-btn-delete" value="<?php echo htmlentities($detail['questionId']); ?>"><i class="layui-icon"></i></button>

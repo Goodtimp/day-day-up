@@ -1,4 +1,4 @@
-<?php /*a:4:{s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\index\index.html";i:1543833702;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543056846;}*/ ?>
+<?php /*a:4:{s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\index\index.html";i:1543833702;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\header.html";i:1543833286;s:78:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\left.html";i:1543722768;s:80:"E:\phpstudy\PHPTutorial\WWW\day-day-up\application\index\view\father\footer.html";i:1543909837;}*/ ?>
 <!DOCTYPE html>
 <html>
 
@@ -72,7 +72,7 @@
         </div>
         <div class="layui-footer">
   <!-- 底部固定区域 -->
-  @goodtimp & @someonegirl
+  <a href="http://722first.club/">@goodtimp</a> & @someonegirl
 </div>
 
 

@@ -13,13 +13,15 @@
 <body>
         <div style="padding-left:10px;">
     <h1>{$name} 结束,你的分数为: {$score}</h1>
-   
+    
     {volist name="details" id="detail" empty=""}
         <h3>问题 ： {$detail.content}</h3>
-        
+        {volist name="detail.images" id="image" empty=""}
+    <img src="/{$image}" style="width:100px;"/>
+    {/volist}
         <h4 style="color:red;"> 你的答案：{$detail.answerContent}</h4>
-        <h4 style="color:red;">  <?php echo $detail["thisScore"]>0?"":$detail["right"]; ?></h4>
-        <p style="color:red;">{$detail.thisScore}</p>
+        <h4 style="color:red;"> 正确答案：<?php echo $detail["thisScore"]>0?"":$detail["right"]; ?></h4>
+        <p style="color:red;">得分：{$detail.thisScore}</p>
       
     {/volist}
 </div>
